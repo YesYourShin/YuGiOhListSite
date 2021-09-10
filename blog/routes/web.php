@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,5 @@ Route::post('/logout', [AuthenticationController::class, 'logout']);
 Route::prefix('auth') -> group(function() {
     Route::get('/user', [AuthenticationController::class, 'loginCheck']);
 });
+
+Route::post('/insert', [CardController::class, 'insert']);
