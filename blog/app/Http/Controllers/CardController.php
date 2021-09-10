@@ -26,7 +26,7 @@ class CardController extends Controller
 
             $validator = Validator::make($entry, [
                 'titles' => 'required|unique:cards',
-                'text' => 'required|string',
+                'text' => 'required',
                 'id' => 'nullable|unique:cards',
             ]);
 
