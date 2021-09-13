@@ -93,7 +93,7 @@ const mergeCardInfo = (info, json) => {
 const main = async () => {
     const data = []
 
-    const info = await fetchCardInfo(4844, 'ko');
+    const info = await fetchCardInfo(15181, 'ko');
 
     // const jaids = await fetchCardList(ja)
     // const koids = await fetchCardList(ko)
