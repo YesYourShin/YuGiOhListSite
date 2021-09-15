@@ -20,6 +20,8 @@ class CardController extends Controller
 
 
         foreach($data as $entry) {
+
+
             $title = $entry['title'];
             $effect = $entry['text'];
             $pEffect = isset($entry['ptext']) ? $entry['ptext'] : '';
@@ -33,55 +35,11 @@ class CardController extends Controller
             $cardType = isset($entry['기타 항목']) ? $entry['기타 항목'] : '';
             $atk = isset($entry['공격력']) ? $entry['공격력'] : '';
             $def = isset($entry['수비력']) ? $entry['수비력'] : '';
+            $limit = isset($entry['limit']) ? $entry['limit'] : '';
 
-
-
-            // if(array_search('효과', $entry)){
-            //     $icon = $entry['효과'];
-            // }
-
-            // if(array_search('속성', $entry)){
-                
-            //     $attribute = $entry['속성'];
-            //     if(array_search('수비력', $entry)){
-            //         if(array_search('레벨', $entry)){
-            //             $level = $entry['레벨'];
-            //         }
-            //         if(array_search('text', $entry)){
-            //             $pEffect = $entry['ptext'];
-            //             $pScale = $entry['펜듈럼 스케일'];  
-            //         }
-            //         if(array_search('랭크', $entry)){
-            //             $rank = $entry['랭크'];
-            //         }
-                    
-            //         $def = $entry['수비력'];
-            //     } 
-            //     if(array_search('링크', $entry)){
-            //             $link = $entry['링크'];
-            //     }
-            //     $atk = $entry['공격력'];
-                
-            //     $monsterType = $entry['종족'];
-            //     $cardType = $entry['기타 항목'];
-                
-            // }
-            
-        
-            
-            
-            
-            
-            
-
-            
             // $id = $entry['id'];
 
             $validator = Validator::make($entry, [
-                // 'title' => 'required|unique:cards',
-                // 'text' => 'required',
-                // 'id' => 'nullable|unique:cards',
-
                 'title' => 'required|unique:cards',
                 'text' => 'required',
                 'ptext' => 'nullable',
@@ -94,7 +52,10 @@ class CardController extends Controller
                 'monsterType' => 'nullable',
                 'cardType' => 'nullable',
                 'atk' => 'nullable',
-                'def' => 'nullable'
+                'def' => 'nullable',
+                'limit' => 'nullable',
+
+                // 'id' => 'nullable|unique:cards',
             ]);
 
             if ($validator->fails()){
@@ -103,10 +64,6 @@ class CardController extends Controller
             }
             
             Card::create([
-                // 'title' => $title,
-                // 'text' => $text,
-                // 'card_id' => $id,
-
                 'title' => $title,
                 'effect' => $effect,
                 'pEffect' => $pEffect,
@@ -120,6 +77,9 @@ class CardController extends Controller
                 'cardType' => $cardType,
                 'atk' => $atk,
                 'def' => $def,
+                'limit' => $limit,
+
+                // 'card_id' => $id,
             ]);
         }
 

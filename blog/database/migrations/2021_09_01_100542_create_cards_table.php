@@ -28,6 +28,7 @@ class CreateCardsTable extends Migration
             $table->string("cardType")->nullable();
             $table->string("atk")->nullable();
             $table->string("def")->nullable();
+            $table->string("limit")->nullable();
 
             // $table->string("card_id")->nullable()->unique();
             $table->timestamps();
