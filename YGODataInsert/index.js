@@ -30,6 +30,7 @@ console.log('load')
             count += 1;
             cardDataOutput(data, count);
             cardDataInsert(data);
+            console.log(count)
 
         }
 
