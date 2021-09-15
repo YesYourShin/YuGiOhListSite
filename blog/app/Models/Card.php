@@ -13,8 +13,22 @@ class Card extends Model
     protected $table = 'cards';
 
     protected $fillable = [
-        'title',
-        'text',
+        // 'title',
+        // 'text',
         // 'card_id',
+
+        'title',
+        'effect',
+        'pEffect',
+        'icon',
+        'attribute',
+        'level',
+        'rank',
+        'pScale',
+        'link',
+        'monsterType',
+        'cardType',
+        'atk',
+        'def',
     ];
 }
