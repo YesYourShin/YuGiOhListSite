@@ -26,7 +26,7 @@ class Card extends Model
         'cardType',
         'atk',
         'def',
-        'limit',
+        'limited',
 
         // 'card_id',
     ];

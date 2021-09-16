@@ -35,7 +35,7 @@ class CardController extends Controller
             $cardType = isset($entry['기타 항목']) ? $entry['기타 항목'] : '';
             $atk = isset($entry['공격력']) ? $entry['공격력'] : '';
             $def = isset($entry['수비력']) ? $entry['수비력'] : '';
-            $limit = isset($entry['limit']) ? $entry['limit'] : '';
+            $limited = isset($entry['limited']) ? $entry['limited'] : '';
 
             // $id = $entry['id'];
 
@@ -53,7 +53,7 @@ class CardController extends Controller
                 'cardType' => 'nullable',
                 'atk' => 'nullable',
                 'def' => 'nullable',
-                'limit' => 'nullable',
+                'limited' => 'nullable',
 
                 // 'id' => 'nullable|unique:cards',
             ]);
@@ -77,7 +77,7 @@ class CardController extends Controller
                 'cardType' => $cardType,
                 'atk' => $atk,
                 'def' => $def,
-                'limit' => $limit,
+                'limited' => $limited,
 
                 // 'card_id' => $id,
             ]);
