@@ -30,3 +30,4 @@ Route::prefix('auth') -> group(function() {
 });
 
 Route::post('/insert', [CardController::class, 'insert']);
+Route::get('/show', [CardController::class, 'show']);

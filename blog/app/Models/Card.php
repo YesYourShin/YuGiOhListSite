@@ -30,4 +30,8 @@ class Card extends Model
 
         // 'card_id',
     ];
+
+    public function cards() {
+        return $this -> hasMany(Card::class);
+    }
 }
