@@ -20,14 +20,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/login', [AuthenticationController::class, 'login']);
-Route::post('/logout', [AuthenticationController::class, 'logout']);
-// Route::post('/loginCheck', [AuthenticationController::class, 'loginCheck']);
 
-Route::prefix('auth') -> group(function() {
-    Route::get('/user', [AuthenticationController::class, 'loginCheck']);
+
+Route::middleware(['cors'])->group(function(){
+    // Route::get('/csrf_token', function(){
+    //     return csrf_token();
+    // });
+    // Route::post('/register', 'Main\RegisterController@register')->where('id', '[0-9]+');
+    Route::post('/register', [RegisterController::class, 'register']);
+    Route::post('/login', [AuthenticationController::class, 'login']);
+    Route::post('/logout', [AuthenticationController::class, 'logout']);
+    // Route::post('/loginCheck', [AuthenticationController::class, 'loginCheck']);
+
+    Route::prefix('auth') -> group(function() {
+        Route::get('/user', [AuthenticationController::class, 'loginCheck']);
+    });
+
+    Route::post('/insert', [CardController::class, 'insert']);
+    Route::get('/show', [CardController::class, 'show']);
 });
-
-Route::post('/insert', [CardController::class, 'insert']);
-Route::get('/show', [CardController::class, 'show']);
