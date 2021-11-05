@@ -79,7 +79,7 @@ const fetchCardInfo = async (id, locale) => {
         //     const value = box.children('.item_box_title').text().trim()[1]
         // }
 
- 
+        
         info[key] = value
     })
 
@@ -91,7 +91,7 @@ const fetchCardInfo = async (id, locale) => {
 
     // })
 
-
+    console.log(info)
     return info
 }
 
@@ -107,7 +107,7 @@ const main = async () => {
     for(let page = 1 ; true ; page++) {
         const koids = await fetchCardList(page, 'ko')
         for(let id of koids){
-            const info = await fetchCardInfo(id, 'ko');
+            const info = await fetchCardInfo(4844, 'ko');
             // const merged = mergeCardInfo(info)
             // console.log(merged)
             data.push(info)

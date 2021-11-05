@@ -94,9 +94,9 @@ class CardController extends Controller
     public function show()
     {
 
-        $cards = DB::table('cards')->get();
+        $cards = DB::table('cards')->paginate(5);
 
-        return $cards;
+        return response(['cards' => $cards, 'success' => 1]);
 
     }
 }
