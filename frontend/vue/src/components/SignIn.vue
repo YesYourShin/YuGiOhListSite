@@ -25,17 +25,15 @@
           ></v-text-field>
 
           <v-row  justify="center">
-            <router-link to="/">
             <v-btn 
               type="submit" 
               class="my-5" 
               :disabled="!valid" 
               width="300px" 
               color="primary" 
-              @click="signup"
+              @click="signin"
               >SINGIN
               </v-btn>
-            </router-link>
           </v-row>
 
           <v-row class="py-7">
@@ -68,6 +66,7 @@ export default {
 
   methods: {
     signin() {
+      let router = this.$router
       const data = {
       email: this.email,
       password: this.password,
@@ -78,6 +77,10 @@ export default {
       .then(function (response) {
           if (response.status === 200) {
               console.log(response)
+              if (response.data.success === 1) {
+                router.push({name:'home'})
+              }
+              
           }
       })
       .catch (function (error) {
