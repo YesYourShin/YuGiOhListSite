@@ -94,9 +94,16 @@ class CardController extends Controller
     public function show()
     {
 
-        $cards = DB::table('cards')->paginate(5);
+        $cards = DB::table('cards')->paginate(10);
 
         return response(['cards' => $cards, 'success' => 1]);
 
+    }
+
+    public function search ($search) {
+        $cards = DB::table('cards')->where('title', 'like', '%'.$search.'%')->paginate(10);
+
+        return $cards;
+        
     }
 }

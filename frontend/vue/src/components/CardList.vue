@@ -4,7 +4,6 @@
             :items="cards"
             :items-per-page="itemsPerPage"
             :page.sync="currentPage"
-            :search="search"
             :sort-by="sortBy.toLowerCase()"
             :sort-desc="sortDesc"
             hide-default-footer
@@ -24,6 +23,10 @@
                     prepend-inner-icon="mdi-magnify"
                     label="Search"
                     ></v-text-field>
+                    <v-btn
+                    @click='getSearch()'>
+                        검색
+                    </v-btn>
                     <template v-if="$vuetify.breakpoint.mdAndUp">
                         <v-spacer></v-spacer>
                         <v-select
@@ -138,13 +141,14 @@ export default {
             lastPage : 0,
             itemsPerPage : null,
             search: '',
+            search1: '',
             filter: {},
             sortBy: 'title',
             sortDesc: false,
             // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
             //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
             //         'atk', 'def', 'limited', ],
-            keys: ['title', 'effect']
+            keys: ['title'],
         }
     },
     mounted() {
@@ -167,20 +171,49 @@ export default {
     },
     methods: {
         getPage(value) {
-            let url = 'http://localhost:8000/show?page=' + value
-            axios.get(url)
+            if(!this.search1) {
+                let url = 'http://localhost:8000/show?page=' + value
+                axios.get(url)
+                .then(response=>{
+                    console.log(response.data.cards);
+                    this.cards = response.data.cards.data
+                    this.currentPage = response.data.cards.current_page
+                    this.lastPage = response.data.cards.last_page
+                    this.itemsPerPage = response.data.cards.per_page
+                })
+                .catch (function (error) {
+                    console.error(error);
+                })
+            } else {
+                let url = 'http://localhost:8000/search/' + this.search1+ '?page=' + value
+                axios.get(url)
+                .then(response=>{
+                    console.log(response.data);
+                    this.cards = response.data.data
+                    this.currentPage = response.data.current_page
+                    this.lastPage = response.data.last_page
+                    this.itemsPerPage = response.data.itemsPerPage
+                })
+                .catch (function (error) {
+                    console.error(error);
+                })
+            }
+        },
+        getSearch() {
+            this.search1 = this.search
+            axios.get('http://localhost:8000/search/'+ this.search1)
             .then(response=>{
-                console.log(response.data.cards);
-                // this.cards = response.data.cards
-                this.cards = response.data.cards.data
-                this.currentPage = response.data.cards.current_page
-                this.lastPage = response.data.cards.last_page
-                this.itemsPerPage = response.data.cards.per_page
+                console.log(response);
+                this.cards = response.data.data
+                this.currentPage = response.data.current_page
+                this.lastPage = response.data.last_page
+                this.itemsPerPage = response.data.itemsPerPage
             })
             .catch (function (error) {
                 console.error(error);
             })
-        },
+            
+        }
     }
 }
 </script>

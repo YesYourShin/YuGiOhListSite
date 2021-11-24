@@ -30,7 +30,7 @@ Route::middleware(['cors'])->group(function(){
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [AuthenticationController::class, 'login']);
     Route::post('/logout', [AuthenticationController::class, 'logout']);
-    // Route::post('/loginCheck', [AuthenticationController::class, 'loginCheck']);
+    Route::post('/loginCheck', [AuthenticationController::class, 'loginCheck']);
 
     Route::prefix('auth') -> group(function() {
         Route::get('/user', [AuthenticationController::class, 'loginCheck']);
@@ -38,4 +38,5 @@ Route::middleware(['cors'])->group(function(){
 
     Route::post('/insert', [CardController::class, 'insert']);
     Route::get('/show', [CardController::class, 'show']);
+    Route::get('/search/{search}', [CardController::class, 'search']);
 });
