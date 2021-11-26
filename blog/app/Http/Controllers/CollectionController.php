@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CollectionController extends Controller
@@ -24,9 +26,22 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function insert(Request $request)
     {
-        //
+        
+
+        $input = $this->validate($request, [
+            'title'=>'required',
+            'number'=>'required',
+        ]);
+
+        // $input = array_merge($request->all(), [
+        //     "user_id"=>Auth::user()->id
+        // ]);
+
+        Collection::create($input);
+
+        return response(['success']);
     }
 
     /**
@@ -46,9 +61,13 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($title)
     {
-        //
+        // dd($title);
+        $collection = Collection::where('title','like',$title)->get();
+        // $collection = DB::table('collections')->where('title', 'like', $title)->get();
+        
+        return $collection;
     }
 
     /**

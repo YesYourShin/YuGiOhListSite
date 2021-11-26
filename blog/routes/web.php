@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,7 @@ Route::middleware(['cors'])->group(function(){
     Route::get('/cardlist', [CardController::class, 'cardlist']);
     Route::get('/search/{search}', [CardController::class, 'search']);
     Route::get('/show/{id}', [CardController::class, 'show']);
+
+    Route::post('/collectioninsert', [CollectionController::class, 'insert']);
+    Route::get('/collectionshow/{title}', [CollectionController::class, 'show']);
 });

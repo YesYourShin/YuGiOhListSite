@@ -125,6 +125,10 @@ class CardController extends Controller
     public function show($id) {
         // $card = Card::with('likes')->find($id);
         $card = DB::table('cards')->where('id', 'like', $id)->get();
+        // $card = DB::table('cards')
+        //     ->where('id', 'like', $id)->get()
+        //     ->join('collections', 'cards.')
+        // ;
         
         return $card;
     }

@@ -17,6 +17,7 @@ class CreateCollectionsTable extends Migration
             $table->id();
             // $table->string("card_id")->nullable()->unique();
             $table->string("title");
+            $table->integer("number");
 
             $table->timestamps();
         });

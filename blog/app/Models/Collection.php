@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Collection extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'number',
+
+        // 'card_id',
+    ];
 }
