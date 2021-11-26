@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Card;
+use App\Models\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class CardController extends Controller
 {
@@ -91,7 +93,7 @@ class CardController extends Controller
         return response(['success']);
     }
 
-    public function show()
+    public function cardlist()
     {
 
         $cards = DB::table('cards')->paginate(10);
@@ -105,5 +107,25 @@ class CardController extends Controller
 
         return $cards;
         
+    }
+
+    // public function store (Request $request) {
+    //     $this->validate($request, [
+    //         'title'=>'required',
+    //         'number'=>'required'
+    //     ]);
+
+    //     $input = array_merge($request->all(), [
+    //         "user_id"=>Auth::user()->id
+    //     ]);
+
+    //     Collection::create($input);
+    // }
+
+    public function show($id) {
+        // $card = Card::with('likes')->find($id);
+        $card = DB::table('cards')->where('id', 'like', $id)->get();
+        
+        return $card;
     }
 }

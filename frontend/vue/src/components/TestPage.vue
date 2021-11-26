@@ -4,7 +4,6 @@
             :items="cards"
             :items-per-page="itemsPerPage"
             :page.sync="currentPage"
-            :search="search"
             :sort-by="sortBy.toLowerCase()"
             :sort-desc="sortDesc"
             hide-default-footer
@@ -24,6 +23,10 @@
                     prepend-inner-icon="mdi-magnify"
                     label="Search"
                     ></v-text-field>
+                    <v-btn
+                    @click='getSearch()'>
+                        검색
+                    </v-btn>
                     <template v-if="$vuetify.breakpoint.mdAndUp">
                         <v-spacer></v-spacer>
                         <v-select
@@ -73,13 +76,14 @@
                     >
                         <v-card>
                             <v-card-title>
-                                <router-link to="/">{{ card.title }}</router-link>
+                                <router-link :to="'show/'+card.id">{{ card.title }}</router-link>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-list dense>
                                 <v-list-item
-                                v-for="(key, index) in filteredKeys"
+                                v-for="(key, index) in filteredKeys" 
                                 :key="index"
+                                
                                 >
                                     <v-list-item-content :class="{ 'blue--text': sortBy === key }">
                                         {{ key }}:
@@ -134,22 +138,22 @@ export default {
         return {
             // cards : null,
             cards : [],
-            cardSearch : [],
             currentPage : null,
             lastPage : 0,
             itemsPerPage : null,
             search: '',
+            search1: '',
             filter: {},
             sortBy: 'title',
             sortDesc: false,
             // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
             //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
             //         'atk', 'def', 'limited', ],
-            keys: ['title']
+            keys: ['title'],
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/show')
+        axios.get('http://localhost:8000/cardlist')
         .then(response=>{
             console.log(response.data.cards.data);
             this.cards = response.data.cards.data
@@ -163,43 +167,55 @@ export default {
     },
     computed: {
         filteredKeys () {
-            return this.keys.filter(key => key !== 'Name')
+            let array = this.keys.filter(key => key !== 'title')
+            return array;
         },
-
     },
     methods: {
         getPage(value) {
-            let url = 'http://localhost:8000/show?page=' + value
-            axios.get(url)
+            if(!this.search1) {
+                let url = 'http://localhost:8000/cardlist?page=' + value
+                axios.get(url)
+                .then(response=>{
+                    console.log(response.data.cards);
+                    this.cards = response.data.cards.data
+                    this.currentPage = response.data.cards.current_page
+                    this.lastPage = response.data.cards.last_page
+                    this.itemsPerPage = response.data.cards.per_page
+                })
+                .catch (function (error) {
+                    console.error(error);
+                })
+            } else {
+                let url = 'http://localhost:8000/search/' + this.search1+ '?page=' + value
+                axios.get(url)
+                .then(response=>{
+                    console.log(response.data);
+                    this.cards = response.data.data
+                    this.currentPage = response.data.current_page
+                    this.lastPage = response.data.last_page
+                    this.itemsPerPage = response.data.itemsPerPage
+                })
+                .catch (function (error) {
+                    console.error(error);
+                })
+            }
+        },
+        getSearch() {
+            this.search1 = this.search
+            axios.get('http://localhost:8000/search/'+ this.search1)
             .then(response=>{
-                console.log(response.data.cards);
-                this.cards = response.data.cards.data
-                this.currentPage = response.data.cards.current_page
-                this.lastPage = response.data.cards.last_page
-                this.itemsPerPage = response.data.cards.per_page
+                console.log(response);
+                this.cards = response.data.data
+                this.currentPage = response.data.current_page
+                this.lastPage = response.data.last_page
+                this.itemsPerPage = response.data.itemsPerPage
             })
             .catch (function (error) {
                 console.error(error);
             })
+            
         },
-                searchCard() {
-          let cardSearch = []
-          if(this.search) {
-            for(let i = 1; i <= this.lastPage; i++) {
-              let url = 'http://localhost:8000/show?page=' + i
-              axios.get(url)
-              .then(response=>{
-                cardSearch.push(response.data.cards.data)
-                console.log(cardSearch)
-              })
-              .catch (function (error) {
-                  console.error(error);
-              })
-            }
-          }
-          return this.cardSearch = cardSearch
-        },
-        
     }
 }
 </script>

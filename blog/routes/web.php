@@ -37,6 +37,7 @@ Route::middleware(['cors'])->group(function(){
     });
 
     Route::post('/insert', [CardController::class, 'insert']);
-    Route::get('/show', [CardController::class, 'show']);
+    Route::get('/cardlist', [CardController::class, 'cardlist']);
     Route::get('/search/{search}', [CardController::class, 'search']);
+    Route::get('/show/{id}', [CardController::class, 'show']);
 });

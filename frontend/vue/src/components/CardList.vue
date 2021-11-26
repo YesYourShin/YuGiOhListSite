@@ -76,13 +76,14 @@
                     >
                         <v-card>
                             <v-card-title>
-                                <router-link to="/">{{ card.title }}</router-link>
+                                <router-link :to="'show/'+card.id">{{ card.title }}</router-link>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-list dense>
                                 <v-list-item
-                                v-for="(key, index) in filteredKeys"
+                                v-for="(key, index) in filteredKeys" 
                                 :key="index"
+                                
                                 >
                                     <v-list-item-content :class="{ 'blue--text': sortBy === key }">
                                         {{ key }}:
@@ -152,7 +153,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/show')
+        axios.get('http://localhost:8000/cardlist')
         .then(response=>{
             console.log(response.data.cards.data);
             this.cards = response.data.cards.data
@@ -166,13 +167,14 @@ export default {
     },
     computed: {
         filteredKeys () {
-            return this.keys.filter(key => key !== 'Name')
+            let array = this.keys.filter(key => key !== 'title')
+            return array;
         },
     },
     methods: {
         getPage(value) {
             if(!this.search1) {
-                let url = 'http://localhost:8000/show?page=' + value
+                let url = 'http://localhost:8000/cardlist?page=' + value
                 axios.get(url)
                 .then(response=>{
                     console.log(response.data.cards);
@@ -213,7 +215,7 @@ export default {
                 console.error(error);
             })
             
-        }
+        },
     }
 }
 </script>

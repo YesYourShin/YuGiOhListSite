@@ -55,7 +55,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'cors' => \Fruitcake\Cors\HandleCors::class,
+        // 'cors' => \Fruitcake\Cors\HandleCors::class,
+        'cors' => \App\Http\Middleware\CORS::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
