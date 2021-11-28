@@ -1,6 +1,5 @@
 <template>
   <v-card
-    :loading="loading"
     class="mx-auto my-12"
     max-width="374"
   >
@@ -20,51 +19,55 @@
     <v-card-title>{{card.title}}</v-card-title>
 
     <v-card-text>
-      <v-row
-        align="center"
-        class="mx-0"
-      >
-      
-      <v-if>
-        
-        <v-rating
-          :value="10"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="14"
-        ></v-rating>
-        
-      </v-if>
-      
-      </v-row>
 
-      <div class="my-4 text-subtitle-1">
-        $ • Italian, Cafe
+        <div v-if="card.icon">
+      {{ card.icon }}
+    </div> 
+      <div v-if="card.attribute">
+       속성 {{ card.attribute }}
+    </div>
+
+
+      <div v-if="card.level">
+       <br>레벨 {{ card.level }}
+    </div>
+
+          <div v-if="card.rank">
+       <br>랭크 {{ card.rank }}
+    </div>
+
+     <div v-if="card.pScale">
+       <br>펜듈럼 스케일 {{ card.pScale }}
+    </div>
+    <div v-if="card.link">
+       <br>링크 {{ card.link }}
+    </div>
+
+     <div v-if="card.pEffect">
+       <br>펜듈럼 효과 <br> {{ card.pEffect }}
+    </div>
+ 
+
+      <div class="my-4 text-subtitle-1" v-if="card.monsterType">
+        {{ card.monsterType}} • {{ card.cardType }}
       </div>
 
       <div>{{card.effect}}</div>
-    </v-card-text>
+    
 
     <v-divider class="mx-4"></v-divider>
 
-    <v-card-title>Tonight's availability</v-card-title>
+    <div v-if="card.atk">
+      ATK {{ card.atk }}
+    </div>
+    <div v-if="card.def">
+      DEF {{ card.def }} 
+    </div>
+</v-card-text>
+    <v-card-text v-if="card.limited">
 
-    <v-card-text>
-      <v-chip-group
-        v-model="selection"
-        active-class="deep-purple accent-4 white--text"
-        column
-      >
-        <v-chip>5:30PM</v-chip>
+        <v-chip>{{ card.limited }}</v-chip>
 
-        <v-chip>7:30PM</v-chip>
-
-        <v-chip>8:00PM</v-chip>
-
-        <v-chip>9:00PM</v-chip>
-      </v-chip-group>
     </v-card-text>
 
     <v-card-actions>
