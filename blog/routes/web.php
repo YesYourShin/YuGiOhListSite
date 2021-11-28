@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware(['cors'])->group(function(){
+// Route::middleware(['cors'])->group(function(){
     // Route::get('/csrf_token', function(){
     //     return csrf_token();
     // });
@@ -43,5 +43,9 @@ Route::middleware(['cors'])->group(function(){
     Route::get('/show/{id}', [CardController::class, 'show']);
 
     Route::post('/collectioninsert', [CollectionController::class, 'insert']);
+    Route::get('/collectionlist', [CollectionController::class, 'collectionlist']);
     Route::get('/collectionshow/{title}', [CollectionController::class, 'show']);
-});
+    Route::get('/collectioncardshow/{id}', [CollectionController::class, 'cardshow']);
+    Route::patch('/collectionupdate/{title}', [CollectionController::class, 'update']);
+    Route::delete('/collectiondestroy/{title}', [CollectionController::class, 'destroy']);
+// });

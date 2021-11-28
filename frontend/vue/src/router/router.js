@@ -6,6 +6,8 @@ import SignIn from '@/components/SignIn';
 import CardList from '@/components/CardList';
 import TestPage from '@/components/TestPage';
 import CardItem from '@/components/CardItem';
+import MyCardList from '@/components/MyCardList';
+import MyCardItem from '@/components/MyCardItem';
 
 Vue.use(VueRouter); //vue 라우터 사용
 
@@ -17,7 +19,9 @@ export default new VueRouter({ //라우터 연결
         { path:'/signin',component:SignIn, name:'signin' }, 
         { path:'/cardlist',component:CardList, name:'cardlist' },
         { path:'/testpage',component:TestPage, name:'testpage' },
-        { path:'/show/:id',component:CardItem , name:'show'}
+        { path:'/show/:id',component:CardItem , name:'show'},
+        { path:'/mycardlist',component:MyCardList, name:'mycardlist' },
+        { path:'/mycardshow/:id',component:MyCardItem, name:'mycardshow' },
         
 		
 	]

@@ -113,8 +113,9 @@ export default {
       }
     },
     created() {
-      axios.get('http://localhost:8000/show/'+this.id)
+      axios.get('http://localhost:8000/collectioncardshow/'+this.id)
       .then(response=>{
+        console.log(response);
         this.card = response.data;
         axios.get('http://localhost:8000/collectionshow/'+this.card.title)
         .then(response=>{

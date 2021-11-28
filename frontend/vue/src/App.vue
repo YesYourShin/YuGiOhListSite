@@ -25,7 +25,17 @@
         />
       </div>
 
+      <v-btn>
+        <router-link to="/CardList"><span class="mr-2">Card List</span></router-link>
+      </v-btn>
+
+      <v-btn>
+        <router-link to="/MyCardList"><span class="mr-2">My Card List</span></router-link>
+      </v-btn>
+
       <v-spacer></v-spacer>
+
+      
 
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
