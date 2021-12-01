@@ -7,7 +7,10 @@ import CardList from '@/components/CardList';
 import TestPage from '@/components/TestPage';
 import CardItem from '@/components/CardItem';
 import MyCardList from '@/components/MyCardList';
-import MyCardItem from '@/components/MyCardItem';
+import OricaList from '@/components/OricaList';
+import OricaForm from '@/components/OricaForm';
+import OricaItem from '@/components/OricaItem';
+import MyOricaList from '@/components/MyOricaList';
 
 Vue.use(VueRouter); //vue 라우터 사용
 
@@ -21,7 +24,10 @@ export default new VueRouter({ //라우터 연결
         { path:'/testpage',component:TestPage, name:'testpage' },
         { path:'/show/:id',component:CardItem , name:'show'},
         { path:'/mycardlist',component:MyCardList, name:'mycardlist' },
-        { path:'/mycardshow/:id',component:MyCardItem, name:'mycardshow' },
+        { path:'/oricalist',component:OricaList, name:'oricalist' },
+        { path:'/oricaform',component:OricaForm, name:'oricaform' },
+        { path:'/oricashow/:id',component:OricaItem, name:'oricashow' },
+        { path:'/myoricalist',component:MyOricaList, name:'myoricalist' },
         
 		
 	]

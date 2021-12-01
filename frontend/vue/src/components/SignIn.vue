@@ -51,7 +51,7 @@
 <script>
 
 import axios from 'axios'
-
+// import Vue from 'vue'
 export default {
   name: 'SignUp',
   data() {
@@ -61,12 +61,13 @@ export default {
       pswShow: false,
       users:[],
       valid: false,
+      token:'',
     }
   },
 
   methods: {
     signin() {
-      let router = this.$router
+      // let router = this.$router
       const data = {
       email: this.email,
       password: this.password,
@@ -74,13 +75,18 @@ export default {
       console.log(data);
     
       axios.post('http://localhost:8000/login', data)
-      .then(function (response) {
-          if (response.status === 200) {
-              console.log(response)
-              if (response.data.success === 1) {
-                router.push({name:'home'})
-              }
-              
+      .then(function (res) {
+          if (res.status === 200) {
+              // console.log(response)
+              // if (response.data.success === 1) {
+              //   router.push({name:'home'})
+              // }
+
+              // this.result = res.data;
+            console.log(res);
+            // Vue.cookie.set("accessuser", res.data.user.email, 1);
+            alert("Welcome!");
+            // router.push("/");
           }
       })
       .catch (function (error) {

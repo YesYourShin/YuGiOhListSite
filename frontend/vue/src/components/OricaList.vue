@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-data-iterator
-            :items="cards"
+            :items="oricas"
             :items-per-page="itemsPerPage"
             :page.sync="currentPage"
             :sort-by="sortBy.toLowerCase()"
@@ -61,6 +61,9 @@
                             </v-btn>
                         </v-btn-toggle>
                     </template>
+                    <v-btn>
+                        <router-link to="/OricaForm"><span class="mr-2">Make Orica</span></router-link>
+                    </v-btn>
                 </v-toolbar>
             </template>
 
@@ -76,7 +79,7 @@
                     >
                         <v-card>
                             <v-card-title>
-                                <router-link :to="'show/'+card.title">{{ card.title }}</router-link>
+                                <router-link :to="'oricashow/'+card.id">{{ card.title }}</router-link>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-list dense>
@@ -137,7 +140,7 @@ export default {
     data() {
         return {
             // cards : null,
-            cards : [],
+            oricas : [],
             currentPage : null,
             lastPage : 0,
             itemsPerPage : null,
@@ -153,13 +156,13 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/cardlist')
+        axios.get('http://localhost:8000/oricalist')
         .then(response=>{
-            console.log(response.data.cards.data);
-            this.cards = response.data.cards.data
-            this.currentPage = response.data.cards.current_page
-            this.lastPage = response.data.cards.last_page
-            this.itemsPerPage = response.data.cards.per_page
+            console.log(response.data.oricas.data);
+            this.oricas = response.data.oricas.data
+            this.currentPage = response.data.oricas.current_page
+            this.lastPage = response.data.oricas.last_page
+            this.itemsPerPage = response.data.oricas.per_page
         })
         .catch (function (error) {
             console.error(error);
@@ -174,24 +177,24 @@ export default {
     methods: {
         getPage(value) {
             if(!this.search1) {
-                let url = 'http://localhost:8000/cardlist?page=' + value
+                let url = 'http://localhost:8000/oricalist?page=' + value
                 axios.get(url)
                 .then(response=>{
-                    console.log(response.data.cards);
-                    this.cards = response.data.cards.data
-                    this.currentPage = response.data.cards.current_page
-                    this.lastPage = response.data.cards.last_page
-                    this.itemsPerPage = response.data.cards.per_page
+                    console.log(response.data.oricas);
+                    this.oricas = response.data.oricas.data
+                    this.currentPage = response.data.oricas.current_page
+                    this.lastPage = response.data.oricas.last_page
+                    this.itemsPerPage = response.data.oricas.per_page
                 })
                 .catch (function (error) {
                     console.error(error);
                 })
             } else {
-                let url = 'http://localhost:8000/search/' + this.search1+ '?page=' + value
+                let url = 'http://localhost:8000/oricasearch/' + this.search1+ '?page=' + value
                 axios.get(url)
                 .then(response=>{
                     console.log(response.data);
-                    this.cards = response.data.data
+                    this.oricas = response.data.data
                     this.currentPage = response.data.current_page
                     this.lastPage = response.data.last_page
                     this.itemsPerPage = response.data.itemsPerPage
@@ -203,10 +206,10 @@ export default {
         },
         getSearch() {
             this.search1 = this.search
-            axios.get('http://localhost:8000/search/'+ this.search1)
+            axios.get('http://localhost:8000/oricasearch/'+ this.search1)
             .then(response=>{
                 console.log(response);
-                this.cards = response.data.data
+                this.oricas = response.data.data
                 this.currentPage = response.data.current_page
                 this.lastPage = response.data.last_page
                 this.itemsPerPage = response.data.itemsPerPage

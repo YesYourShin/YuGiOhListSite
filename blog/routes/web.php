@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\OricaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,11 @@ Route::get('/', function () {
     Route::get('/collectioncardshow/{id}', [CollectionController::class, 'cardshow']);
     Route::patch('/collectionupdate/{title}', [CollectionController::class, 'update']);
     Route::delete('/collectiondestroy/{title}', [CollectionController::class, 'destroy']);
+
+    Route::post('/oricainsert', [OricaController::class, 'insert']);
+    Route::get('/oricalist', [OricaController::class, 'oricalist']);
+    Route::get('/oricasearch/{search}', [OricaController::class, 'search']);
+    Route::get('/oricashow/{id}', [OricaController::class, 'show']);
+    // Route::post('/myoricalist', [OricaController::class, 'myoricalist']);
+    
 // });

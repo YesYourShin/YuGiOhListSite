@@ -15,6 +15,7 @@ class AuthenticationController extends Controller
 
         if(Auth::attempt($credentials)) {
             return response(['user' => auth()->user(), 'success' => 1]);
+            
         }
 
         return response(['error' => '이메일 또는 비밀번호가 맞지 않습니다.', 'success' => 0, 'user' => auth()->user()]);

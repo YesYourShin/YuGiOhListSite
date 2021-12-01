@@ -122,9 +122,9 @@ class CardController extends Controller
     //     Collection::create($input);
     // }
 
-    public function show($id) {
+    public function show($title) {
         // $card = Card::with('likes')->find($id);
-        $card = DB::table('cards')->where('id', 'like', $id)->first();
+        $card = DB::table('cards')->where('title', 'like', $title)->first();
         // $card = DB::table('cards')
         //     ->where('id', 'like', $id)->get()
         //     ->join('collections', 'cards.')

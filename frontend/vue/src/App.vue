@@ -33,9 +33,15 @@
         <router-link to="/MyCardList"><span class="mr-2">My Card List</span></router-link>
       </v-btn>
 
-      <v-spacer></v-spacer>
+      <v-btn>
+        <router-link to="/OricaList"><span class="mr-2">Orica List</span></router-link>
+      </v-btn>
 
-      
+      <v-btn>
+        <router-link to="/MyOricaList"><span class="mr-2">My Orica List</span></router-link>
+      </v-btn>
+
+      <v-spacer></v-spacer>
 
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
@@ -57,7 +63,7 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
   name: 'App',
 
@@ -67,5 +73,17 @@ export default {
   data: () => ({
     //
   }),
+  created() {
+
+  },
+  mounted() {
+    axios.post('http://localhost:8000/loginCheck')
+    .then(response=>{
+            console.log(response.data);
+        })
+        .catch (function (error) {
+            console.error(error);
+        }) 
+  }
 };
 </script>

@@ -3,8 +3,9 @@ import App from './App.vue'
 
 import router from './router/router'
 import vuetify from './plugins/vuetify'
+import VueCookie from 'vue-cookie'
 
-
+Vue.use(VueCookie)
 Vue.config.productionTip = false
 
 export const EventBus = new Vue()
