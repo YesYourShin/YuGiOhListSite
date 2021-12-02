@@ -5,7 +5,6 @@
     <v-select
       v-model="category"
       :items="categoryItems"
-      :rules="[v => !!v || 'Item is required']"
       label="Item"
       required
       @change="categoryCheck"
@@ -16,7 +15,6 @@
     <v-select
       v-model="monsterCategory"
       :items="monsterCategoryItems"
-      :rules="[v => !!v || 'Item is required']"
       label="Item"
       required
       @change="monsterCategoryCheck"
@@ -34,51 +32,43 @@
     <v-select
       v-model="attribute"
       :items="attributeItems"
-      :rules="[v => !!v || 'Item is required']"
       label="attribute"
       required
     ></v-select>
 
           <v-text-field v-if="(monsterCategory!=='엑시즈') && (monsterCategory!=='링크')"
             v-model="level"
-            :rules="levelRules"
             label="level"
             required
           ></v-text-field>
 
         <v-text-field v-if="monsterCategory==='엑시즈'"
             v-model="rank"
-            :rules="levelRules"
             label="rank"
             required
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pScale"
-            :rules="levelRules"
             label="pScale"
             required
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pEffect"
-            :rules="levelRules"
             label="pEffect"
             required
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='링크'"
             v-model="link"
-            :rules="levelRules"
             label="link"
             required
           ></v-text-field>
                   <v-text-field v-if="monsterCategory=='링크'"
             v-model="linkArray"
-            :rules="levelRules"
             label="linkArray"
             required
           ></v-text-field>    
         <v-text-field
             v-model="monsterType"
-            :rules="levelRules"
             label="monsteType"
             required
           ></v-text-field>
@@ -90,7 +80,6 @@
           ></v-text-field>          
         <v-text-field
             v-model="atk"
-            :rules="levelRules"
             label="atk"
             required
           ></v-text-field>          
@@ -223,6 +212,7 @@ import axios from 'axios';
         //   alert('가진 카드 갯수를 입력해주세요.');
         //   return;
         // }
+        let router = this.$router
          let orica = {
       category: this.category,
       monsterCategory: this.monsterCategory,
@@ -243,8 +233,9 @@ import axios from 'axios';
         }
         axios.post('http://localhost:8000/oricainsert/', orica)
         .then(response=>{
-            console.log(this.orica);
+            console.log(orica);
         console.log(response);
+        router.push("/oricalist");
         
       })
       .catch (function (error) {

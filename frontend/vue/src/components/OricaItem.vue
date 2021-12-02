@@ -97,7 +97,7 @@ export default {
     created() {
       axios.get('http://localhost:8000/oricashow/'+this.id)
       .then(response=>{
-          console.log(response)
+          console.log(response.data)
         this.orica = response.data;
       })
       .catch (function (error) {

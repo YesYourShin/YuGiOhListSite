@@ -56,8 +56,8 @@ class OricaController extends Controller
             $monsterType = isset($request['monsterType']) ? $request['monsterType'] : '';
             $category = isset($request['category']) ? $request['category'] : '';
             $monsterCategory = isset($request['monsterCategory']) ? $request['monsterCategory'] : '';
-            $atk = isset($request['공격력']) ? $request['공격력'] : '';
-            $def = isset($request['수비력']) ? $request['수비력'] : '';
+            $atk = isset($request['atk']) ? $request['atk'] : '';
+            $def = isset($request['def']) ? $request['def'] : '';
 
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
