@@ -101,7 +101,7 @@ class OricaController extends Controller
             ]);
     
 
-        return response(['success']);
+        return response([isset($request['level']), 'success']);
     }
 
     /**

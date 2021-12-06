@@ -73,7 +73,7 @@ export default {
       password: this.password,
       }
       console.log(data);
-    
+
       axios.post('http://localhost:8000/login', data)
       .then(function (res) {
           if (res.status === 200) {
@@ -83,7 +83,7 @@ export default {
               // }
 
               // this.result = res.data;
-            console.log(res);
+            console.log(res.headers['set-cookie']);
             // Vue.cookie.set("accessuser", res.data.user.email, 1);
             alert("Welcome!");
             // router.push("/");
