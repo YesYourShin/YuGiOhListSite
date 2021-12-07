@@ -126,18 +126,22 @@ export default {
       //   console.log(this.id)
       //   console.log(response)
         this.card = this.response;
-        console.log(this.card)
+        // console.log(this.card)
         axios.get('http://localhost:8000/collectionshow/'+this.card.id)
         .then(response=>{
-          this.number = response.data.collection.number;
-          console.log(response)
-          if(this.number > 0){
+          if(response.data.collection) {
+            this.number = response.data.collection.number
             this.check=true;
           }
+          // this.number = response.data.collection.number;
+          // console.log(response)
+          // if(this.number > 0){
+          //   this.check=true;
+          // }
           
         })
         .catch (function(error) {
-          console.log(this.card.title);
+          // console.log(this.card.title);
           console.error(error);
         })
       // })

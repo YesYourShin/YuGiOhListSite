@@ -144,7 +144,6 @@ import { Link } from '@inertiajs/inertia-vue'
 // import CardItem from './CardItem.vue';
 
 export default {
-    props: ['response', 'success'],
     components: {Link, AppLayout},
     data() {
         return {
@@ -165,36 +164,24 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/cardlist')
-        .then(response=>{
-            console.log('success');
+        // axios.get('http://localhost:8000/cardlist')
+        // .then(response=>{
 
-axios.get('http://localhost:8000/cardlistpage')
-        .then(response=>{
-            console.log(response);
-            let res = response.data.response
-            this.cards = res.data;
-            this.currentPage = res.current_page
-            this.lastPage = res.last_page
-            this.itemsPerPage = res.per_page
-        })
-        .catch (function (error) {
-            console.error(error);
-        }) 
-
-
-
-
-            console.log(this.response.data);
-            let res = this.response
-            this.cards = res.data;
-            this.currentPage = res.current_page
-            this.lastPage = res.last_page
-            this.itemsPerPage = res.per_page
-        })
-        .catch (function (error) {
-            console.error(error);
-        }) 
+            axios.get('http://localhost:8000/cardlistpage')
+            .then(response=>{
+                let res = response.data.response
+                this.cards = res.data;
+                this.currentPage = res.current_page
+                this.lastPage = res.last_page
+                this.itemsPerPage = res.per_page
+            })
+            .catch (function (error) {
+                console.error(error);
+            }) 
+        // })
+        // .catch (function (error) {
+        //     console.error(error);
+        // }) 
     },
     computed: {
         filteredKeys () {
@@ -208,7 +195,6 @@ axios.get('http://localhost:8000/cardlistpage')
                 let url = 'http://localhost:8000/cardlistpage?page=' + value
                 axios.get(url)
                 .then(response=>{
-                    console.log(response);
                     
             let res = response.data.response
                     this.cards = res.data
@@ -223,9 +209,7 @@ axios.get('http://localhost:8000/cardlistpage')
                 let url = 'http://localhost:8000/search/' + this.search1+ '?page=' + value
                 axios.get(url)
                 .then(response=>{
-                    console.log(response.data);
-                    
-            let res = this.response
+            let res = response.data
                     this.cards = res.data
                     this.currentPage = res.current_page
                     this.lastPage = res.last_page
@@ -242,7 +226,7 @@ axios.get('http://localhost:8000/cardlistpage')
             .then(response=>{
                 console.log(response);
                 
-            let res = this.response
+            let res = response.data
                 this.cards = res.data
                 this.currentPage = res.current_page
                 this.lastPage = res.last_page

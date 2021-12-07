@@ -91,7 +91,7 @@ const fetchCardInfo = async (id, locale) => {
 
     // })
 
-    console.log(info)
+    // console.log(info)
     return info
 }
 
@@ -107,7 +107,7 @@ const main = async () => {
     for(let page = 1 ; true ; page++) {
         const koids = await fetchCardList(page, 'ko')
         for(let id of koids){
-            const info = await fetchCardInfo(4844, 'ko');
+            const info = await fetchCardInfo(id, 'ko');
             // const merged = mergeCardInfo(info)
             // console.log(merged)
             data.push(info)

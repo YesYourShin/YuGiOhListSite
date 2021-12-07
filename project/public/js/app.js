@@ -4607,17 +4607,20 @@ __webpack_require__.r(__webpack_exports__);
     // .then(response=>{
     //   console.log(this.id)
     //   console.log(response)
-    this.card = this.response;
-    console.log(this.card);
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionshow/' + this.card.id).then(function (response) {
-      _this.number = response.data.collection.number;
-      console.log(response);
+    this.card = this.response; // console.log(this.card)
 
-      if (_this.number > 0) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionshow/' + this.card.id).then(function (response) {
+      if (response.data.collection) {
+        _this.number = response.data.collection.number;
         _this.check = true;
-      }
+      } // this.number = response.data.collection.number;
+      // console.log(response)
+      // if(this.number > 0){
+      //   this.check=true;
+      // }
+
     })["catch"](function (error) {
-      console.log(this.card.title);
+      // console.log(this.card.title);
       console.error(error);
     }); // })
     // .catch (function (error) {
@@ -4834,7 +4837,6 @@ __webpack_require__.r(__webpack_exports__);
  // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['response', 'success'],
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__.Link,
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -4860,27 +4862,20 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/cardlist').then(function (response) {
-      console.log('success');
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/cardlistpage').then(function (response) {
-        console.log(response);
-        var res = response.data.response;
-        _this.cards = res.data;
-        _this.currentPage = res.current_page;
-        _this.lastPage = res.last_page;
-        _this.itemsPerPage = res.per_page;
-      })["catch"](function (error) {
-        console.error(error);
-      });
-      console.log(_this.response.data);
-      var res = _this.response;
+    // axios.get('http://localhost:8000/cardlist')
+    // .then(response=>{
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/cardlistpage').then(function (response) {
+      var res = response.data.response;
       _this.cards = res.data;
       _this.currentPage = res.current_page;
       _this.lastPage = res.last_page;
       _this.itemsPerPage = res.per_page;
     })["catch"](function (error) {
       console.error(error);
-    });
+    }); // })
+    // .catch (function (error) {
+    //     console.error(error);
+    // }) 
   },
   computed: {
     filteredKeys: function filteredKeys() {
@@ -4897,7 +4892,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.search1) {
         var url = 'http://localhost:8000/cardlistpage?page=' + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
-          console.log(response);
           var res = response.data.response;
           _this2.cards = res.data;
           _this2.currentPage = res.current_page;
@@ -4910,8 +4904,7 @@ __webpack_require__.r(__webpack_exports__);
         var _url = 'http://localhost:8000/search/' + this.search1 + '?page=' + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
-          console.log(response.data);
-          var res = _this2.response;
+          var res = response.data;
           _this2.cards = res.data;
           _this2.currentPage = res.current_page;
           _this2.lastPage = res.last_page;
@@ -4927,7 +4920,7 @@ __webpack_require__.r(__webpack_exports__);
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/search/' + this.search1).then(function (response) {
         console.log(response);
-        var res = _this3.response;
+        var res = response.data;
         _this3.cards = res.data;
         _this3.currentPage = res.current_page;
         _this3.lastPage = res.last_page;
@@ -5096,7 +5089,6 @@ __webpack_require__.r(__webpack_exports__);
  // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['response', 'auth', 'success'],
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__.Link,
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -5344,7 +5336,6 @@ __webpack_require__.r(__webpack_exports__);
  // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['response', 'auth', 'success'],
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__.Link,
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -6048,7 +6039,6 @@ __webpack_require__.r(__webpack_exports__);
  // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['response', 'success'],
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__.Link,
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]

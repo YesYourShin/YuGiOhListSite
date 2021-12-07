@@ -140,7 +140,6 @@ import { Link } from '@inertiajs/inertia-vue'
 // import CardItem from './CardItem.vue';
 
 export default {
-    props: ['response', 'auth', 'success'],
     components: {Link, AppLayout},
     data() {
         return {

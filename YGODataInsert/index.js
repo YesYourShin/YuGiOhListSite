@@ -47,11 +47,11 @@ function cardDataInsert(data) {
 
     const cardData = JSON.stringify(data);
     axios.post('http://127.0.0.1:8000/insert', cardData,{
-        headers:{"Content-Type" : "application/json"}
+        headers:{"Content-Type" : "application/json", 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
     })
-    // .then(function (response) {
-    //     console.log(response);
-    // })
+    .then(function (response) {
+        console.log(response);
+    })
     .catch(function (error) {
         console.log(error);
     });
