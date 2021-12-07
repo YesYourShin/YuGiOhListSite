@@ -4856,8 +4856,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/cardlist').then(function (response) {
+      console.log('success');
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/cardlistpage').then(function (response) {
-        console.log(response.data.response);
+        console.log(response);
         var res = response.data.response;
         _this.cards = res.data;
         _this.currentPage = res.current_page;
@@ -4891,8 +4892,8 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.search1) {
         var url = 'http://localhost:8000/cardlistpage?page=' + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
-          console.log(_this2.response);
-          var res = _this2.response;
+          console.log(response);
+          var res = response.data.response;
           _this2.cards = res.data;
           _this2.currentPage = res.current_page;
           _this2.lastPage = res.last_page;

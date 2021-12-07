@@ -167,10 +167,11 @@ export default {
     mounted() {
         axios.get('http://localhost:8000/cardlist')
         .then(response=>{
+            console.log('success');
 
 axios.get('http://localhost:8000/cardlistpage')
         .then(response=>{
-            console.log(response.data.response);
+            console.log(response);
             let res = response.data.response
             this.cards = res.data;
             this.currentPage = res.current_page
@@ -207,9 +208,9 @@ axios.get('http://localhost:8000/cardlistpage')
                 let url = 'http://localhost:8000/cardlistpage?page=' + value
                 axios.get(url)
                 .then(response=>{
-                    console.log(this.response);
+                    console.log(response);
                     
-            let res = this.response
+            let res = response.data.response
                     this.cards = res.data
                     this.currentPage = res.current_page
                     this.lastPage = res.last_page
