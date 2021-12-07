@@ -130,7 +130,7 @@ export default {
         axios.get('http://localhost:8000/collectionshow/'+this.card.id)
         .then(response=>{
           if(response.data.collection) {
-            this.number = response.data.collection.number
+            this.number = response.data.collection.number;
             this.check=true;
           }
           // this.number = response.data.collection.number;
