@@ -97,7 +97,6 @@ export default {
     props: ['orica'],
     data() {
       return {
-        orica: '',
         check: false
       }
     },
@@ -105,8 +104,6 @@ export default {
       axios.get('http://localhost:8000/oricashow/'+this.orica.id)
       .then(response=>{
           console.log(response)
-          let res = this.orica
-        this.orica = res;
       })
       .catch (function (error) {
                 console.error(error);

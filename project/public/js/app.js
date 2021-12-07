@@ -4583,9 +4583,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5103,12 +5100,12 @@ __webpack_require__.r(__webpack_exports__);
       search: '',
       search1: '',
       filter: {},
-      sortBy: 'title',
-      sortDesc: false,
+      sortBy: 'id',
+      sortDesc: true,
       // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
       //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
       //         'atk', 'def', 'limited', ],
-      keys: ['title']
+      keys: ['title', 'id']
     };
   },
   mounted: function mounted() {
@@ -5350,12 +5347,12 @@ __webpack_require__.r(__webpack_exports__);
       search: '',
       search1: '',
       filter: {},
-      sortBy: 'title',
-      sortDesc: false,
+      sortBy: 'id',
+      sortDesc: true,
       // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
       //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
       //         'atk', 'def', 'limited', ],
-      keys: ['title']
+      keys: ['title', 'id']
     };
   },
   mounted: function mounted() {
@@ -5837,17 +5834,12 @@ __webpack_require__.r(__webpack_exports__);
   props: ['orica'],
   data: function data() {
     return {
-      orica: '',
       check: false
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricashow/' + this.orica.id).then(function (response) {
       console.log(response);
-      var res = _this.orica;
-      _this.orica = res;
     })["catch"](function (error) {
       console.error(error);
     });
@@ -5866,13 +5858,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteCollection: function deleteCollection() {
-      var _this2 = this;
+      var _this = this;
 
       // db에서 카드 데이터를 삭제하고 체크를 false로 바꾼다
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.title).then(function (response) {
         console.log(response);
-        _this2.check = false;
-        _this2.number = '';
+        _this.check = false;
+        _this.number = '';
         console.log('delete done');
       })["catch"](function (error) {
         console.error(error);
@@ -6039,6 +6031,7 @@ __webpack_require__.r(__webpack_exports__);
  // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['response', 'success'],
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__.Link,
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -6053,12 +6046,12 @@ __webpack_require__.r(__webpack_exports__);
       search: '',
       search1: '',
       filter: {},
-      sortBy: 'title',
-      sortDesc: false,
+      sortBy: 'id',
+      sortDesc: true,
       // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
       //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
       //         'atk', 'def', 'limited', ],
-      keys: ['title']
+      keys: ['title', 'id']
     };
   },
   mounted: function mounted() {
@@ -38452,19 +38445,24 @@ var render = function () {
           _c(
             "v-card-actions",
             [
-              _c("v-text-field", {
-                attrs: {
-                  clearable: "",
-                  flat: "",
-                  "solo-inverted": "",
-                  "hide-details": "",
-                },
-                model: {
-                  value: _vm.number,
-                  callback: function ($$v) {
-                    _vm.number = $$v
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.number,
+                    expression: "number",
                   },
-                  expression: "number",
+                ],
+                attrs: { type: "text", size: "17" },
+                domProps: { value: _vm.number },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.number = $event.target.value
+                  },
                 },
               }),
               _vm._v(" "),
@@ -40414,9 +40412,7 @@ var render = function () {
                                                   _vm._v(
                                                     "\n                                        " +
                                                       _vm._s(
-                                                        _vm.card[
-                                                          key.toLowerCase()
-                                                        ]
+                                                        orica[key.toLowerCase()]
                                                       ) +
                                                       "\n                                    "
                                                   ),

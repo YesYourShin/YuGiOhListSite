@@ -167,7 +167,7 @@ class OricaController extends Controller
     public function oricalistpage()
     {
         
-        $oricas = DB::table('oricas')->paginate(10);
+        $oricas = DB::table('oricas')->orderBy('id', 'DESC')->paginate(10);
         
         return ['response' => $oricas, 'success' => 1];
 
@@ -192,7 +192,7 @@ class OricaController extends Controller
 
         $auth = Auth::id();
         
-        $oricas = DB::table('oricas')->where('user_id', 'like', $auth)->paginate(10);
+        $oricas = DB::table('oricas')->where('user_id', 'like', $auth)->orderBy('id', 'DESC')->paginate(10);
         
         return ['response' => $oricas, 'success' => 1];
 

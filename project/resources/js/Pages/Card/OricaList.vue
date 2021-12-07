@@ -98,7 +98,7 @@
                                         class="align-end"
                                         :class="{ 'blue--text': sortBy === key }"
                                     >
-                                        {{ card[key.toLowerCase()] }}
+                                        {{ orica[key.toLowerCase()] }}
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list>
@@ -141,6 +141,7 @@ import { Link } from '@inertiajs/inertia-vue'
 // import CardItem from './CardItem.vue';
 
 export default {
+    props: ['response', 'success'],
     components: {Link, AppLayout},
     data() {
         return {
@@ -152,12 +153,12 @@ export default {
             search: '',
             search1: '',
             filter: {},
-            sortBy: 'title',
-            sortDesc: false,
+            sortBy: 'id',
+            sortDesc: true,
             // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
             //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
             //         'atk', 'def', 'limited', ],
-            keys: ['title'],
+            keys: ['title', 'id'],
         }
     },
     mounted() {

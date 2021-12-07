@@ -72,13 +72,10 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-text-field
+      <input type="text"
         v-model="number"
-        clearable
-        flat
-        solo-inverted
-        hide-details
-        ></v-text-field>
+        size=17
+        >
       
       <v-btn v-if="check==false"
         color="deep-purple lighten-2"

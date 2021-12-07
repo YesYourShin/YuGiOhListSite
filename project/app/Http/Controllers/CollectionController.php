@@ -173,7 +173,7 @@ class CollectionController extends Controller
 
         $auth = Auth::id();
 
-        $cards = DB::table('collections')->where('user_id', 'like', $auth)->paginate(10);
+        $cards = DB::table('collections')->where('user_id', 'like', $auth)->orderBy('id', 'DESC')->paginate(10);
 
         // DB::table('cards')->where('id', 'like', $card->title)
 
