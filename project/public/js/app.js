@@ -3426,6 +3426,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5141,6 +5146,254 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.search1) {
         var url = 'http://localhost:8000/collectionlistpage?page=' + value;
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
+          console.log(response.data.response);
+          var res = response.data.response;
+          _this2.cards = res.data;
+          _this2.currentPage = res.current_page;
+          _this2.lastPage = res.last_page;
+          _this2.itemsPerPage = res.per_page;
+        })["catch"](function (error) {
+          console.error(error);
+        });
+      } else {
+        var _url = 'http://localhost:8000/search/' + this.search1 + '?page=' + value;
+
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
+          console.log(response.data);
+          _this2.cards = response.data.data;
+          _this2.currentPage = response.data.current_page;
+          _this2.lastPage = response.data.last_page;
+          _this2.itemsPerPage = response.data.itemsPerPage;
+        })["catch"](function (error) {
+          console.error(error);
+        });
+      }
+    },
+    getSearch: function getSearch() {
+      var _this3 = this;
+
+      this.search1 = this.search;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionsearch/' + this.search1).then(function (response) {
+        console.log(response);
+        _this3.cards = response.data.data;
+        _this3.currentPage = response.data.current_page;
+        _this3.lastPage = response.data.last_page;
+        _this3.itemsPerPage = response.data.itemsPerPage;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyOricaList.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyOricaList.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+ // import CardItem from './CardItem.vue';
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['response', 'auth', 'success'],
+  components: {
+    Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__.Link,
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      // cards : null,
+      cards: [],
+      currentPage: null,
+      lastPage: 0,
+      itemsPerPage: null,
+      search: '',
+      search1: '',
+      filter: {},
+      sortBy: 'title',
+      sortDesc: false,
+      // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
+      //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
+      //         'atk', 'def', 'limited', ],
+      keys: ['title']
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/myoricalistpage').then(function (response) {
+      var res = response.data.response;
+      _this.cards = res.data;
+      _this.currentPage = res.current_page;
+      _this.lastPage = res.last_page;
+      _this.itemsPerPage = res.per_page;
+    })["catch"](function (error) {
+      console.error(error);
+    });
+  },
+  computed: {
+    filteredKeys: function filteredKeys() {
+      var array = this.keys.filter(function (key) {
+        return key !== 'title';
+      });
+      return array;
+    }
+  },
+  methods: {
+    getPage: function getPage(value) {
+      var _this2 = this;
+
+      if (!this.search1) {
+        var url = 'http://localhost:8000/myoricalistpage?page=' + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
           console.log(response.data.response);
           var res = response.data.response;
@@ -31175,6 +31428,45 @@ component.options.__file = "resources/js/Pages/Card/MyCardList.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Card/MyOricaList.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/Pages/Card/MyOricaList.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MyOricaList.vue?vue&type=template&id=14dcd9c0& */ "./resources/js/Pages/Card/MyOricaList.vue?vue&type=template&id=14dcd9c0&");
+/* harmony import */ var _MyOricaList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyOricaList.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Card/MyOricaList.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MyOricaList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Card/MyOricaList.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Card/OricaForm.vue":
 /*!***********************************************!*\
   !*** ./resources/js/Pages/Card/OricaForm.vue ***!
@@ -32228,6 +32520,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Card/MyOricaList.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/Pages/Card/MyOricaList.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOricaList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyOricaList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyOricaList.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOricaList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Card/OricaForm.vue?vue&type=script&lang=js&":
 /*!************************************************************************!*\
   !*** ./resources/js/Pages/Card/OricaForm.vue?vue&type=script&lang=js& ***!
@@ -33125,6 +33433,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCardList_vue_vue_type_template_id_4e92aa00___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCardList_vue_vue_type_template_id_4e92aa00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyCardList.vue?vue&type=template&id=4e92aa00& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyCardList.vue?vue&type=template&id=4e92aa00&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Card/MyOricaList.vue?vue&type=template&id=14dcd9c0&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Pages/Card/MyOricaList.vue?vue&type=template&id=14dcd9c0& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyOricaList.vue?vue&type=template&id=14dcd9c0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyOricaList.vue?vue&type=template&id=14dcd9c0&");
 
 
 /***/ }),
@@ -35453,6 +35778,31 @@ var render = function () {
                           [
                             _vm._v(
                               "\n                               OricaList\n                            "
+                            ),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "hidden space-x-8 sm:-my-px sm:ml-10 sm:flex",
+                      },
+                      [
+                        _c(
+                          "jet-nav-link",
+                          {
+                            attrs: {
+                              href: _vm.route("myoricalist"),
+                              active: _vm.route().current("myoricalist"),
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                               MyOricaList\n                            "
                             ),
                           ]
                         ),
@@ -38525,6 +38875,331 @@ render._withStripped = true
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyCardList.vue?vue&type=template&id=4e92aa00& ***!
   \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "app-layout",
+    [
+      _c(
+        "v-app",
+        [
+          _c(
+            "v-container",
+            [
+              _c("v-data-iterator", {
+                attrs: {
+                  items: _vm.cards,
+                  "items-per-page": _vm.itemsPerPage,
+                  page: _vm.currentPage,
+                  "sort-by": _vm.sortBy.toLowerCase(),
+                  "sort-desc": _vm.sortDesc,
+                  "hide-default-footer": "",
+                },
+                on: {
+                  "update:page": function ($event) {
+                    _vm.currentPage = $event
+                  },
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "header",
+                    fn: function () {
+                      return [
+                        _c(
+                          "v-toolbar",
+                          {
+                            staticClass: "mb-1",
+                            attrs: { dark: "", color: "blue darken-3" },
+                          },
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                clearable: "",
+                                flat: "",
+                                "solo-inverted": "",
+                                "hide-details": "",
+                                "prepend-inner-icon": "mdi-magnify",
+                                label: "Search",
+                              },
+                              model: {
+                                value: _vm.search,
+                                callback: function ($$v) {
+                                  _vm.search = $$v
+                                },
+                                expression: "search",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.getSearch()
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                    검색\n                "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm.$vuetify.breakpoint.mdAndUp
+                              ? [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c("v-select", {
+                                    attrs: {
+                                      flat: "",
+                                      "solo-inverted": "",
+                                      "hide-details": "",
+                                      items: _vm.keys,
+                                      "prepend-inner-icon": "mdi-magnify",
+                                      label: "Sort by",
+                                    },
+                                    model: {
+                                      value: _vm.sortBy,
+                                      callback: function ($$v) {
+                                        _vm.sortBy = $$v
+                                      },
+                                      expression: "sortBy",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn-toggle",
+                                    {
+                                      attrs: { mandatory: "" },
+                                      model: {
+                                        value: _vm.sortDesc,
+                                        callback: function ($$v) {
+                                          _vm.sortDesc = $$v
+                                        },
+                                        expression: "sortDesc",
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            large: "",
+                                            depressed: "",
+                                            color: "blue",
+                                            value: false,
+                                          },
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("mdi-arrow-up"),
+                                          ]),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            large: "",
+                                            depressed: "",
+                                            color: "blue",
+                                            value: true,
+                                          },
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("mdi-arrow-down"),
+                                          ]),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ]
+                              : _vm._e(),
+                          ],
+                          2
+                        ),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                  {
+                    key: "default",
+                    fn: function (props) {
+                      return [
+                        _c(
+                          "v-row",
+                          _vm._l(props.items, function (card) {
+                            return _c(
+                              "v-col",
+                              {
+                                key: card.id,
+                                attrs: {
+                                  cols: "12",
+                                  sm: "6",
+                                  md: "4",
+                                  lg: "3",
+                                },
+                              },
+                              [
+                                _c(
+                                  "v-card",
+                                  [
+                                    _c(
+                                      "v-card-title",
+                                      [
+                                        _c(
+                                          "Link",
+                                          {
+                                            attrs: {
+                                              href: "show/" + card.card_id,
+                                            },
+                                          },
+                                          [_vm._v(_vm._s(card.title))]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("v-divider"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-list",
+                                      { attrs: { dense: "" } },
+                                      _vm._l(
+                                        _vm.filteredKeys,
+                                        function (key, index) {
+                                          return _c(
+                                            "v-list-item",
+                                            { key: index },
+                                            [
+                                              _c(
+                                                "v-list-item-content",
+                                                {
+                                                  class: {
+                                                    "blue--text":
+                                                      _vm.sortBy === key,
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    " +
+                                                      _vm._s(key) +
+                                                      ":\n                                "
+                                                  ),
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-item-content",
+                                                {
+                                                  staticClass: "align-end",
+                                                  class: {
+                                                    "blue--text":
+                                                      _vm.sortBy === key,
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    " +
+                                                      _vm._s(
+                                                        card[key.toLowerCase()]
+                                                      ) +
+                                                      "\n                                "
+                                                  ),
+                                                ]
+                                              ),
+                                            ],
+                                            1
+                                          )
+                                        }
+                                      ),
+                                      1
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            )
+                          }),
+                          1
+                        ),
+                      ]
+                    },
+                  },
+                  {
+                    key: "footer",
+                    fn: function () {
+                      return [
+                        _c(
+                          "v-row",
+                          {
+                            staticClass: "mt-2",
+                            attrs: { align: "center", justify: "center" },
+                          },
+                          [
+                            _c("v-pagination", {
+                              attrs: {
+                                length: _vm.lastPage,
+                                "total-visible": 10,
+                              },
+                              on: { input: _vm.getPage },
+                              model: {
+                                value: _vm.currentPage,
+                                callback: function ($$v) {
+                                  _vm.currentPage = $$v
+                                },
+                                expression: "currentPage",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]
+                    },
+                    proxy: true,
+                  },
+                ]),
+              }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyOricaList.vue?vue&type=template&id=14dcd9c0&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyOricaList.vue?vue&type=template&id=14dcd9c0& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -100264,6 +100939,8 @@ var map = {
 	"./Card/CardList.vue": "./resources/js/Pages/Card/CardList.vue",
 	"./Card/MyCardList": "./resources/js/Pages/Card/MyCardList.vue",
 	"./Card/MyCardList.vue": "./resources/js/Pages/Card/MyCardList.vue",
+	"./Card/MyOricaList": "./resources/js/Pages/Card/MyOricaList.vue",
+	"./Card/MyOricaList.vue": "./resources/js/Pages/Card/MyOricaList.vue",
 	"./Card/OricaForm": "./resources/js/Pages/Card/OricaForm.vue",
 	"./Card/OricaForm.vue": "./resources/js/Pages/Card/OricaForm.vue",
 	"./Card/OricaItem": "./resources/js/Pages/Card/OricaItem.vue",

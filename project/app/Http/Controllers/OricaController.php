@@ -181,5 +181,20 @@ class OricaController extends Controller
         
     }
 
-    // 유저 아이디를 오리카에서 찾아서 그 유저의 오리카만 보여주는 함수 만들기
+    public function myoricalist()
+    {
+        return Inertia::render('Card/MyOricaList');
+
+    }
+
+    public function myoricalistpage()
+    {
+
+        $auth = Auth::id();
+        
+        $oricas = DB::table('oricas')->where('user_id', 'like', $auth)->paginate(10);
+        
+        return ['response' => $oricas, 'success' => 1];
+
+    }
 }
