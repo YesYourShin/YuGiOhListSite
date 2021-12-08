@@ -5428,6 +5428,375 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaEdit.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaEdit.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: ['response'],
+  data: function data() {
+    return {
+      selected: '',
+      category: '',
+      categoryItems: ['몬스터', '마법', '함정'],
+      monsterCategory: '',
+      monsterCategoryItems: ['엑시즈', '펜듈럼', '링크', '그외'],
+      icon: '',
+      iconItems: '',
+      title: '',
+      attribute: null,
+      attributeItems: ['어둠', '빛', '땅', '물', '화염', '바람', '신'],
+      level: '',
+      rank: '',
+      pScale: '',
+      pEffect: '',
+      link: '',
+      linkArray: '',
+      monsterType: '',
+      effect: '',
+      atk: '',
+      def: '',
+      validation: [function (v) {
+        return !!v || 'title is required';
+      }] //   levelRules: [
+      //     v => !!v || 'Input Number',
+      //     v => /.+@.+/.test(v) || 'E-mail must be valid',
+      //   ],
+
+    };
+  },
+  mounted: function mounted() {
+    console.log(this.response);
+    var res = this.response;
+    this.category = res.category;
+
+    if (this.category == "몬스터") {
+      this.monsterCategory = res.monsterCategory;
+      this.title = res.title;
+      this.attribute = res.attribute;
+      this.monsterType = res.monsterType;
+      this.effect = res.effect;
+      this.atk = res.atk;
+      this.def = res.def;
+
+      if (this.monsterCategory == "엑시즈") {
+        this.rank = res.rank;
+      }
+
+      if (this.monsterCategory == "펜듈럼") {
+        this.level = res.level;
+        this.pScale = res.pScale;
+        this.pEffect = res.pEffect;
+      }
+
+      if (this.monsterCategory == "링크") {
+        this.link = res.link;
+        this.linkArray = res.linkArray;
+      }
+
+      if (this.monsterCategory == "그외") {
+        this.level = res.level;
+      }
+    }
+
+    if (this.category == "마법") {
+      this.icon = res.icon;
+      this.iconItems = ['일반 마법', '지속 마법', '장착 마법', '속공 마법', '필드 마법', ' 의식 마법'];
+      this.title = res.title;
+      this.effect = res.effect;
+    }
+
+    if (this.category == "함정") {
+      this.icon = res.icon;
+      this.iconItems = ['일반 함정', '지속 함정', '카운터 함정'];
+      this.title = res.title;
+      this.effect = res.effect;
+    }
+  },
+  methods: {
+    categoryCheck: function categoryCheck() {
+      if (this.category === '마법') {
+        this.icon = '일반 마법';
+        this.iconItems = ['일반 마법', '지속 마법', '장착 마법', '속공 마법', '필드 마법', ' 의식 마법'];
+      }
+
+      if (this.category === '함정') {
+        this.icon = '일반 함정';
+        this.iconItems = ['일반 함정', '지속 함정', '카운터 함정'];
+      }
+
+      if (this.category === '몬스터') {
+        this.monsterCategory = '그외';
+      } else {
+        this.monsterCategory = '';
+      }
+    },
+    monsterCategoryCheck: function monsterCategoryCheck() {
+      if (this.monsterCategory === '링크') {
+        this.def = "-";
+        return;
+      } else {
+        if (this.def == "-") {
+          this.def = "";
+          return;
+        }
+
+        return;
+      }
+    },
+    editOrica: function editOrica() {
+      //       if(this.number == null) {
+      //   alert('가진 카드 갯수를 입력해주세요.');
+      //   return;
+      // }
+      // if(this.category == "몬스터" &&
+      // (this.monsterCategory== '' ||
+      // this.title== '' ||
+      // this.attribute== '' ||
+      // this.monsterType== '' ||
+      // this.effect== '' ||
+      // this.atk== '' ||
+      // this.def== '' )) {
+      //   alert('no');
+      //   return
+      // }
+      var orica = {
+        category: this.category,
+        monsterCategory: this.monsterCategory,
+        icon: this.icon,
+        iconItems: this.iconItems,
+        title: this.title,
+        attribute: this.attribute,
+        level: this.level,
+        rank: this.rank,
+        pScale: this.pScale,
+        pEffect: this.pEffect,
+        link: this.link,
+        linkArray: this.linkArray,
+        monsterType: this.monsterType,
+        effect: this.effect,
+        atk: this.atk,
+        def: this.def
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/oricaupdate/' + this.response.id, orica).then(function (response) {
+        console.log(response.data.id);
+
+        if (response.data.id) {
+          location.href = "http://localhost:8000/oricashow/" + response.data.id;
+        }
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=script&lang=js& ***!
@@ -5688,6 +6057,13 @@ __webpack_require__.r(__webpack_exports__);
       if (this.monsterCategory === '링크') {
         this.def = "-";
         return;
+      } else {
+        if (this.def == "-") {
+          this.def = "";
+          return;
+        }
+
+        return;
       }
     },
     makeOrica: function makeOrica() {
@@ -5858,15 +6234,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     editCollection: function editCollection() {
       // 카드 갯수가 바꼈을 때 처리
-      axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/collectionupdate/' + this.card.title, {
-        title: this.card.title,
-        number: this.number
-      }).then(function (response) {
-        console.log('edit done');
-        console.log(response);
-      })["catch"](function (error) {
-        console.error(error);
-      });
+      location.href = "http://localhost:8000/orica/" + this.orica.id + "/edit";
     },
     deleteCollection: function deleteCollection() {
       // db에서 카드 데이터를 삭제하고 체크를 false로 바꾼다
@@ -31457,6 +31825,45 @@ component.options.__file = "resources/js/Pages/Card/MyOricaList.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Card/OricaEdit.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/Pages/Card/OricaEdit.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _OricaEdit_vue_vue_type_template_id_73311bf8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OricaEdit.vue?vue&type=template&id=73311bf8& */ "./resources/js/Pages/Card/OricaEdit.vue?vue&type=template&id=73311bf8&");
+/* harmony import */ var _OricaEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OricaEdit.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Card/OricaEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _OricaEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OricaEdit_vue_vue_type_template_id_73311bf8___WEBPACK_IMPORTED_MODULE_0__.render,
+  _OricaEdit_vue_vue_type_template_id_73311bf8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Card/OricaEdit.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Card/OricaForm.vue":
 /*!***********************************************!*\
   !*** ./resources/js/Pages/Card/OricaForm.vue ***!
@@ -32526,6 +32933,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Card/OricaEdit.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/Pages/Card/OricaEdit.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OricaEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OricaEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaEdit.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OricaEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Card/OricaForm.vue?vue&type=script&lang=js&":
 /*!************************************************************************!*\
   !*** ./resources/js/Pages/Card/OricaForm.vue?vue&type=script&lang=js& ***!
@@ -33440,6 +33863,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyOricaList_vue_vue_type_template_id_14dcd9c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MyOricaList.vue?vue&type=template&id=14dcd9c0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/MyOricaList.vue?vue&type=template&id=14dcd9c0&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Card/OricaEdit.vue?vue&type=template&id=73311bf8&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/Pages/Card/OricaEdit.vue?vue&type=template&id=73311bf8& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OricaEdit_vue_vue_type_template_id_73311bf8___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OricaEdit_vue_vue_type_template_id_73311bf8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OricaEdit_vue_vue_type_template_id_73311bf8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OricaEdit.vue?vue&type=template&id=73311bf8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaEdit.vue?vue&type=template&id=73311bf8&");
 
 
 /***/ }),
@@ -39528,6 +39968,472 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaEdit.vue?vue&type=template&id=73311bf8&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaEdit.vue?vue&type=template&id=73311bf8& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "app-layout",
+    [
+      _c(
+        "v-form",
+        [
+          _c(
+            "v-container",
+            [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.category,
+                      expression: "category",
+                    },
+                  ],
+                  attrs: { required: "" },
+                  on: {
+                    change: [
+                      function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.category = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      function ($event) {
+                        return _vm.categoryCheck()
+                      },
+                    ],
+                  },
+                },
+                _vm._l(_vm.categoryItems, function (c, index) {
+                  return _c("option", { key: index }, [
+                    _vm._v("\r\n          " + _vm._s(c) + "\r\n        "),
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _vm.category == "몬스터"
+                ? _c("div", [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.monsterCategory,
+                            expression: "monsterCategory",
+                          },
+                        ],
+                        on: {
+                          change: [
+                            function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.monsterCategory = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function ($event) {
+                              return _vm.monsterCategoryCheck()
+                            },
+                          ],
+                        },
+                      },
+                      _vm._l(_vm.monsterCategoryItems, function (mc, index) {
+                        return _c("option", { key: index }, [
+                          _vm._v(
+                            "\r\n          " + _vm._s(mc) + "\r\n        "
+                          ),
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _vm.monsterCategory
+                      ? _c(
+                          "div",
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                counter: 10,
+                                label: "title",
+                                required: "",
+                              },
+                              model: {
+                                value: _vm.title,
+                                callback: function ($$v) {
+                                  _vm.title = $$v
+                                },
+                                expression: "title",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.attribute,
+                                    expression: "attribute",
+                                  },
+                                ],
+                                on: {
+                                  change: function ($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call(
+                                        $event.target.options,
+                                        function (o) {
+                                          return o.selected
+                                        }
+                                      )
+                                      .map(function (o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.attribute = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                },
+                              },
+                              _vm._l(_vm.attributeItems, function (a, index) {
+                                return _c("option", { key: index }, [
+                                  _vm._v(
+                                    "\r\n          " +
+                                      _vm._s(a) +
+                                      "\r\n        "
+                                  ),
+                                ])
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _vm.monsterCategory !== "엑시즈" &&
+                            _vm.monsterCategory !== "링크"
+                              ? _c("v-text-field", {
+                                  attrs: { label: "level", required: "" },
+                                  model: {
+                                    value: _vm.level,
+                                    callback: function ($$v) {
+                                      _vm.level = $$v
+                                    },
+                                    expression: "level",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory === "엑시즈"
+                              ? _c("v-text-field", {
+                                  attrs: { label: "rank", required: "" },
+                                  model: {
+                                    value: _vm.rank,
+                                    callback: function ($$v) {
+                                      _vm.rank = $$v
+                                    },
+                                    expression: "rank",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "펜듈럼"
+                              ? _c("v-text-field", {
+                                  attrs: { label: "pScale", required: "" },
+                                  model: {
+                                    value: _vm.pScale,
+                                    callback: function ($$v) {
+                                      _vm.pScale = $$v
+                                    },
+                                    expression: "pScale",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "펜듈럼"
+                              ? _c("v-text-field", {
+                                  attrs: { label: "pEffect", required: "" },
+                                  model: {
+                                    value: _vm.pEffect,
+                                    callback: function ($$v) {
+                                      _vm.pEffect = $$v
+                                    },
+                                    expression: "pEffect",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c("v-text-field", {
+                                  attrs: { label: "link", required: "" },
+                                  model: {
+                                    value: _vm.link,
+                                    callback: function ($$v) {
+                                      _vm.link = $$v
+                                    },
+                                    expression: "link",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c("v-text-field", {
+                                  attrs: { label: "linkArray", required: "" },
+                                  model: {
+                                    value: _vm.linkArray,
+                                    callback: function ($$v) {
+                                      _vm.linkArray = $$v
+                                    },
+                                    expression: "linkArray",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: { label: "monsteType", required: "" },
+                              model: {
+                                value: _vm.monsterType,
+                                callback: function ($$v) {
+                                  _vm.monsterType = $$v
+                                },
+                                expression: "monsterType",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: { label: "effect", required: "" },
+                              model: {
+                                value: _vm.effect,
+                                callback: function ($$v) {
+                                  _vm.effect = $$v
+                                },
+                                expression: "effect",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: { label: "atk", required: "" },
+                              model: {
+                                value: _vm.atk,
+                                callback: function ($$v) {
+                                  _vm.atk = $$v
+                                },
+                                expression: "atk",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "def",
+                                required: "",
+                                readonly: this.monsterCategory === "링크",
+                              },
+                              model: {
+                                value: _vm.def,
+                                callback: function ($$v) {
+                                  _vm.def = $$v
+                                },
+                                expression: "def",
+                              },
+                            }),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.category == "마법"
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.icon,
+                              expression: "icon",
+                            },
+                          ],
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.icon = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                          },
+                        },
+                        _vm._l(_vm.iconItems, function (i, index) {
+                          return _c("option", { key: index }, [
+                            _vm._v(
+                              "\r\n          " + _vm._s(i) + "\r\n        "
+                            ),
+                          ])
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { counter: 10, label: "title", required: "" },
+                        model: {
+                          value: _vm.title,
+                          callback: function ($$v) {
+                            _vm.title = $$v
+                          },
+                          expression: "title",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { counter: 10, label: "effect", required: "" },
+                        model: {
+                          value: _vm.effect,
+                          callback: function ($$v) {
+                            _vm.effect = $$v
+                          },
+                          expression: "effect",
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.category == "함정"
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.icon,
+                              expression: "icon",
+                            },
+                          ],
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.icon = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                          },
+                        },
+                        _vm._l(_vm.iconItems, function (i, index) {
+                          return _c("option", { key: index }, [
+                            _vm._v(
+                              "\r\n          " + _vm._s(i) + "\r\n        "
+                            ),
+                          ])
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { counter: 10, label: "title", required: "" },
+                        model: {
+                          value: _vm.title,
+                          callback: function ($$v) {
+                            _vm.title = $$v
+                          },
+                          expression: "title",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { counter: 10, label: "effect", required: "" },
+                        model: {
+                          value: _vm.effect,
+                          callback: function ($$v) {
+                            _vm.effect = $$v
+                          },
+                          expression: "effect",
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.category
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "deep-purple lighten-2", text: "" },
+                      on: { click: _vm.editOrica },
+                    },
+                    [_vm._v("\r\n        카드 만들기\r\n      ")]
+                  )
+                : _vm._e(),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=template&id=2fefcdb2&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=template&id=2fefcdb2& ***!
@@ -39617,19 +40523,24 @@ var render = function () {
                           },
                         ],
                         on: {
-                          change: function ($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function (o) {
-                                return o.selected
-                              })
-                              .map(function (o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.monsterCategory = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          },
+                          change: [
+                            function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.monsterCategory = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function ($event) {
+                              return _vm.categoryCheck()
+                            },
+                          ],
                         },
                       },
                       _vm._l(_vm.monsterCategoryItems, function (mc, index) {
@@ -100946,6 +101857,8 @@ var map = {
 	"./Card/MyCardList.vue": "./resources/js/Pages/Card/MyCardList.vue",
 	"./Card/MyOricaList": "./resources/js/Pages/Card/MyOricaList.vue",
 	"./Card/MyOricaList.vue": "./resources/js/Pages/Card/MyOricaList.vue",
+	"./Card/OricaEdit": "./resources/js/Pages/Card/OricaEdit.vue",
+	"./Card/OricaEdit.vue": "./resources/js/Pages/Card/OricaEdit.vue",
 	"./Card/OricaForm": "./resources/js/Pages/Card/OricaForm.vue",
 	"./Card/OricaForm.vue": "./resources/js/Pages/Card/OricaForm.vue",
 	"./Card/OricaItem": "./resources/js/Pages/Card/OricaItem.vue",

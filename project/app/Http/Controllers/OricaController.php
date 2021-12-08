@@ -11,6 +11,8 @@ use Inertia\Inertia;
 
 class OricaController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -132,7 +134,16 @@ class OricaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $auth = Auth::id();
+
+        $orica = DB::table('oricas')->where('id', 'like', $id)->first();
+
+
+        if($orica->user_id == $auth) {
+            return Inertia::render('Card/OricaEdit', ['response' => $orica]);
+        }
+
+        return;
     }
 
     /**
@@ -144,7 +155,54 @@ class OricaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'effect' => 'required',
+            'pEffect' => 'nullable',
+            'icon' => 'nullable',
+            'attribute' => 'nullable',
+            'level' => 'nullable',
+            'rank' => 'nullable',
+            'pScale' => 'nullable',
+            'link' => 'nullable',
+            'linkArray' => 'nullable',
+            'monsterType' => 'nullable',
+            'category' => 'nullable',
+            'monsterCategory' => 'nullable',
+            'atk' => 'nullable',
+            'def' => 'nullable',
+        ]);
+
+        if ($validator->fails()){
+            $messages = $validator->messages();
+            return response($messages);
+        }
+
+        $orica = Orica::find($id);
+
+        $orica->update([
+            'title' => $request['title'],
+            'effect' => $request['effect'],
+            'pEffect' => $request['pEffect'],
+            'icon' => $request['icon'],
+            'attribute' => $request['attribute'],
+            'level' => $request['level'],
+            'rank' => $request['rank'],
+            'pScale' => $request['pScale'],
+            'link' => $request['link'],
+            'linkArray' => $request['linkArray'],
+            'monsterType' => $request['monsterType'],
+            'category' => $request['category'],
+            'monsterCategory' => $request['monsterCategory'],
+            'atk' => $request['atk'],
+            'def' => $request['def'],
+        ]);
+        // $this->authorize('update', $orica);
+
+        // $orica->save();
+
+        return ['id' => $orica->id];
     }
 
     /**

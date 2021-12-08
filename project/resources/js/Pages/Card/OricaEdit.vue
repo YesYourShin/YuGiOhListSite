@@ -1,6 +1,6 @@
 <template>
 <app-layout>
-  <v-form v-model="orica">
+  <v-form>
     <v-container>
 
       <select v-model="category" required @change="categoryCheck()">
@@ -22,7 +22,7 @@
 
     <div v-if="category=='몬스터'">
 
-      <select v-model="monsterCategory" @change="categoryCheck()">
+      <select v-model="monsterCategory" @change="monsterCategoryCheck()">
         <option v-for="(mc, index) in monsterCategoryItems"  :key="index">
           {{ mc }}
         </option>
@@ -175,7 +175,7 @@
         <v-btn v-if="category"
         color="deep-purple lighten-2"
         text
-        @click="makeOrica"
+        @click="editOrica"
       >
         카드 만들기
       </v-btn>
@@ -194,9 +194,9 @@ import AppLayout from '@/Layouts/AppLayout'
   export default {
     
     components: {AppLayout},
+    props: ['response'],
     data: () => ({
       selected:'',
-      orica: '',
       category: '',
       categoryItems: ['몬스터', '마법', '함정'],
       monsterCategory: '',
@@ -216,6 +216,9 @@ import AppLayout from '@/Layouts/AppLayout'
         effect: '',
         atk: '',
         def: '',
+        validation: [
+          v => !!v || 'title is required'
+        ]
 
     //   levelRules: [
     //     v => !!v || 'Input Number',
@@ -223,11 +226,56 @@ import AppLayout from '@/Layouts/AppLayout'
     //   ],
       
     }),
+    mounted() {
+      console.log(this.response);
+      let res = this.response
+      this.category= res.category;
+      if(this.category=="몬스터") {
+        this.monsterCategory= res.monsterCategory;
+        this.title= res.title;
+        this.attribute= res.attribute;
+        this.monsterType= res.monsterType;
+        this.effect= res.effect;
+        this.atk= res.atk;
+        this.def= res.def;
+        if(this.monsterCategory=="엑시즈") {
+          this.rank= res.rank;
+        }
+        if(this.monsterCategory=="펜듈럼") {
+          this.level= res.level;
+          this.pScale= res.pScale;
+          this.pEffect= res.pEffect;
+        }
+        if(this.monsterCategory=="링크") {
+          this.link= res.link;
+          this.linkArray= res.linkArray;
+        }
+        if(this.monsterCategory=="그외") {
+          this.level= res.level;
+        }
+        
+      }
+      if(this.category=="마법") {
+        this.icon= res.icon;
+        this.iconItems = ['일반 마법', '지속 마법', '장착 마법', '속공 마법', '필드 마법',' 의식 마법']
+        this.title= res.title;
+        this.effect= res.effect;
+        
+      }
+      if(this.category=="함정") {
+        this.icon= res.icon;
+        this.iconItems = ['일반 함정', '지속 함정', '카운터 함정']
+        this.title= res.title;
+        this.effect= res.effect;
+      }
+      
+    },
     methods: {
         categoryCheck() {
             if (this.category==='마법') {
                 this.icon = '일반 마법'
                 this.iconItems = ['일반 마법', '지속 마법', '장착 마법', '속공 마법', '필드 마법',' 의식 마법']
+       
             }
             if (this.category==='함정') {
                 this.icon = '일반 함정'
@@ -253,11 +301,25 @@ import AppLayout from '@/Layouts/AppLayout'
           },
 
           
-          makeOrica() {
+          editOrica() {
         //       if(this.number == null) {
         //   alert('가진 카드 갯수를 입력해주세요.');
         //   return;
         // }
+        // if(this.category == "몬스터" &&
+        // (this.monsterCategory== '' ||
+        // this.title== '' ||
+        // this.attribute== '' ||
+        // this.monsterType== '' ||
+        // this.effect== '' ||
+        // this.atk== '' ||
+        // this.def== '' )) {
+        //   alert('no');
+        //   return
+
+
+        // }
+
          let orica = {
       category: this.category,
       monsterCategory: this.monsterCategory,
@@ -276,12 +338,14 @@ import AppLayout from '@/Layouts/AppLayout'
         atk: this.atk,
         def: this.def,
         }
-        axios.post('http://localhost:8000/oricainsert/', orica)
+        axios.patch('http://localhost:8000/oricaupdate/'+this.response.id, orica)
         .then(response=>{
-            console.log(orica);
-        console.log(response);
+            console.log(response.data.id);
+        
+          if(response.data.id) {
+        location.href=("http://localhost:8000/oricashow/"+response.data.id)
 
-        location.href="http://localhost:8000/oricalist"
+          }
 
       })
       .catch (function (error) {

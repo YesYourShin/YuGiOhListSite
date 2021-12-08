@@ -57,6 +57,8 @@ Route::get('/oricaform', function () {
     return Inertia::render('Card/OricaForm');
 });
 Route::delete('/oricadestroy/{id}', [OricaController::class, 'destroy']);
+Route::get('/orica/{id}/edit', [OricaController::class, 'edit']);
+Route::patch('/oricaupdate/{id}', [OricaController::class, 'update']);
 Route::get('/myoricalist', [OricaController::class, 'myoricalist'])->name('myoricalist');
 Route::get('/myoricalistpage', [OricaController::class, 'myoricalistpage'])->name('myoricalistpage');
 // Route::post('/myoricalist', [OricaController::class, 'myoricalist']);

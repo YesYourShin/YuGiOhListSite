@@ -124,15 +124,7 @@ axios.get('http://localhost:8000/oricacheck/'+this.orica.user_id)
     methods: {
       editCollection() {
        // 카드 갯수가 바꼈을 때 처리
-       axios.patch('http://localhost:8000/collectionupdate/'+this.card.title, {title: this.card.title, number: this.number})
-      .then(response=>{
-        console.log('edit done');
-        console.log(response);
-        
-      })
-      .catch (function (error) {
-                console.error(error);
-            })
+        location.href=("http://localhost:8000/orica/"+this.orica.id+"/edit")
       },
       deleteCollection() {
         // db에서 카드 데이터를 삭제하고 체크를 false로 바꾼다
