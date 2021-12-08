@@ -5631,6 +5631,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5655,7 +5665,8 @@ __webpack_require__.r(__webpack_exports__);
       pScale: '',
       pEffect: '',
       link: '',
-      linkArray: '',
+      linkArray: [],
+      linkArrayItems: ['←', '→', '↑', '↓', '↖', '↙', '↗', '↘'],
       monsterType: '',
       effect: '',
       atk: '',
@@ -6000,6 +6011,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6024,7 +6043,8 @@ __webpack_require__.r(__webpack_exports__);
       pScale: '',
       pEffect: '',
       link: '',
-      linkArray: '',
+      linkArray: [],
+      linkArrayItems: ['←', '→', '↑', '↓', '↖', '↙', '↗', '↘'],
       monsterType: '',
       effect: '',
       atk: '',
@@ -40208,7 +40228,11 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "linkArray", required: "" },
+                                  attrs: {
+                                    label: "linkArray",
+                                    required: "",
+                                    readonly: "",
+                                  },
                                   model: {
                                     value: _vm.linkArray,
                                     callback: function ($$v) {
@@ -40217,6 +40241,61 @@ var render = function () {
                                     expression: "linkArray",
                                   },
                                 })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.linkArray,
+                                        expression: "linkArray",
+                                      },
+                                    ],
+                                    attrs: {
+                                      required: "",
+                                      multiple: "multiple",
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$selectedVal =
+                                          Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function (o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function (o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                        _vm.linkArray = $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      },
+                                    },
+                                  },
+                                  _vm._l(
+                                    _vm.linkArrayItems,
+                                    function (a, index) {
+                                      return _c("option", { key: index }, [
+                                        _vm._v(
+                                          "\r\n          " +
+                                            _vm._s(a) +
+                                            "\r\n        "
+                                        ),
+                                      ])
+                                    }
+                                  ),
+                                  0
+                                )
                               : _vm._e(),
                             _vm._v(" "),
                             _c("v-text-field", {
@@ -40538,7 +40617,7 @@ var render = function () {
                                 : $$selectedVal[0]
                             },
                             function ($event) {
-                              return _vm.categoryCheck()
+                              return _vm.monsterCategoryCheck()
                             },
                           ],
                         },
@@ -40683,7 +40762,11 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "linkArray", required: "" },
+                                  attrs: {
+                                    label: "linkArray",
+                                    required: "",
+                                    readonly: "",
+                                  },
                                   model: {
                                     value: _vm.linkArray,
                                     callback: function ($$v) {
@@ -40694,8 +40777,63 @@ var render = function () {
                                 })
                               : _vm._e(),
                             _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.linkArray,
+                                        expression: "linkArray",
+                                      },
+                                    ],
+                                    attrs: {
+                                      required: "",
+                                      multiple: "multiple",
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$selectedVal =
+                                          Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function (o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function (o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                        _vm.linkArray = $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      },
+                                    },
+                                  },
+                                  _vm._l(
+                                    _vm.linkArrayItems,
+                                    function (a, index) {
+                                      return _c("option", { key: index }, [
+                                        _vm._v(
+                                          "\r\n          " +
+                                            _vm._s(a) +
+                                            "\r\n        "
+                                        ),
+                                      ])
+                                    }
+                                  ),
+                                  0
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "monsteType", required: "" },
+                              attrs: { label: "monsterType", required: "" },
                               model: {
                                 value: _vm.monsterType,
                                 callback: function ($$v) {

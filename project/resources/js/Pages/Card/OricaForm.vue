@@ -22,7 +22,7 @@
 
     <div v-if="category=='몬스터'">
 
-      <select v-model="monsterCategory" @change="categoryCheck()">
+      <select v-model="monsterCategory" @change="monsterCategoryCheck()">
         <option v-for="(mc, index) in monsterCategoryItems"  :key="index">
           {{ mc }}
         </option>
@@ -87,10 +87,18 @@
             v-model="linkArray"
             label="linkArray"
             required
-          ></v-text-field>    
+            readonly
+          >
+          </v-text-field>    
+
+      <select v-model="linkArray" v-if="monsterCategory=='링크'" required multiple='multiple'>
+        <option v-for="(a, index) in linkArrayItems"  :key="index">
+          {{ a }}
+        </option>
+      </select>
         <v-text-field
             v-model="monsterType"
-            label="monsteType"
+            label="monsterType"
             required
           ></v-text-field>
           
@@ -211,7 +219,8 @@ import AppLayout from '@/Layouts/AppLayout'
         pScale: '',
         pEffect: '',
         link: '',
-        linkArray: '',
+        linkArray: [],
+        linkArrayItems: ['←', '→', '↑', '↓', '↖', '↙', '↗', '↘'],
         monsterType: '',
         effect: '',
         atk: '',
