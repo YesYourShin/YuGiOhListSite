@@ -100,7 +100,7 @@
 
         <v-text-field
             v-model="monsterType"
-            label="monsteType"
+            label="monsterType"
             required
           ></v-text-field>
           
@@ -227,9 +227,6 @@ import AppLayout from '@/Layouts/AppLayout'
         effect: '',
         atk: '',
         def: '',
-        validation: [
-          v => !!v || 'title is required'
-        ]
 
     //   levelRules: [
     //     v => !!v || 'Input Number',
@@ -313,23 +310,58 @@ import AppLayout from '@/Layouts/AppLayout'
 
           
           editOrica() {
-        //       if(this.number == null) {
-        //   alert('가진 카드 갯수를 입력해주세요.');
-        //   return;
-        // }
-        // if(this.category == "몬스터" &&
-        // (this.monsterCategory== '' ||
-        // this.title== '' ||
-        // this.attribute== '' ||
-        // this.monsterType== '' ||
-        // this.effect== '' ||
-        // this.atk== '' ||
-        // this.def== '' )) {
-        //   alert('no');
-        //   return
+        if(this.category == "몬스터" &&
+        (this.monsterCategory== '' ||
+        this.title== '' ||
+        this.attribute== '' ||
+        this.monsterType== '' ||
+        this.effect== '' ||
+        this.atk== '' ||
+        this.def== '' )) {
+          alert('no');
+          return
+        }
 
+if(this.category == "몬스터") {
+if(this.monsterCategory== '' ||
+        this.title== '' ||
+        this.attribute== '' ||
+        this.monsterType== '' ||
+        this.effect== '' ||
+        this.atk== '' ||
+        this.def== '' ) {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '엑시즈' && this.rank=='')
+        {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '펜듈럼' && (
+          this.level== ''||
+          this.pScale== ''||
+          this.pEffect== ''))
+        {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '링크' && (
+          this.link== ''||
+          this.linkArray== ''))
+        {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '그외' &&
+          this.level== '')
+        {
+          alert('no');
+          return
+        }
+}
+        
 
-        // }
 
          let orica = {
       category: this.category,

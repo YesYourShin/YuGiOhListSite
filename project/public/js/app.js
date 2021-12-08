@@ -5670,10 +5670,7 @@ __webpack_require__.r(__webpack_exports__);
       monsterType: '',
       effect: '',
       atk: '',
-      def: '',
-      validation: [function (v) {
-        return !!v || 'title is required';
-      }] //   levelRules: [
+      def: '' //   levelRules: [
       //     v => !!v || 'Input Number',
       //     v => /.+@.+/.test(v) || 'E-mail must be valid',
       //   ],
@@ -5760,21 +5757,30 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     editOrica: function editOrica() {
-      //       if(this.number == null) {
-      //   alert('가진 카드 갯수를 입력해주세요.');
-      //   return;
-      // }
-      // if(this.category == "몬스터" &&
-      // (this.monsterCategory== '' ||
-      // this.title== '' ||
-      // this.attribute== '' ||
-      // this.monsterType== '' ||
-      // this.effect== '' ||
-      // this.atk== '' ||
-      // this.def== '' )) {
-      //   alert('no');
-      //   return
-      // }
+      if (this.category == "몬스터" && (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '')) {
+        alert('no');
+        return;
+      }
+
+      if (this.category == "몬스터") {
+        if (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '') {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '엑시즈' && this.rank == '') {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '펜듈럼' && (this.level == '' || this.pScale == '' || this.pEffect == '')) {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '링크' && (this.link == '' || this.linkArray == '')) {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '그외' && this.level == '') {
+          alert('no');
+          return;
+        }
+      }
+
       var orica = {
         category: this.category,
         monsterCategory: this.monsterCategory,
@@ -6013,12 +6019,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6036,23 +6036,18 @@ __webpack_require__.r(__webpack_exports__);
       icon: '',
       iconItems: '',
       title: '',
-      attribute: null,
+      attribute: '',
       attributeItems: ['어둠', '빛', '땅', '물', '화염', '바람', '신'],
       level: '',
       rank: '',
       pScale: '',
       pEffect: '',
       link: '',
-      linkArray: [],
-      linkArrayItems: ['←', '→', '↑', '↓', '↖', '↙', '↗', '↘'],
+      linkArray: '',
       monsterType: '',
       effect: '',
       atk: '',
-      def: '' //   levelRules: [
-      //     v => !!v || 'Input Number',
-      //     v => /.+@.+/.test(v) || 'E-mail must be valid',
-      //   ],
-
+      def: ''
     };
   },
   methods: {
@@ -6087,10 +6082,30 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     makeOrica: function makeOrica() {
-      //       if(this.number == null) {
-      //   alert('가진 카드 갯수를 입력해주세요.');
-      //   return;
-      // }
+      if (this.category == "몬스터" && (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '')) {
+        alert('no');
+        return;
+      }
+
+      if (this.category == "몬스터") {
+        if (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '') {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '엑시즈' && this.rank == '') {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '펜듈럼' && (this.level == '' || this.pScale == '' || this.pEffect == '')) {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '링크' && (this.link == '' || this.linkArray == '')) {
+          alert('no');
+          return;
+        } else if (this.monsterCategory == '그외' && this.level == '') {
+          alert('no');
+          return;
+        }
+      }
+
       var orica = {
         category: this.category,
         monsterCategory: this.monsterCategory,
@@ -6112,7 +6127,10 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('http://localhost:8000/oricainsert/', orica).then(function (response) {
         console.log(orica);
         console.log(response);
-        location.href = "http://localhost:8000/oricalist";
+
+        if (response.data.id) {
+          location.href = "http://localhost:8000/oricashow/" + response.data.id;
+        }
       })["catch"](function (error) {
         console.error(error);
       });
@@ -40299,7 +40317,7 @@ var render = function () {
                               : _vm._e(),
                             _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "monsteType", required: "" },
+                              attrs: { label: "monsterType", required: "" },
                               model: {
                                 value: _vm.monsterType,
                                 callback: function ($$v) {
@@ -40762,11 +40780,7 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
                               ? _c("v-text-field", {
-                                  attrs: {
-                                    label: "linkArray",
-                                    required: "",
-                                    readonly: "",
-                                  },
+                                  attrs: { label: "linkArray", required: "" },
                                   model: {
                                     value: _vm.linkArray,
                                     callback: function ($$v) {
@@ -40775,61 +40789,6 @@ var render = function () {
                                     expression: "linkArray",
                                   },
                                 })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.monsterCategory == "링크"
-                              ? _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.linkArray,
-                                        expression: "linkArray",
-                                      },
-                                    ],
-                                    attrs: {
-                                      required: "",
-                                      multiple: "multiple",
-                                    },
-                                    on: {
-                                      change: function ($event) {
-                                        var $$selectedVal =
-                                          Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function (o) {
-                                                return o.selected
-                                              }
-                                            )
-                                            .map(function (o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                        _vm.linkArray = $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      },
-                                    },
-                                  },
-                                  _vm._l(
-                                    _vm.linkArrayItems,
-                                    function (a, index) {
-                                      return _c("option", { key: index }, [
-                                        _vm._v(
-                                          "\r\n          " +
-                                            _vm._s(a) +
-                                            "\r\n        "
-                                        ),
-                                      ])
-                                    }
-                                  ),
-                                  0
-                                )
                               : _vm._e(),
                             _vm._v(" "),
                             _c("v-text-field", {

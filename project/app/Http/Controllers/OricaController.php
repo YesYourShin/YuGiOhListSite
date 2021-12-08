@@ -79,6 +79,7 @@ class OricaController extends Controller
                 'monsterCategory' => 'nullable',
                 'atk' => 'nullable',
                 'def' => 'nullable',
+                
             ]);
 
             if ($validator->fails()){
@@ -87,7 +88,7 @@ class OricaController extends Controller
             }
             
 
-            Orica::create([
+            $orica = Orica::create([
                 'title' => $title,
                 'effect' => $effect,
                 'pEffect' => $pEffect,
@@ -107,7 +108,7 @@ class OricaController extends Controller
             ]);
     
 
-        return response([isset($request['level']), 'success']);
+        return response(['success', 'id' => $orica -> id]);
     }
 
     /**

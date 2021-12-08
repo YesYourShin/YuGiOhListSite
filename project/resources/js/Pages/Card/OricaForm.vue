@@ -87,15 +87,9 @@
             v-model="linkArray"
             label="linkArray"
             required
-            readonly
           >
           </v-text-field>    
 
-      <select v-model="linkArray" v-if="monsterCategory=='링크'" required multiple='multiple'>
-        <option v-for="(a, index) in linkArrayItems"  :key="index">
-          {{ a }}
-        </option>
-      </select>
         <v-text-field
             v-model="monsterType"
             label="monsterType"
@@ -212,24 +206,19 @@ import AppLayout from '@/Layouts/AppLayout'
       icon: '',
       iconItems: '',
       title: '',
-      attribute: null,
+      attribute: '',
       attributeItems: ['어둠', '빛', '땅', '물', '화염', '바람', '신'],
         level: '',
         rank: '',
         pScale: '',
         pEffect: '',
         link: '',
-        linkArray: [],
-        linkArrayItems: ['←', '→', '↑', '↓', '↖', '↙', '↗', '↘'],
+        linkArray: '',
         monsterType: '',
         effect: '',
         atk: '',
         def: '',
 
-    //   levelRules: [
-    //     v => !!v || 'Input Number',
-    //     v => /.+@.+/.test(v) || 'E-mail must be valid',
-    //   ],
       
     }),
     methods: {
@@ -263,10 +252,56 @@ import AppLayout from '@/Layouts/AppLayout'
 
           
           makeOrica() {
-        //       if(this.number == null) {
-        //   alert('가진 카드 갯수를 입력해주세요.');
-        //   return;
-        // }
+            if(this.category == "몬스터" &&
+        (this.monsterCategory== '' ||
+        this.title== '' ||
+        this.attribute== '' ||
+        this.monsterType== '' ||
+        this.effect== '' ||
+        this.atk== '' ||
+        this.def== '' )) {
+          alert('no');
+          return
+        }
+
+if(this.category == "몬스터") {
+if(this.monsterCategory== '' ||
+        this.title== '' ||
+        this.attribute== '' ||
+        this.monsterType== '' ||
+        this.effect== '' ||
+        this.atk== '' ||
+        this.def== '' ) {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '엑시즈' && this.rank=='')
+        {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '펜듈럼' && (
+          this.level== ''||
+          this.pScale== ''||
+          this.pEffect== ''))
+        {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '링크' && (
+          this.link== ''||
+          this.linkArray== ''))
+        {
+          alert('no');
+          return
+        }
+        else if(this.monsterCategory== '그외' &&
+          this.level== '')
+        {
+          alert('no');
+          return
+        }
+}
          let orica = {
       category: this.category,
       monsterCategory: this.monsterCategory,
@@ -289,8 +324,10 @@ import AppLayout from '@/Layouts/AppLayout'
         .then(response=>{
             console.log(orica);
         console.log(response);
+if(response.data.id) {
+        location.href=("http://localhost:8000/oricashow/"+response.data.id)
 
-        location.href="http://localhost:8000/oricalist"
+          }
 
       })
       .catch (function (error) {
