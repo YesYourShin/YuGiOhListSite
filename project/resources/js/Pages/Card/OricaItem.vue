@@ -72,7 +72,7 @@
         text
         @click="editCollection"
       >
-        변경하기
+        수정하기
 </v-btn>
         <v-btn v-if="check==true"
         color="deep-purple lighten-2"
@@ -103,19 +103,31 @@ export default {
     mounted() {
       axios.get('http://localhost:8000/oricashow/'+this.orica.id)
       .then(response=>{
-          console.log(response)
+
+axios.get('http://localhost:8000/oricacheck/'+this.orica.user_id)
+      .then(response=>{
+        if (response.data.check) {
+          this.check = true;
+        }
+          
       })
       .catch (function (error) {
                 console.error(error);
             })
+
+      })
+      .catch (function (error) {
+                console.error(error);
+            })
+      
     },
     methods: {
       editCollection() {
        // 카드 갯수가 바꼈을 때 처리
        axios.patch('http://localhost:8000/collectionupdate/'+this.card.title, {title: this.card.title, number: this.number})
       .then(response=>{
-        console.log(response);
         console.log('edit done');
+        console.log(response);
         
       })
       .catch (function (error) {
@@ -124,12 +136,12 @@ export default {
       },
       deleteCollection() {
         // db에서 카드 데이터를 삭제하고 체크를 false로 바꾼다
-         axios.delete('http://localhost:8000/collectiondestroy/'+this.card.title)
+         axios.delete('http://localhost:8000/oricadestroy/'+this.orica.id)
       .then(response=>{
-        console.log(response);
-        this.check=false;
-        this.number='';
+        
         console.log('delete done');
+        console.log(response);
+        location.href="http://localhost:8000/oricalist"
         
       })
       .catch (function (error) {

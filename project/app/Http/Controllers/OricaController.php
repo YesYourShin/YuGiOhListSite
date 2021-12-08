@@ -155,7 +155,11 @@ class OricaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        DB::table('oricas')->where('id','like', $id)->delete();
+
+        
+        return ['success' => true];
     }
 
     public function oricalist()
@@ -195,5 +199,16 @@ class OricaController extends Controller
         
         return ['response' => $oricas, 'success' => 1];
 
+    }
+
+    public function check($user_id)
+    {
+        $auth = Auth::id();
+
+        if ($auth == $user_id) {
+            return ['check' => true];
+        } 
+
+        return ['check' => false];
     }
 }

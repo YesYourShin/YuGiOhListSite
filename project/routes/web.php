@@ -52,9 +52,11 @@ Route::get('/oricalist', [OricaController::class, 'oricalist'])->name('oricalist
 Route::get('/oricalistpage', [OricaController::class, 'oricalistpage'])->name('oricalistpage');
 Route::get('/oricasearch/{search}', [OricaController::class, 'search']);
 Route::get('/oricashow/{id}', [OricaController::class, 'show']);
+Route::get('/oricacheck/{id}', [OricaController::class, 'check']);
 Route::get('/oricaform', function () {
     return Inertia::render('Card/OricaForm');
 });
+Route::delete('/oricadestroy/{id}', [OricaController::class, 'destroy']);
 Route::get('/myoricalist', [OricaController::class, 'myoricalist'])->name('myoricalist');
 Route::get('/myoricalistpage', [OricaController::class, 'myoricalistpage'])->name('myoricalistpage');
 // Route::post('/myoricalist', [OricaController::class, 'myoricalist']);

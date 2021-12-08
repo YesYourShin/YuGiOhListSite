@@ -5841,8 +5841,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricashow/' + this.orica.id).then(function (response) {
-      console.log(response);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricacheck/' + _this.orica.user_id).then(function (response) {
+        if (response.data.check) {
+          _this.check = true;
+        }
+      })["catch"](function (error) {
+        console.error(error);
+      });
     })["catch"](function (error) {
       console.error(error);
     });
@@ -5854,21 +5862,18 @@ __webpack_require__.r(__webpack_exports__);
         title: this.card.title,
         number: this.number
       }).then(function (response) {
-        console.log(response);
         console.log('edit done');
+        console.log(response);
       })["catch"](function (error) {
         console.error(error);
       });
     },
     deleteCollection: function deleteCollection() {
-      var _this = this;
-
       // db에서 카드 데이터를 삭제하고 체크를 false로 바꾼다
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.title).then(function (response) {
-        console.log(response);
-        _this.check = false;
-        _this.number = '';
+      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/oricadestroy/' + this.orica.id).then(function (response) {
         console.log('delete done');
+        console.log(response);
+        location.href = "http://localhost:8000/oricalist";
       })["catch"](function (error) {
         console.error(error);
       });
@@ -40134,7 +40139,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.editCollection },
                     },
-                    [_vm._v("\n        변경하기\n")]
+                    [_vm._v("\n        수정하기\n")]
                   )
                 : _vm._e(),
               _vm._v(" "),
