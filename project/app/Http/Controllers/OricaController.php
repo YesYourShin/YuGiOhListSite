@@ -168,7 +168,6 @@ class OricaController extends Controller
     {
         
         $oricas = DB::table('oricas')->orderBy('id', 'DESC')->paginate(10);
-        
         return ['response' => $oricas, 'success' => 1];
 
     }

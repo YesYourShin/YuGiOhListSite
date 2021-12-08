@@ -5100,12 +5100,12 @@ __webpack_require__.r(__webpack_exports__);
       search: '',
       search1: '',
       filter: {},
-      sortBy: 'id',
-      sortDesc: true,
+      sortBy: 'title',
+      sortDesc: false,
       // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
       //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
       //         'atk', 'def', 'limited', ],
-      keys: ['title', 'id']
+      keys: ['title']
     };
   },
   mounted: function mounted() {
@@ -5340,7 +5340,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       // cards : null,
-      cards: [],
+      oricas: [],
       currentPage: null,
       lastPage: 0,
       itemsPerPage: null,
@@ -5360,7 +5360,7 @@ __webpack_require__.r(__webpack_exports__);
 
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/myoricalistpage').then(function (response) {
       var res = response.data.response;
-      _this.cards = res.data;
+      _this.oricas = res.data;
       _this.currentPage = res.current_page;
       _this.lastPage = res.last_page;
       _this.itemsPerPage = res.per_page;
@@ -5385,7 +5385,7 @@ __webpack_require__.r(__webpack_exports__);
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
           console.log(response.data.response);
           var res = response.data.response;
-          _this2.cards = res.data;
+          _this2.oricas = res.data;
           _this2.currentPage = res.current_page;
           _this2.lastPage = res.last_page;
           _this2.itemsPerPage = res.per_page;
@@ -5397,7 +5397,7 @@ __webpack_require__.r(__webpack_exports__);
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
           console.log(response.data);
-          _this2.cards = response.data.data;
+          _this2.oricas = response.data.data;
           _this2.currentPage = response.data.current_page;
           _this2.lastPage = response.data.last_page;
           _this2.itemsPerPage = response.data.itemsPerPage;
@@ -5412,7 +5412,7 @@ __webpack_require__.r(__webpack_exports__);
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionsearch/' + this.search1).then(function (response) {
         console.log(response);
-        _this3.cards = response.data.data;
+        _this3.oricas = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
         _this3.itemsPerPage = response.data.itemsPerPage;
@@ -6031,7 +6031,6 @@ __webpack_require__.r(__webpack_exports__);
  // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['response', 'success'],
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__.Link,
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -39211,7 +39210,7 @@ var render = function () {
             [
               _c("v-data-iterator", {
                 attrs: {
-                  items: _vm.cards,
+                  items: _vm.oricas,
                   "items-per-page": _vm.itemsPerPage,
                   page: _vm.currentPage,
                   "sort-by": _vm.sortBy.toLowerCase(),
@@ -39359,11 +39358,11 @@ var render = function () {
                       return [
                         _c(
                           "v-row",
-                          _vm._l(props.items, function (card) {
+                          _vm._l(props.items, function (orica) {
                             return _c(
                               "v-col",
                               {
-                                key: card.id,
+                                key: orica.id,
                                 attrs: {
                                   cols: "12",
                                   sm: "6",
@@ -39382,10 +39381,10 @@ var render = function () {
                                           "Link",
                                           {
                                             attrs: {
-                                              href: "show/" + card.card_id,
+                                              href: "oricashow/" + orica.id,
                                             },
                                           },
-                                          [_vm._v(_vm._s(card.title))]
+                                          [_vm._v(_vm._s(orica.title))]
                                         ),
                                       ],
                                       1
@@ -39433,7 +39432,7 @@ var render = function () {
                                                   _vm._v(
                                                     "\n                                    " +
                                                       _vm._s(
-                                                        card[key.toLowerCase()]
+                                                        orica[key.toLowerCase()]
                                                       ) +
                                                       "\n                                "
                                                   ),

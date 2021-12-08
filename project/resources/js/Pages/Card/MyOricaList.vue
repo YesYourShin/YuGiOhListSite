@@ -6,7 +6,7 @@
     
     <v-container>
         <v-data-iterator
-            :items="cards"
+            :items="oricas"
             :items-per-page="itemsPerPage"
             :page.sync="currentPage"
             :sort-by="sortBy.toLowerCase()"
@@ -72,8 +72,8 @@
             <template v-slot:default="props">
                 <v-row>
                     <v-col
-                        v-for="card in props.items"
-                        :key="card.id"
+                        v-for="orica in props.items"
+                        :key="orica.id"
                         cols="12"
                         sm="6"
                         md="4"
@@ -81,7 +81,7 @@
                     >
                         <v-card>
                             <v-card-title>
-                                <Link :href="'show/'+card.card_id">{{ card.title }}</Link>
+                                <Link :href="'oricashow/'+orica.id">{{ orica.title }}</Link>
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-list dense>
@@ -97,7 +97,7 @@
                                         class="align-end"
                                         :class="{ 'blue--text': sortBy === key }"
                                     >
-                                        {{ card[key.toLowerCase()] }}
+                                        {{ orica[key.toLowerCase()] }}
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list>
@@ -144,7 +144,7 @@ export default {
     data() {
         return {
             // cards : null,
-            cards : [],
+            oricas : [],
             currentPage : null,
             lastPage : 0,
             itemsPerPage : null,
@@ -163,7 +163,7 @@ export default {
         axios.get('http://localhost:8000/myoricalistpage')
         .then(response=>{
         let res = response.data.response
-            this.cards = res.data
+            this.oricas = res.data
             this.currentPage = res.current_page
             this.lastPage = res.last_page
             this.itemsPerPage = res.per_page
@@ -186,7 +186,7 @@ export default {
                 .then(response=>{
                     console.log(response.data.response);
                     let res = response.data.response
-                    this.cards = res.data
+                    this.oricas = res.data
                     this.currentPage = res.current_page
                     this.lastPage = res.last_page
                     this.itemsPerPage = res.per_page
@@ -199,7 +199,7 @@ export default {
                 axios.get(url)
                 .then(response=>{
                     console.log(response.data);
-                    this.cards = response.data.data
+                    this.oricas = response.data.data
                     this.currentPage = response.data.current_page
                     this.lastPage = response.data.last_page
                     this.itemsPerPage = response.data.itemsPerPage
@@ -214,7 +214,7 @@ export default {
             axios.get('http://localhost:8000/collectionsearch/'+ this.search1)
             .then(response=>{
                 console.log(response);
-                this.cards = response.data.data
+                this.oricas = response.data.data
                 this.currentPage = response.data.current_page
                 this.lastPage = response.data.last_page
                 this.itemsPerPage = response.data.itemsPerPage

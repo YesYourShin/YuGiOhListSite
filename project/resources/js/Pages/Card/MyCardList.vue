@@ -151,12 +151,12 @@ export default {
             search: '',
             search1: '',
             filter: {},
-            sortBy: 'id',
-            sortDesc: true,
+            sortBy: 'title',
+            sortDesc: false,
             // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
             //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
             //         'atk', 'def', 'limited', ],
-            keys: ['title', 'id'],
+            keys: ['title'],
         }
     },
     mounted() {
