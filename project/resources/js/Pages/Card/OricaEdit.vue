@@ -214,7 +214,7 @@ import AppLayout from '@/Layouts/AppLayout'
       icon: '',
       iconItems: '',
       title: '',
-      attribute: null,
+      attribute: '',
       attributeItems: ['어둠', '빛', '땅', '물', '화염', '바람', '신'],
         level: '',
         rank: '',

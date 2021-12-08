@@ -198,7 +198,7 @@ export default {
                     console.error(error);
                 })
             } else {
-                let url = 'http://localhost:8000/search/' + this.search1+ '?page=' + value
+                let url = 'http://localhost:8000/myoricasearch/' + this.search1+ '?page=' + value
                 axios.get(url)
                 .then(response=>{
                     console.log(response.data);
@@ -214,7 +214,7 @@ export default {
         },
         getSearch() {
             this.search1 = this.search
-            axios.get('http://localhost:8000/collectionsearch/'+ this.search1)
+            axios.get('http://localhost:8000/myoricasearch/'+ this.search1)
             .then(response=>{
                 console.log(response);
                 this.oricas = response.data.data

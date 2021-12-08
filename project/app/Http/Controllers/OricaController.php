@@ -236,8 +236,7 @@ class OricaController extends Controller
     }
 
     public function search ($search) {
-        dd($search);
-        $oricas = DB::table('oricas')->where('title', 'like', '%'.$search.'%')->paginate(10);
+        $oricas = DB::table('oricas')->where('title', 'like', '%'.$search.'%')->orderBy('id', 'DESC')->paginate(10);
 
         return $oricas;
         
@@ -269,5 +268,19 @@ class OricaController extends Controller
         } 
 
         return ['check' => false];
+    }
+
+    public function mysearch ($search) {
+
+        $user_id = Auth::id();
+
+        $oricas = DB::table('oricas')->where([
+            ['user_id','like',$user_id],
+            ['title', 'like', '%'.$search.'%']
+
+            ])->orderBy('id', 'DESC')->paginate(10);
+
+        return $oricas;
+        
     }
 }

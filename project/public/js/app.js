@@ -5396,7 +5396,7 @@ __webpack_require__.r(__webpack_exports__);
           console.error(error);
         });
       } else {
-        var _url = 'http://localhost:8000/search/' + this.search1 + '?page=' + value;
+        var _url = 'http://localhost:8000/myoricasearch/' + this.search1 + '?page=' + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
           console.log(response.data);
@@ -5413,7 +5413,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.search1 = this.search;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionsearch/' + this.search1).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/myoricasearch/' + this.search1).then(function (response) {
         console.log(response);
         _this3.oricas = response.data.data;
         _this3.currentPage = response.data.current_page;
@@ -5658,7 +5658,7 @@ __webpack_require__.r(__webpack_exports__);
       icon: '',
       iconItems: '',
       title: '',
-      attribute: null,
+      attribute: '',
       attributeItems: ['어둠', '빛', '땅', '물', '화염', '바람', '신'],
       level: '',
       rank: '',
@@ -6515,6 +6515,7 @@ __webpack_require__.r(__webpack_exports__);
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
           console.log(response.data);
+          var res = response.data;
           _this2.oricas = res.data;
           _this2.currentPage = res.current_page;
           _this2.lastPage = res.last_page;

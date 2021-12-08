@@ -61,4 +61,5 @@ Route::get('/orica/{id}/edit', [OricaController::class, 'edit']);
 Route::patch('/oricaupdate/{id}', [OricaController::class, 'update']);
 Route::get('/myoricalist', [OricaController::class, 'myoricalist'])->name('myoricalist');
 Route::get('/myoricalistpage', [OricaController::class, 'myoricalistpage'])->name('myoricalistpage');
+Route::get('/myoricasearch/{search}', [OricaController::class, 'mysearch']);
 // Route::post('/myoricalist', [OricaController::class, 'myoricalist']);

@@ -212,6 +212,7 @@ this.oricas = res.data
                 axios.get(url)
                 .then(response=>{
                     console.log(response.data);
+                    let res = response.data
                     this.oricas = res.data
                     this.currentPage = res.current_page
                     this.lastPage = res.last_page
