@@ -4571,18 +4571,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4600,29 +4588,15 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    // axios.get('http://localhost:8000/show/'+this.title )
-    // .then(response=>{
-    //   console.log(this.id)
-    //   console.log(response)
-    this.card = this.response; // console.log(this.card)
-
+    this.card = this.response;
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionshow/' + this.card.id).then(function (response) {
       if (response.data.collection) {
         _this.number = response.data.collection.number;
         _this.check = true;
-      } // this.number = response.data.collection.number;
-      // console.log(response)
-      // if(this.number > 0){
-      //   this.check=true;
-      // }
-
+      }
     })["catch"](function (error) {
-      // console.log(this.card.title);
       console.error(error);
-    }); // })
-    // .catch (function (error) {
-    //           console.error(error);
-    //       })
+    });
   },
   methods: {
     addCollection: function addCollection() {
@@ -4633,39 +4607,30 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      console.log(this.card.title);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('http://localhost:8000/collectioninsert', {
         title: this.card.title,
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
-        console.log(response.data);
         _this2.check = true;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     editCollection: function editCollection() {
-      // 카드 갯수가 바꼈을 때 처리
       axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/collectionupdate/' + this.card.id, {
         number: this.number,
         card_id: this.card.id
-      }).then(function (response) {
-        console.log(response);
-        console.log('edit done');
-      })["catch"](function (error) {
+      }).then(function (response) {})["catch"](function (error) {
         console.error(error);
       });
     },
     deleteCollection: function deleteCollection() {
       var _this3 = this;
 
-      // db에서 카드 데이터를 삭제하고 체크를 false로 바꾼다
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.id).then(function (response) {
-        console.log(response);
         _this3.check = false;
         _this3.number = '';
-        console.log('delete done');
       })["catch"](function (error) {
         console.error(error);
       });
@@ -4819,16 +4784,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
  // import CardItem from './CardItem.vue';
@@ -4840,7 +4795,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      // cards : null,
       cards: [],
       currentPage: null,
       lastPage: 0,
@@ -4859,8 +4813,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    // axios.get('http://localhost:8000/cardlist')
-    // .then(response=>{
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/cardlistpage').then(function (response) {
       var res = response.data.response;
       _this.cards = res.data;
@@ -4869,10 +4821,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.itemsPerPage = res.per_page;
     })["catch"](function (error) {
       console.error(error);
-    }); // })
-    // .catch (function (error) {
-    //     console.error(error);
-    // }) 
+    });
   },
   computed: {
     filteredKeys: function filteredKeys() {
@@ -4916,7 +4865,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/search/' + this.search1).then(function (response) {
-        console.log(response);
         var res = response.data;
         _this3.cards = res.data;
         _this3.currentPage = res.current_page;
@@ -5070,20 +5018,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
- // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5092,7 +5028,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      // cards : null,
       cards: [],
       currentPage: null,
       lastPage: 0,
@@ -5136,7 +5071,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.search1) {
         var url = 'http://localhost:8000/collectionlistpage?page=' + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
-          console.log(response.data.response);
           var res = response.data.response;
           _this2.cards = res.data;
           _this2.currentPage = res.current_page;
@@ -5149,7 +5083,6 @@ __webpack_require__.r(__webpack_exports__);
         var _url = 'http://localhost:8000/search/' + this.search1 + '?page=' + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
-          console.log(response.data);
           _this2.cards = response.data.data;
           _this2.currentPage = response.data.current_page;
           _this2.lastPage = response.data.last_page;
@@ -5164,7 +5097,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionsearch/' + this.search1).then(function (response) {
-        console.log(response);
         _this3.cards = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
@@ -5322,18 +5254,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
- // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5342,7 +5264,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      // cards : null,
       oricas: [],
       currentPage: null,
       lastPage: 0,
@@ -5386,7 +5307,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.search1) {
         var url = 'http://localhost:8000/myoricalistpage?page=' + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
-          console.log(response.data.response);
           var res = response.data.response;
           _this2.oricas = res.data;
           _this2.currentPage = res.current_page;
@@ -5399,7 +5319,6 @@ __webpack_require__.r(__webpack_exports__);
         var _url = 'http://localhost:8000/myoricasearch/' + this.search1 + '?page=' + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
-          console.log(response.data);
           _this2.oricas = response.data.data;
           _this2.currentPage = response.data.current_page;
           _this2.lastPage = response.data.last_page;
@@ -5414,7 +5333,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/myoricasearch/' + this.search1).then(function (response) {
-        console.log(response);
         _this3.oricas = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
@@ -5442,25 +5360,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5670,15 +5569,10 @@ __webpack_require__.r(__webpack_exports__);
       monsterType: '',
       effect: '',
       atk: '',
-      def: '' //   levelRules: [
-      //     v => !!v || 'Input Number',
-      //     v => /.+@.+/.test(v) || 'E-mail must be valid',
-      //   ],
-
+      def: ''
     };
   },
   mounted: function mounted() {
-    console.log(this.response);
     var res = this.response;
     this.category = res.category;
 
@@ -5800,8 +5694,6 @@ __webpack_require__.r(__webpack_exports__);
         def: this.def
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/oricaupdate/' + this.response.id, orica).then(function (response) {
-        console.log(response.data.id);
-
         if (response.data.id) {
           location.href = "http://localhost:8000/oricashow/" + response.data.id;
         }
@@ -5828,59 +5720,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6083,7 +5922,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     makeOrica: function makeOrica() {
       if (this.category == "몬스터" && (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '')) {
-        alert('no');
+        alert('모든 항목을 채워주세요.');
         return;
       }
 
@@ -6125,9 +5964,6 @@ __webpack_require__.r(__webpack_exports__);
         def: this.def
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('http://localhost:8000/oricainsert/', orica).then(function (response) {
-        console.log(orica);
-        console.log(response);
-
         if (response.data.id) {
           location.href = "http://localhost:8000/oricashow/" + response.data.id;
         }
@@ -6154,15 +5990,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6271,14 +6098,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     editCollection: function editCollection() {
-      // 카드 갯수가 바꼈을 때 처리
       location.href = "http://localhost:8000/orica/" + this.orica.id + "/edit";
     },
     deleteCollection: function deleteCollection() {
-      // db에서 카드 데이터를 삭제하고 체크를 false로 바꾼다
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/oricadestroy/' + this.orica.id).then(function (response) {
-        console.log('delete done');
-        console.log(response);
         location.href = "http://localhost:8000/oricalist";
       })["catch"](function (error) {
         console.error(error);
@@ -6434,15 +6257,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
- // import CardItem from './CardItem.vue';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -6451,7 +6267,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      // cards : null,
       oricas: [],
       currentPage: null,
       lastPage: 0,
@@ -6472,10 +6287,8 @@ __webpack_require__.r(__webpack_exports__);
 
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricalist').then(function (response) {
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricalistpage').then(function (response) {
-        console.log(response.data.response);
         var res = response.data.response;
         _this.oricas = res.data;
-        console.log(_this.oricas);
         _this.currentPage = res.current_page;
         _this.lastPage = res.last_page;
         _this.itemsPerPage = res.per_page;
@@ -6501,7 +6314,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.search1) {
         var url = 'http://localhost:8000/oricalistpage?page=' + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
-          console.log(response);
           var res = response.data.response;
           _this2.oricas = res.data;
           _this2.currentPage = res.current_page;
@@ -6514,7 +6326,6 @@ __webpack_require__.r(__webpack_exports__);
         var _url = 'http://localhost:8000/oricasearch/' + this.search1 + '?page=' + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
-          console.log(response.data);
           var res = response.data;
           _this2.oricas = res.data;
           _this2.currentPage = res.current_page;
@@ -38822,7 +38633,10 @@ var render = function () {
           ),
           _vm._v(" "),
           _c("v-img", {
-            attrs: { height: "250", src: "../../public/no_image.png" },
+            attrs: {
+              height: "250",
+              src: "../../../../storage/app/public/no_image.png",
+            },
           }),
           _vm._v(" "),
           _c("v-card-title", [_vm._v(_vm._s(_vm.card.title))]),
@@ -38832,16 +38646,16 @@ var render = function () {
             [
               _vm.card.icon
                 ? _c("div", [
-                    _vm._v("\r\n      " + _vm._s(_vm.card.icon) + "\r\n    "),
+                    _vm._v("\n        " + _vm._s(_vm.card.icon) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.attribute
                 ? _c("div", [
                     _vm._v(
-                      "\r\n       속성 " +
+                      "\n        속성 " +
                         _vm._s(_vm.card.attribute) +
-                        "\r\n    "
+                        "\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -38849,14 +38663,14 @@ var render = function () {
               _vm.card.level
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("레벨 " + _vm._s(_vm.card.level) + "\r\n    "),
+                    _vm._v("레벨 " + _vm._s(_vm.card.level) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.rank
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("랭크 " + _vm._s(_vm.card.rank) + "\r\n    "),
+                    _vm._v("랭크 " + _vm._s(_vm.card.rank) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -38864,7 +38678,7 @@ var render = function () {
                 ? _c("div", [
                     _c("br"),
                     _vm._v(
-                      "펜듈럼 스케일 " + _vm._s(_vm.card.pScale) + "\r\n    "
+                      "펜듈럼 스케일 " + _vm._s(_vm.card.pScale) + "\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -38872,7 +38686,7 @@ var render = function () {
               _vm.card.link
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("링크 " + _vm._s(_vm.card.link) + "\r\n    "),
+                    _vm._v("링크 " + _vm._s(_vm.card.link) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -38881,18 +38695,18 @@ var render = function () {
                     _c("br"),
                     _vm._v("펜듈럼 효과 "),
                     _c("br"),
-                    _vm._v(" " + _vm._s(_vm.card.pEffect) + "\r\n    "),
+                    _vm._v(" " + _vm._s(_vm.card.pEffect) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.monsterType
                 ? _c("div", { staticClass: "my-4 text-subtitle-1" }, [
                     _vm._v(
-                      "\r\n        " +
+                      "\n        " +
                         _vm._s(_vm.card.monsterType) +
                         " • " +
                         _vm._s(_vm.card.cardType) +
-                        "\r\n      "
+                        "\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -38904,7 +38718,7 @@ var render = function () {
               _vm.card.atk
                 ? _c("div", [
                     _vm._v(
-                      "\r\n      ATK " + _vm._s(_vm.card.atk) + "\r\n    "
+                      "\n        ATK " + _vm._s(_vm.card.atk) + "\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -38912,7 +38726,7 @@ var render = function () {
               _vm.card.def
                 ? _c("div", [
                     _vm._v(
-                      "\r\n      DEF " + _vm._s(_vm.card.def) + " \r\n    "
+                      "\n        DEF " + _vm._s(_vm.card.def) + " \n      "
                     ),
                   ])
                 : _vm._e(),
@@ -38959,7 +38773,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.addCollection },
                     },
-                    [_vm._v("\r\n        추가하기\r\n      ")]
+                    [_vm._v("\n        추가하기\n      ")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -38970,7 +38784,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.editCollection },
                     },
-                    [_vm._v("\r\n        변경하기\r\n")]
+                    [_vm._v("\n        변경하기\n      ")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -38981,7 +38795,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.deleteCollection },
                     },
-                    [_vm._v("\r\n        삭제하기\r\n      ")]
+                    [_vm._v("\n        삭제하기\n      ")]
                   )
                 : _vm._e(),
             ],
@@ -39034,7 +38848,7 @@ var render = function () {
                       staticClass:
                         "font-semibold text-xl text-gray-800 leading-tight",
                     },
-                    [_vm._v("\n            MyCardList\n        ")]
+                    [_vm._v("\n                MyCardList\n            ")]
                   ),
                 ]
               },
@@ -39102,7 +38916,7 @@ var render = function () {
                               },
                               [
                                 _vm._v(
-                                  "\n                    검색\n                "
+                                  "\n                            검색\n                        "
                                 ),
                               ]
                             ),
@@ -39221,7 +39035,13 @@ var render = function () {
                                           {
                                             attrs: { href: "show/" + card.id },
                                           },
-                                          [_vm._v(_vm._s(card.title))]
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(card.title) +
+                                                "\n                                    "
+                                            ),
+                                          ]
                                         ),
                                       ],
                                       1
@@ -39249,9 +39069,9 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                    " +
+                                                    "\n                                            " +
                                                       _vm._s(key) +
-                                                      ":\n                                "
+                                                      ":\n                                        "
                                                   ),
                                                 ]
                                               ),
@@ -39267,11 +39087,11 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                    " +
+                                                    "\n                                            " +
                                                       _vm._s(
                                                         card[key.toLowerCase()]
                                                       ) +
-                                                      "\n                                "
+                                                      "\n                                        "
                                                   ),
                                                 ]
                                               ),
@@ -39425,7 +39245,7 @@ var render = function () {
                               },
                               [
                                 _vm._v(
-                                  "\n                    검색\n                "
+                                  "\n                            검색\n                        "
                                 ),
                               ]
                             ),
@@ -39546,7 +39366,13 @@ var render = function () {
                                               href: "show/" + card.card_id,
                                             },
                                           },
-                                          [_vm._v(_vm._s(card.title))]
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(card.title) +
+                                                "\n                                    "
+                                            ),
+                                          ]
                                         ),
                                       ],
                                       1
@@ -39574,9 +39400,9 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                    " +
+                                                    "\n                                            " +
                                                       _vm._s(key) +
-                                                      ":\n                                "
+                                                      ":\n                                        "
                                                   ),
                                                 ]
                                               ),
@@ -39592,11 +39418,11 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                    " +
+                                                    "\n                                            " +
                                                       _vm._s(
                                                         card[key.toLowerCase()]
                                                       ) +
-                                                      "\n                                "
+                                                      "\n                                        "
                                                   ),
                                                 ]
                                               ),
@@ -39750,7 +39576,7 @@ var render = function () {
                               },
                               [
                                 _vm._v(
-                                  "\n                    검색\n                "
+                                  "\n                            검색\n                        "
                                 ),
                               ]
                             ),
@@ -39883,7 +39709,13 @@ var render = function () {
                                               href: "oricashow/" + orica.id,
                                             },
                                           },
-                                          [_vm._v(_vm._s(orica.title))]
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(orica.title) +
+                                                "\n                                    "
+                                            ),
+                                          ]
                                         ),
                                       ],
                                       1
@@ -39911,9 +39743,9 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                    " +
+                                                    "\n                                            " +
                                                       _vm._s(key) +
-                                                      ":\n                                "
+                                                      ":\n                                        "
                                                   ),
                                                 ]
                                               ),
@@ -39929,11 +39761,11 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                    " +
+                                                    "\n                                            " +
                                                       _vm._s(
                                                         orica[key.toLowerCase()]
                                                       ) +
-                                                      "\n                                "
+                                                      "\n                                        "
                                                   ),
                                                 ]
                                               ),
@@ -40067,7 +39899,7 @@ var render = function () {
                 },
                 _vm._l(_vm.categoryItems, function (c, index) {
                   return _c("option", { key: index }, [
-                    _vm._v("\r\n          " + _vm._s(c) + "\r\n        "),
+                    _vm._v("\n          " + _vm._s(c) + "\n        "),
                   ])
                 }),
                 0
@@ -40109,9 +39941,7 @@ var render = function () {
                       },
                       _vm._l(_vm.monsterCategoryItems, function (mc, index) {
                         return _c("option", { key: index }, [
-                          _vm._v(
-                            "\r\n          " + _vm._s(mc) + "\r\n        "
-                          ),
+                          _vm._v("\n          " + _vm._s(mc) + "\n        "),
                         ])
                       }),
                       0
@@ -40170,9 +40000,9 @@ var render = function () {
                               _vm._l(_vm.attributeItems, function (a, index) {
                                 return _c("option", { key: index }, [
                                   _vm._v(
-                                    "\r\n          " +
+                                    "\n            " +
                                       _vm._s(a) +
-                                      "\r\n        "
+                                      "\n          "
                                   ),
                                 ])
                               }),
@@ -40306,9 +40136,9 @@ var render = function () {
                                     function (a, index) {
                                       return _c("option", { key: index }, [
                                         _vm._v(
-                                          "\r\n          " +
+                                          "\n            " +
                                             _vm._s(a) +
-                                            "\r\n        "
+                                            "\n          "
                                         ),
                                       ])
                                     }
@@ -40405,7 +40235,7 @@ var render = function () {
                         _vm._l(_vm.iconItems, function (i, index) {
                           return _c("option", { key: index }, [
                             _vm._v(
-                              "\r\n          " + _vm._s(i) + "\r\n        "
+                              "\n            " + _vm._s(i) + "\n          "
                             ),
                           ])
                         }),
@@ -40472,7 +40302,7 @@ var render = function () {
                         _vm._l(_vm.iconItems, function (i, index) {
                           return _c("option", { key: index }, [
                             _vm._v(
-                              "\r\n          " + _vm._s(i) + "\r\n        "
+                              "\n            " + _vm._s(i) + "\n          "
                             ),
                           ])
                         }),
@@ -40512,7 +40342,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.editOrica },
                     },
-                    [_vm._v("\r\n        카드 만들기\r\n      ")]
+                    [_vm._v("\n        카드 만들기\n      ")]
                   )
                 : _vm._e(),
             ],
@@ -40601,7 +40431,7 @@ var render = function () {
                 },
                 _vm._l(_vm.categoryItems, function (c, index) {
                   return _c("option", { key: index }, [
-                    _vm._v("\r\n          " + _vm._s(c) + "\r\n        "),
+                    _vm._v("\n          " + _vm._s(c) + "\n        "),
                   ])
                 }),
                 0
@@ -40643,9 +40473,7 @@ var render = function () {
                       },
                       _vm._l(_vm.monsterCategoryItems, function (mc, index) {
                         return _c("option", { key: index }, [
-                          _vm._v(
-                            "\r\n          " + _vm._s(mc) + "\r\n        "
-                          ),
+                          _vm._v("\n          " + _vm._s(mc) + "\n        "),
                         ])
                       }),
                       0
@@ -40704,9 +40532,7 @@ var render = function () {
                               _vm._l(_vm.attributeItems, function (a, index) {
                                 return _c("option", { key: index }, [
                                   _vm._v(
-                                    "\r\n          " +
-                                      _vm._s(a) +
-                                      "\r\n        "
+                                    "\n          " + _vm._s(a) + "\n        "
                                   ),
                                 ])
                               }),
@@ -40879,9 +40705,7 @@ var render = function () {
                         },
                         _vm._l(_vm.iconItems, function (i, index) {
                           return _c("option", { key: index }, [
-                            _vm._v(
-                              "\r\n          " + _vm._s(i) + "\r\n        "
-                            ),
+                            _vm._v("\n          " + _vm._s(i) + "\n        "),
                           ])
                         }),
                         0
@@ -40946,9 +40770,7 @@ var render = function () {
                         },
                         _vm._l(_vm.iconItems, function (i, index) {
                           return _c("option", { key: index }, [
-                            _vm._v(
-                              "\r\n          " + _vm._s(i) + "\r\n        "
-                            ),
+                            _vm._v("\n          " + _vm._s(i) + "\n        "),
                           ])
                         }),
                         0
@@ -40987,7 +40809,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.makeOrica },
                     },
-                    [_vm._v("\r\n        카드 만들기\r\n      ")]
+                    [_vm._v("\n        카드 만들기\n      ")]
                   )
                 : _vm._e(),
             ],
@@ -41056,14 +40878,16 @@ var render = function () {
             [
               _vm.orica.icon
                 ? _c("div", [
-                    _vm._v("\n      " + _vm._s(_vm.orica.icon) + "\n    "),
+                    _vm._v("\n        " + _vm._s(_vm.orica.icon) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.attribute
                 ? _c("div", [
                     _vm._v(
-                      "\n       속성 " + _vm._s(_vm.orica.attribute) + "\n    "
+                      "\n        속성 " +
+                        _vm._s(_vm.orica.attribute) +
+                        "\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -41071,14 +40895,14 @@ var render = function () {
               _vm.orica.level
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("레벨 " + _vm._s(_vm.orica.level) + "\n    "),
+                    _vm._v("레벨 " + _vm._s(_vm.orica.level) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.rank
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("랭크 " + _vm._s(_vm.orica.rank) + "\n    "),
+                    _vm._v("랭크 " + _vm._s(_vm.orica.rank) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -41086,7 +40910,7 @@ var render = function () {
                 ? _c("div", [
                     _c("br"),
                     _vm._v(
-                      "펜듈럼 스케일 " + _vm._s(_vm.orica.pScale) + "\n    "
+                      "펜듈럼 스케일 " + _vm._s(_vm.orica.pScale) + "\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -41094,7 +40918,7 @@ var render = function () {
               _vm.orica.link
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("링크 " + _vm._s(_vm.orica.link) + "\n    "),
+                    _vm._v("링크 " + _vm._s(_vm.orica.link) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -41103,7 +40927,7 @@ var render = function () {
                     _c("br"),
                     _vm._v("펜듈럼 효과 "),
                     _c("br"),
-                    _vm._v(" " + _vm._s(_vm.orica.pEffect) + "\n    "),
+                    _vm._v(" " + _vm._s(_vm.orica.pEffect) + "\n      "),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -41125,13 +40949,17 @@ var render = function () {
               _vm._v(" "),
               _vm.orica.atk
                 ? _c("div", [
-                    _vm._v("\n      ATK " + _vm._s(_vm.orica.atk) + "\n    "),
+                    _vm._v(
+                      "\n        ATK " + _vm._s(_vm.orica.atk) + "\n      "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.def
                 ? _c("div", [
-                    _vm._v("\n      DEF " + _vm._s(_vm.orica.def) + " \n    "),
+                    _vm._v(
+                      "\n        DEF " + _vm._s(_vm.orica.def) + " \n      "
+                    ),
                   ])
                 : _vm._e(),
             ],
@@ -41148,7 +40976,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.editCollection },
                     },
-                    [_vm._v("\n        수정하기\n")]
+                    [_vm._v("\n        수정하기\n      ")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -41259,7 +41087,7 @@ var render = function () {
                               },
                               [
                                 _vm._v(
-                                  "\n                        검색\n                    "
+                                  "\n                            검색\n                        "
                                 ),
                               ]
                             ),
@@ -41392,7 +41220,13 @@ var render = function () {
                                               href: "oricashow/" + orica.id,
                                             },
                                           },
-                                          [_vm._v(_vm._s(orica.title))]
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(orica.title) +
+                                                "\n                                    "
+                                            ),
+                                          ]
                                         ),
                                       ],
                                       1
@@ -41420,9 +41254,9 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                        " +
+                                                    "\n                                            " +
                                                       _vm._s(key) +
-                                                      ":\n                                    "
+                                                      ":\n                                        "
                                                   ),
                                                 ]
                                               ),
@@ -41438,11 +41272,11 @@ var render = function () {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                                        " +
+                                                    "\n                                            " +
                                                       _vm._s(
                                                         orica[key.toLowerCase()]
                                                       ) +
-                                                      "\n                                    "
+                                                      "\n                                        "
                                                   ),
                                                 ]
                                               ),
