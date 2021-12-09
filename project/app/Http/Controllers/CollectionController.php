@@ -19,9 +19,7 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        $collection = DB::table('collection')->paginate(10);
-
-        return response(['collection' => $collection, 'success' => 1]);
+    
     }
 
     /**
@@ -75,21 +73,7 @@ class CollectionController extends Controller
             ['user_id','like',$user_id],
         ])->first();
 
-
-        // $collection = DB::table('collections')->where('title', 'like', $title)->get();
         return response(['collection' => $collection]);
-    }
-
-    public function cardshow($id)
-    {
-        // dd($title);
-        $collection = Collection::where('id','like',$id)->first();
-        if($collection) {
-            $collection = Card::where('title','like',$collection['title'])->first();
-        }
-
-        // $collection = DB::table('collections')->where('title', 'like', $title)->get();
-        return $collection;
     }
 
     /**
@@ -112,32 +96,22 @@ class CollectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $card = json_decode($request->getContent(), true);
-        // $card = $data->json()->all();
-
 
         $request->validate(['number'=>'required']);
-        // Validator::make($request->all(), [
-        //     "number" => 'required'
-        // ]);
-
 
         $user_id = Auth::id();
+
         $collection = Collection::where([
             ['card_id','like', $request['card_id']],
             ['user_id','like',$user_id],
         ])->first();
-        // $collection = DB::table('collection')->where('title', 'like', $data->title)->get();
-
-        // $this->authorize('update', $collection);
 
         $collection->update([
             'number'=>$request['number'],
         ]);
 
         return $collection;
-
     }
 
     /**
@@ -149,15 +123,10 @@ class CollectionController extends Controller
     public function destroy(Request $request, $id)
     {
         $user_id = Auth::id();
-        // $collection = Collection::where(
-        //     ['card_id','like', $id],
-        //     ['user_id','like', $user_id],
 
-        // )->first();
         $collection = DB::table('collections')->where([
             ['card_id','like', $id],
             ['user_id','like', $user_id],
-
         ])->delete();
 
         return $collection;
@@ -170,25 +139,21 @@ class CollectionController extends Controller
 
     public function collectionlistpage()
     {
-
         $auth = Auth::id();
 
-        $cards = DB::table('collections')->where('user_id', 'like', $auth)->orderBy('id', 'DESC')->paginate(10);
-
-        // DB::table('cards')->where('id', 'like', $card->title)
+        $cards = DB::table('collections')->where('user_id', 'like', $auth)->orderBy('id', 'DESC')->paginate(12);
 
         return ['response' => $cards, 'success' => 1];
     }
 
     public function search ($search) {
-        // dd($search);
         $user_id = Auth::id();
+
         $cards = DB::table('collections')->where([
             ['title','like', '%'.$search.'%'],
             ['user_id','like', $user_id],
-        ])->paginate(10);
+        ])->orderBy('id', 'DESC')->paginate(12);
 
         return $cards;
-        
     }
 }

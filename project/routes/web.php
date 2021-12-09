@@ -43,7 +43,6 @@ Route::get('/collectionlist', [CollectionController::class, 'collectionlist'])->
 Route::get('/collectionlistpage', [CollectionController::class, 'collectionlistpage'])->name('collectionlistpage');
 Route::get('/collectionsearch/{search}', [CollectionController::class, 'search']);
 Route::get('/collectionshow/{id}', [CollectionController::class, 'show']);
-Route::get('/collectioncardshow/{id}', [CollectionController::class, 'cardshow']);
 Route::patch('/collectionupdate/{id}', [CollectionController::class, 'update']);
 Route::delete('/collectiondestroy/{id}', [CollectionController::class, 'destroy']);
 

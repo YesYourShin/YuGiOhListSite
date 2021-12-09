@@ -1,5 +1,10 @@
 <template>
     <app-layout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                MyCardList
+            </h2>
+        </template>
         <v-app>
             <v-container>
                 <v-data-iterator
@@ -81,23 +86,6 @@
                                             {{ card.title }}
                                         </Link>
                                     </v-card-title>
-                                    <v-divider></v-divider>
-                                    <v-list dense>
-                                        <v-list-item
-                                        v-for="(key, index) in filteredKeys" 
-                                        :key="index"
-                                        >
-                                            <v-list-item-content :class="{ 'blue--text': sortBy === key }">
-                                                {{ key }}:
-                                            </v-list-item-content>
-                                            <v-list-item-content
-                                                class="align-end"
-                                                :class="{ 'blue--text': sortBy === key }"
-                                            >
-                                                {{ card[key.toLowerCase()] }}
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                    </v-list>
                                 </v-card>
                             </v-col>
                         </v-row>
@@ -138,12 +126,12 @@ export default {
             search: '',
             search1: '',
             filter: {},
-            sortBy: 'title',
-            sortDesc: false,
+            sortBy: 'id',
+            sortDesc: true,
             // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
             //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
             //         'atk', 'def', 'limited', ],
-            keys: ['title'],
+            keys: ['id'],
         }
     },
     mounted() {
@@ -181,7 +169,7 @@ export default {
                         console.error(error);
                     })
             } else {
-                let url = 'http://localhost:8000/search/' + this.search1+ '?page=' + value
+                let url = 'http://localhost:8000/collectionsearch/' + this.search1+ '?page=' + value
                 axios.get(url)
                     .then(response=>{
                         this.cards = response.data.data

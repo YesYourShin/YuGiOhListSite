@@ -1,5 +1,10 @@
 <template>
     <app-layout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                MyOricaList
+            </h2>
+        </template>
         <v-app>
             <v-container>
                 <v-data-iterator
@@ -148,7 +153,7 @@ export default {
             // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
             //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
             //         'atk', 'def', 'limited', ],
-            keys: ['title', 'id'],
+            keys: ['id'],
         }
     },
     mounted() {

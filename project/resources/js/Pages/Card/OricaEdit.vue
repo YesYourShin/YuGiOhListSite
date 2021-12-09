@@ -1,5 +1,10 @@
 <template>
   <app-layout>
+      <template #header>
+          <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+              EditOrica
+          </h2>
+      </template>
     <v-form>
       <v-container>
         <select 

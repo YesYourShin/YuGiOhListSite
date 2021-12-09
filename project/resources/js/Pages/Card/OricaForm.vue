@@ -1,15 +1,23 @@
 <template>
   <app-layout>
+    <template #header>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            MakeOrica
+        </h2>
+    </template>
     <v-form v-model="orica">
       <v-container>
+        <label>카드 종류</label>
         <select v-model="category" required @change="categoryCheck()">
           <option v-for="(c, index) in categoryItems" :key="index" >
             {{ c }}
           </option>
         </select>
 
+        
         <div v-if="category=='몬스터'">
 
+        <label>몬스터 타입</label>
         <select v-model="monsterCategory" @change="monsterCategoryCheck()">
           <option v-for="(mc, index) in monsterCategoryItems" :key="index">
             {{ mc }}
@@ -20,7 +28,7 @@
         <v-text-field
           v-model="title"
           :counter="10"
-          label="title"
+          label="카드 이름"
           required
         ></v-text-field>
 
@@ -32,52 +40,52 @@
 
         <v-text-field v-if="(monsterCategory!=='엑시즈') && (monsterCategory!=='링크')"
           v-model="level"
-          label="level"
+          label="레벨"
           required
         ></v-text-field>
         <v-text-field v-if="monsterCategory==='엑시즈'"
             v-model="rank"
-            label="rank"
+            label="랭크"
             required
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pScale"
-            label="pScale"
+            label="펜듈럼 스케일"
             required
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pEffect"
-            label="pEffect"
+            label="펜듈럼 효과"
             required
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='링크'"
             v-model="link"
-            label="link"
+            label="링크"
             required
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='링크'"
             v-model="linkArray"
-            label="linkArray"
+            label="링크 방향"
             required
           ></v-text-field>
         <v-text-field
             v-model="monsterType"
-            label="monsterType"
+            label="몬스터 종족"
             required
           ></v-text-field>
         <v-text-field
             v-model="effect"
-            label="effect"
+            label="효과"
             required
           ></v-text-field>          
         <v-text-field
             v-model="atk"
-            label="atk"
+            label="공격력"
             required
           ></v-text-field>          
         <v-text-field
             v-model="def"
-            label="def"
+            label="수비력"
             required
             :readonly="this.monsterCategory==='링크'"
           ></v-text-field>
@@ -85,6 +93,7 @@
       </div>
 
       <div v-if="category=='마법'">
+        <label>마법 종류</label>
         <select v-model="icon">
           <option v-for="(i, index) in iconItems" :key="index">
             {{ i }}
@@ -93,19 +102,19 @@
         <v-text-field
             v-model="title"
             :counter="10"
-            label="title"
+            label="카드 이름"
             required
           ></v-text-field>
         <v-text-field
             v-model="effect"
             :counter="10"
-            label="effect"
+            label="효과"
             required
           ></v-text-field>
       </div>
 
       <div v-if="category=='함정'">
-
+        <label>함정 종류</label>
         <select v-model="icon">
           <option v-for="(i, index) in iconItems" :key="index">
             {{ i }}
@@ -114,13 +123,13 @@
         <v-text-field
             v-model="title"
             :counter="10"
-            label="title"
+            label="제목"
             required
           ></v-text-field>
         <v-text-field
             v-model="effect"
             :counter="10"
-            label="effect"
+            label="효과"
             required
           ></v-text-field>
         </div>

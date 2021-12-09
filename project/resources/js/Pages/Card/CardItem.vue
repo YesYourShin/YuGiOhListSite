@@ -1,5 +1,10 @@
 <template>
   <app-layout>
+    <template #header>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            카드 상세페이지
+        </h2>
+    </template>
     <v-card
       class="mx-auto my-12"
       max-width="374"
@@ -12,11 +17,6 @@
         ></v-progress-linear>
       </template>
 
-      <v-img
-        height="250"
-        src="../../../../storage/app/public/no_image.png"
-      ></v-img>
-
       <v-card-title>{{card.title}}</v-card-title>
 
       <v-card-text>
@@ -24,7 +24,7 @@
           {{ card.icon }}
         </div>
         <div v-if="card.attribute">
-          속성 {{ card.attribute }}
+          {{ card.attribute }} 속성
         </div>
         <div v-if="card.level">
           <br>레벨 {{ card.level }}
@@ -44,7 +44,7 @@
         <div class="my-4 text-subtitle-1" v-if="card.monsterType">
           {{ card.monsterType }} • {{ card.cardType }}
         </div>
-        <div>{{card.effect}}</div>
+        <div>효과 : <br>{{card.effect}}</div>
       
         <v-divider class="mx-4"></v-divider>
 
@@ -61,10 +61,18 @@
       </v-card-text>
 
       <v-card-actions>
-        <input type="text"
+        <!-- <input type="text"
           v-model="number"
           size=17
-          >
+          label="title"
+          > -->
+        <v-text-field
+          v-model="number"
+          :counter="5"
+          label="개수"
+          required
+        ></v-text-field>
+
         <v-btn v-if="check==false"
           color="deep-purple lighten-2"
           text

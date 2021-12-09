@@ -1,11 +1,11 @@
 <template>
     <app-layout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                CardList
+            </h2>
+        </template>
         <v-app>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    MyCardList
-                </h2>
-            </template>
             <v-container>
                 <v-data-iterator
                     :items="cards"
@@ -86,23 +86,6 @@
                                             {{ card.title }}
                                         </Link>
                                     </v-card-title>
-                                    <v-divider></v-divider>
-                                    <v-list dense>
-                                        <v-list-item
-                                        v-for="(key, index) in filteredKeys" 
-                                        :key="index"
-                                        >
-                                            <v-list-item-content :class="{ 'blue--text': sortBy === key }">
-                                                {{ key }}:
-                                            </v-list-item-content>
-                                            <v-list-item-content
-                                                class="align-end"
-                                                :class="{ 'blue--text': sortBy === key }"
-                                            >
-                                                {{ card[key.toLowerCase()] }}
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                    </v-list>
                                 </v-card>
                             </v-col>
                         </v-row>

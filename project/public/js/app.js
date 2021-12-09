@@ -4571,6 +4571,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4655,23 +4663,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5006,18 +4997,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5035,12 +5014,12 @@ __webpack_require__.r(__webpack_exports__);
       search: '',
       search1: '',
       filter: {},
-      sortBy: 'title',
-      sortDesc: false,
+      sortBy: 'id',
+      sortDesc: true,
       // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
       //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
       //         'atk', 'def', 'limited', ],
-      keys: ['title']
+      keys: ['id']
     };
   },
   mounted: function mounted() {
@@ -5080,7 +5059,7 @@ __webpack_require__.r(__webpack_exports__);
           console.error(error);
         });
       } else {
-        var _url = 'http://localhost:8000/search/' + this.search1 + '?page=' + value;
+        var _url = 'http://localhost:8000/collectionsearch/' + this.search1 + '?page=' + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
           _this2.cards = response.data.data;
@@ -5254,6 +5233,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5276,7 +5260,7 @@ __webpack_require__.r(__webpack_exports__);
       // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
       //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
       //         'atk', 'def', 'limited', ],
-      keys: ['title', 'id']
+      keys: ['id']
     };
   },
   mounted: function mounted() {
@@ -5360,6 +5344,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5858,6 +5847,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5990,6 +5988,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6257,6 +6260,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -6279,7 +6287,7 @@ __webpack_require__.r(__webpack_exports__);
       // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
       //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
       //         'atk', 'def', 'limited', ],
-      keys: ['title', 'id']
+      keys: ['id']
     };
   },
   mounted: function mounted() {
@@ -6341,7 +6349,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricasearch/' + this.search1).then(function (response) {
-        console.log(response);
         _this3.oricas = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
@@ -38612,7 +38619,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n          카드 상세페이지\n      ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-card",
         { staticClass: "mx-auto my-12", attrs: { "max-width": "374" } },
@@ -38632,13 +38660,6 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("v-img", {
-            attrs: {
-              height: "250",
-              src: "../../../../storage/app/public/no_image.png",
-            },
-          }),
-          _vm._v(" "),
           _c("v-card-title", [_vm._v(_vm._s(_vm.card.title))]),
           _vm._v(" "),
           _c(
@@ -38653,9 +38674,9 @@ var render = function () {
               _vm.card.attribute
                 ? _c("div", [
                     _vm._v(
-                      "\n        속성 " +
+                      "\n        " +
                         _vm._s(_vm.card.attribute) +
-                        "\n      "
+                        " 속성\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -38711,7 +38732,11 @@ var render = function () {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _c("div", [_vm._v(_vm._s(_vm.card.effect))]),
+              _c("div", [
+                _vm._v("효과 : "),
+                _c("br"),
+                _vm._v(_vm._s(_vm.card.effect)),
+              ]),
               _vm._v(" "),
               _c("v-divider", { staticClass: "mx-4" }),
               _vm._v(" "),
@@ -38745,24 +38770,14 @@ var render = function () {
           _c(
             "v-card-actions",
             [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.number,
-                    expression: "number",
+              _c("v-text-field", {
+                attrs: { counter: 5, label: "개수", required: "" },
+                model: {
+                  value: _vm.number,
+                  callback: function ($$v) {
+                    _vm.number = $$v
                   },
-                ],
-                attrs: { type: "text", size: "17" },
-                domProps: { value: _vm.number },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.number = $event.target.value
-                  },
+                  expression: "number",
                 },
               }),
               _vm._v(" "),
@@ -38833,31 +38848,31 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n            CardList\n        ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-app",
-        {
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [
-                  _c(
-                    "h2",
-                    {
-                      staticClass:
-                        "font-semibold text-xl text-gray-800 leading-tight",
-                    },
-                    [_vm._v("\n                MyCardList\n            ")]
-                  ),
-                ]
-              },
-              proxy: true,
-            },
-          ]),
-        },
         [
-          _vm._v(" "),
           _c(
             "v-container",
             [
@@ -39046,62 +39061,6 @@ var render = function () {
                                       ],
                                       1
                                     ),
-                                    _vm._v(" "),
-                                    _c("v-divider"),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-list",
-                                      { attrs: { dense: "" } },
-                                      _vm._l(
-                                        _vm.filteredKeys,
-                                        function (key, index) {
-                                          return _c(
-                                            "v-list-item",
-                                            { key: index },
-                                            [
-                                              _c(
-                                                "v-list-item-content",
-                                                {
-                                                  class: {
-                                                    "blue--text":
-                                                      _vm.sortBy === key,
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(key) +
-                                                      ":\n                                        "
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-content",
-                                                {
-                                                  staticClass: "align-end",
-                                                  class: {
-                                                    "blue--text":
-                                                      _vm.sortBy === key,
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(
-                                                        card[key.toLowerCase()]
-                                                      ) +
-                                                      "\n                                        "
-                                                  ),
-                                                ]
-                                              ),
-                                            ],
-                                            1
-                                          )
-                                        }
-                                      ),
-                                      1
-                                    ),
                                   ],
                                   1
                                 ),
@@ -39183,7 +39142,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n            MyCardList\n        ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-app",
         [
@@ -39377,62 +39357,6 @@ var render = function () {
                                       ],
                                       1
                                     ),
-                                    _vm._v(" "),
-                                    _c("v-divider"),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-list",
-                                      { attrs: { dense: "" } },
-                                      _vm._l(
-                                        _vm.filteredKeys,
-                                        function (key, index) {
-                                          return _c(
-                                            "v-list-item",
-                                            { key: index },
-                                            [
-                                              _c(
-                                                "v-list-item-content",
-                                                {
-                                                  class: {
-                                                    "blue--text":
-                                                      _vm.sortBy === key,
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(key) +
-                                                      ":\n                                        "
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-item-content",
-                                                {
-                                                  staticClass: "align-end",
-                                                  class: {
-                                                    "blue--text":
-                                                      _vm.sortBy === key,
-                                                  },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(
-                                                        card[key.toLowerCase()]
-                                                      ) +
-                                                      "\n                                        "
-                                                  ),
-                                                ]
-                                              ),
-                                            ],
-                                            1
-                                          )
-                                        }
-                                      ),
-                                      1
-                                    ),
                                   ],
                                   1
                                 ),
@@ -39514,7 +39438,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n            MyOricaList\n        ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-app",
         [
@@ -39857,7 +39802,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n            EditOrica\n        ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-form",
         [
@@ -40380,7 +40346,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n          MakeOrica\n      ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-form",
         {
@@ -40396,6 +40383,8 @@ var render = function () {
           _c(
             "v-container",
             [
+              _c("label", [_vm._v("카드 종류")]),
+              _vm._v(" "),
               _c(
                 "select",
                 {
@@ -40439,6 +40428,8 @@ var render = function () {
               _vm._v(" "),
               _vm.category == "몬스터"
                 ? _c("div", [
+                    _c("label", [_vm._v("몬스터 타입")]),
+                    _vm._v(" "),
                     _c(
                       "select",
                       {
@@ -40486,7 +40477,7 @@ var render = function () {
                             _c("v-text-field", {
                               attrs: {
                                 counter: 10,
-                                label: "title",
+                                label: "카드 이름",
                                 required: "",
                               },
                               model: {
@@ -40542,7 +40533,7 @@ var render = function () {
                             _vm.monsterCategory !== "엑시즈" &&
                             _vm.monsterCategory !== "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "level", required: "" },
+                                  attrs: { label: "레벨", required: "" },
                                   model: {
                                     value: _vm.level,
                                     callback: function ($$v) {
@@ -40555,7 +40546,7 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory === "엑시즈"
                               ? _c("v-text-field", {
-                                  attrs: { label: "rank", required: "" },
+                                  attrs: { label: "랭크", required: "" },
                                   model: {
                                     value: _vm.rank,
                                     callback: function ($$v) {
@@ -40568,7 +40559,10 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "펜듈럼"
                               ? _c("v-text-field", {
-                                  attrs: { label: "pScale", required: "" },
+                                  attrs: {
+                                    label: "펜듈럼 스케일",
+                                    required: "",
+                                  },
                                   model: {
                                     value: _vm.pScale,
                                     callback: function ($$v) {
@@ -40581,7 +40575,7 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "펜듈럼"
                               ? _c("v-text-field", {
-                                  attrs: { label: "pEffect", required: "" },
+                                  attrs: { label: "펜듈럼 효과", required: "" },
                                   model: {
                                     value: _vm.pEffect,
                                     callback: function ($$v) {
@@ -40594,7 +40588,7 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "link", required: "" },
+                                  attrs: { label: "링크", required: "" },
                                   model: {
                                     value: _vm.link,
                                     callback: function ($$v) {
@@ -40607,7 +40601,7 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "linkArray", required: "" },
+                                  attrs: { label: "링크 방향", required: "" },
                                   model: {
                                     value: _vm.linkArray,
                                     callback: function ($$v) {
@@ -40619,7 +40613,7 @@ var render = function () {
                               : _vm._e(),
                             _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "monsterType", required: "" },
+                              attrs: { label: "몬스터 종족", required: "" },
                               model: {
                                 value: _vm.monsterType,
                                 callback: function ($$v) {
@@ -40630,7 +40624,7 @@ var render = function () {
                             }),
                             _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "effect", required: "" },
+                              attrs: { label: "효과", required: "" },
                               model: {
                                 value: _vm.effect,
                                 callback: function ($$v) {
@@ -40641,7 +40635,7 @@ var render = function () {
                             }),
                             _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "atk", required: "" },
+                              attrs: { label: "공격력", required: "" },
                               model: {
                                 value: _vm.atk,
                                 callback: function ($$v) {
@@ -40653,7 +40647,7 @@ var render = function () {
                             _vm._v(" "),
                             _c("v-text-field", {
                               attrs: {
-                                label: "def",
+                                label: "수비력",
                                 required: "",
                                 readonly: this.monsterCategory === "링크",
                               },
@@ -40676,6 +40670,8 @@ var render = function () {
                 ? _c(
                     "div",
                     [
+                      _c("label", [_vm._v("마법 종류")]),
+                      _vm._v(" "),
                       _c(
                         "select",
                         {
@@ -40712,7 +40708,11 @@ var render = function () {
                       ),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { counter: 10, label: "title", required: "" },
+                        attrs: {
+                          counter: 10,
+                          label: "카드 이름",
+                          required: "",
+                        },
                         model: {
                           value: _vm.title,
                           callback: function ($$v) {
@@ -40723,7 +40723,7 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { counter: 10, label: "effect", required: "" },
+                        attrs: { counter: 10, label: "효과", required: "" },
                         model: {
                           value: _vm.effect,
                           callback: function ($$v) {
@@ -40741,6 +40741,8 @@ var render = function () {
                 ? _c(
                     "div",
                     [
+                      _c("label", [_vm._v("함정 종류")]),
+                      _vm._v(" "),
                       _c(
                         "select",
                         {
@@ -40777,7 +40779,7 @@ var render = function () {
                       ),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { counter: 10, label: "title", required: "" },
+                        attrs: { counter: 10, label: "제목", required: "" },
                         model: {
                           value: _vm.title,
                           callback: function ($$v) {
@@ -40788,7 +40790,7 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { counter: 10, label: "effect", required: "" },
+                        attrs: { counter: 10, label: "효과", required: "" },
                         model: {
                           value: _vm.effect,
                           callback: function ($$v) {
@@ -40847,7 +40849,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n          오리카 상세페이지\n      ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-card",
         { staticClass: "mx-auto my-12", attrs: { "max-width": "374" } },
@@ -40885,9 +40908,9 @@ var render = function () {
               _vm.orica.attribute
                 ? _c("div", [
                     _vm._v(
-                      "\n        속성 " +
+                      "\n        " +
                         _vm._s(_vm.orica.attribute) +
-                        "\n      "
+                        " 속성\n      "
                     ),
                   ])
                 : _vm._e(),
@@ -40925,7 +40948,7 @@ var render = function () {
               _vm.orica.pEffect
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("펜듈럼 효과 "),
+                    _vm._v("펜듈럼 효과 : "),
                     _c("br"),
                     _vm._v(" " + _vm._s(_vm.orica.pEffect) + "\n      "),
                   ])
@@ -40937,13 +40960,17 @@ var render = function () {
                       "\n        " +
                         _vm._s(_vm.orica.monsterType) +
                         " • " +
-                        _vm._s(_vm.orica.cardType) +
+                        _vm._s(_vm.orica.monsterCategory) +
                         "\n      "
                     ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _c("div", [_vm._v(_vm._s(_vm.orica.effect))]),
+              _c("div", [
+                _vm._v("효과 : "),
+                _c("br"),
+                _vm._v(_vm._s(_vm.orica.effect)),
+              ]),
               _vm._v(" "),
               _c("v-divider", { staticClass: "mx-4" }),
               _vm._v(" "),
@@ -41025,7 +41052,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n            OricaList\n        ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
     [
+      _vm._v(" "),
       _c(
         "v-app",
         [

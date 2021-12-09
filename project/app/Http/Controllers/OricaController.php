@@ -41,71 +41,50 @@ class OricaController extends Controller
      */
     public function insert(Request $request)
     {
-        // $data = $request->json()->all();
-        // $data = $request->all();
 
-        // dd($data);
-        
-            // dd($request['title']);
-            $title = $request['title'];
-            $effect = $request['effect'];
-            $pEffect = isset($request['pEffect']) ? $request['pEffect'] : '';
-            $icon = isset($request['icon']) ? $request['icon'] : '';
-            $attribute = isset($request['attribute']) ? $request['attribute'] : '';
-            $level = isset($request['level']) ? $request['level'] : '';
-            $rank = isset($request['rank']) ? $request['rank'] : '';
-            $pScale = isset($request['pScale']) ? $request['pScale'] : '';
-            $link = isset($request['link']) ? $request['link'] : '';
-            $linkArray = isset($request['linkArray']) ? $request['linkArray'] : '';
-            $monsterType = isset($request['monsterType']) ? $request['monsterType'] : '';
-            $category = isset($request['category']) ? $request['category'] : '';
-            $monsterCategory = isset($request['monsterCategory']) ? $request['monsterCategory'] : '';
-            $atk = isset($request['atk']) ? $request['atk'] : '';
-            $def = isset($request['def']) ? $request['def'] : '';
-
-            $validator = Validator::make($request->all(), [
-                'title' => 'required',
-                'effect' => 'required',
-                'pEffect' => 'nullable',
-                'icon' => 'nullable',
-                'attribute' => 'nullable',
-                'level' => 'nullable',
-                'rank' => 'nullable',
-                'pScale' => 'nullable',
-                'link' => 'nullable',
-                'linkArray' => 'nullable',
-                'monsterType' => 'nullable',
-                'category' => 'nullable',
-                'monsterCategory' => 'nullable',
-                'atk' => 'nullable',
-                'def' => 'nullable',
-                
-            ]);
-
-            if ($validator->fails()){
-                $messages = $validator->messages();
-                return response($messages);
-            }
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'effect' => 'required',
+            'pEffect' => 'nullable',
+            'icon' => 'nullable',
+            'attribute' => 'nullable',
+            'level' => 'nullable',
+            'rank' => 'nullable',
+            'pScale' => 'nullable',
+            'link' => 'nullable',
+            'linkArray' => 'nullable',
+            'monsterType' => 'nullable',
+            'category' => 'nullable',
+            'monsterCategory' => 'nullable',
+            'atk' => 'nullable',
+            'def' => 'nullable',
             
+        ]);
 
-            $orica = Orica::create([
-                'title' => $title,
-                'effect' => $effect,
-                'pEffect' => $pEffect,
-                'icon' => $icon,
-                'attribute' => $attribute,
-                'level' => $level,
-                'rank' => $rank,
-                'pScale' => $pScale,
-                'link' => $link,
-                'linkArray' => $linkArray,
-                'monsterType' => $monsterType,
-                'category' => $category,
-                'monsterCategory' => $monsterCategory,
-                'atk' => $atk,
-                'def' => $def,
-                'user_id'=>Auth::user()->id
-            ]);
+        if ($validator->fails()){
+            $messages = $validator->messages();
+            return response($messages);
+        }
+        
+
+        $orica = Orica::create([
+            'title' => $request['title'],
+            'effect' => $request['effect'],
+            'pEffect' => $request['pEffect'],
+            'icon' => $request['icon'],
+            'attribute' => $request['attribute'],
+            'level' => $request['level'],
+            'rank' => $request['rank'],
+            'pScale' => $request['pScale'],
+            'link' => $request['link'],
+            'linkArray' => $request['linkArray'],
+            'monsterType' => $request['monsterType'],
+            'category' => $request['category'],
+            'monsterCategory' => $request['monsterCategory'],
+            'atk' => $request['atk'],
+            'def' => $request['def'],
+            'user_id'=>Auth::user()->id
+        ]);
     
 
         return response(['success', 'id' => $orica -> id]);
@@ -230,13 +209,14 @@ class OricaController extends Controller
     public function oricalistpage()
     {
         
-        $oricas = DB::table('oricas')->orderBy('id', 'DESC')->paginate(10);
+        $oricas = DB::table('oricas')->orderBy('id', 'DESC')->paginate(12);
         return ['response' => $oricas, 'success' => 1];
 
     }
 
     public function search ($search) {
-        $oricas = DB::table('oricas')->where('title', 'like', '%'.$search.'%')->orderBy('id', 'DESC')->paginate(10);
+        $oricas = DB::table('oricas')->where('title', 'like', '%'.$search.'%')
+                ->orderBy('id', 'DESC')->paginate(12);
 
         return $oricas;
         
@@ -253,7 +233,8 @@ class OricaController extends Controller
 
         $auth = Auth::id();
         
-        $oricas = DB::table('oricas')->where('user_id', 'like', $auth)->orderBy('id', 'DESC')->paginate(10);
+        $oricas = DB::table('oricas')->where('user_id', 'like', $auth)
+                ->orderBy('id', 'DESC')->paginate(12);
         
         return ['response' => $oricas, 'success' => 1];
 
@@ -278,7 +259,7 @@ class OricaController extends Controller
             ['user_id','like',$user_id],
             ['title', 'like', '%'.$search.'%']
 
-            ])->orderBy('id', 'DESC')->paginate(10);
+            ])->orderBy('id', 'DESC')->paginate(12);
 
         return $oricas;
         
