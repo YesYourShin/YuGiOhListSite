@@ -148,9 +148,6 @@ export default {
       axios.post('http://localhost:8000/collectioninsert', {title: this.card.title, number: this.number, card_id: this.card.id})
         .then(response=>{
           location.href=("http://localhost:8000/show/"+this.card.id)
-          // this.check = true;
-
-          
         })
         .catch (function (error) {
           console.error(error);
@@ -168,9 +165,7 @@ export default {
     deleteCollection() {
       axios.delete('http://localhost:8000/collectiondestroy/'+this.card.id)
         .then(response=>{
-          this.check=false
-          this.number=''
-          this.number1=''
+          location.href=("http://localhost:8000/show/"+this.card.id)
         })
         .catch (function (error) {
           console.error(error);

@@ -185,6 +185,10 @@ export default {
             }
         },
         getSearch() {
+            if (this.search == '') {
+                alert('검색어를 입력해주세요.')
+                return
+            }
             this.search1 = this.search
             axios.get('http://localhost:8000/search/'+ this.search1)
                 .then(response=>{

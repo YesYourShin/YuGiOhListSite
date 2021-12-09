@@ -4638,7 +4638,7 @@ __webpack_require__.r(__webpack_exports__);
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
-        location.href = "http://localhost:8000/show/" + _this3.card.id; // this.check = true;
+        location.href = "http://localhost:8000/show/" + _this3.card.id;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -4659,9 +4659,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.id).then(function (response) {
-        _this5.check = false;
-        _this5.number = '';
-        _this5.number1 = '';
+        location.href = "http://localhost:8000/show/" + _this5.card.id;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -4876,6 +4874,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     getSearch: function getSearch() {
       var _this3 = this;
+
+      if (this.search == '') {
+        alert('검색어를 입력해주세요.');
+        return;
+      }
 
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/search/' + this.search1).then(function (response) {
@@ -5096,6 +5099,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     getSearch: function getSearch() {
       var _this3 = this;
+
+      if (this.search == '') {
+        alert('검색어를 입력해주세요.');
+        return;
+      }
 
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionsearch/' + this.search1).then(function (response) {
@@ -5338,6 +5346,11 @@ __webpack_require__.r(__webpack_exports__);
     getSearch: function getSearch() {
       var _this3 = this;
 
+      if (this.search == '') {
+        alert('검색어를 입력해주세요.');
+        return;
+      }
+
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/myoricasearch/' + this.search1).then(function (response) {
         _this3.oricas = response.data.data;
@@ -5367,6 +5380,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5573,8 +5597,6 @@ __webpack_require__.r(__webpack_exports__);
       levelRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
-      }, function (v) {
         return v != 0 || '0은 입력할 수 없습니다.';
       }, function (v) {
         return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
@@ -5582,14 +5604,10 @@ __webpack_require__.r(__webpack_exports__);
       linkArrayRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v <= 0 || '숫자는 입력할 수 없습니다.';
-      }, function (v) {
         return v.length <= 8 || v.length == undefined || '8을 초과할 수 없습니다.';
       }],
       linkRules: [function (v) {
         return !!v || 'required';
-      }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
       }, function (v) {
         return v != 0 || '0은 입력할 수 없습니다.';
       }, function (v) {
@@ -5608,21 +5626,17 @@ __webpack_require__.r(__webpack_exports__);
       pScaleRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
-      }, function (v) {
         return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
       }],
       atkRules: [function (v) {
         return !!v || 'required';
-      }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
       }, function (v) {
         return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
       }],
       defRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v == '-' || v >= 0 || '숫자만 입력해주세요.';
+        return v >= 0 || '숫자만 입력해주세요.';
       }, function (v) {
         return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
       }]
@@ -5708,25 +5722,25 @@ __webpack_require__.r(__webpack_exports__);
     },
     editOrica: function editOrica() {
       if (this.category == "몬스터" && (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '')) {
-        alert('no');
+        alert('모든 항목을 채워주세요.');
         return;
       }
 
       if (this.category == "몬스터") {
         if (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '') {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '엑시즈' && this.rank == '') {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '펜듈럼' && (this.level == '' || this.pScale == '' || this.pEffect == '')) {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '링크' && (this.link == '' || this.linkArray == '')) {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '그외' && this.level == '') {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         }
       }
@@ -5989,6 +6003,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6027,8 +6052,6 @@ __webpack_require__.r(__webpack_exports__);
       levelRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
-      }, function (v) {
         return v != 0 || '0은 입력할 수 없습니다.';
       }, function (v) {
         return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
@@ -6036,14 +6059,10 @@ __webpack_require__.r(__webpack_exports__);
       linkArrayRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v <= 0 || '숫자는 입력할 수 없습니다.';
-      }, function (v) {
         return v.length <= 8 || v.length == undefined || '8을 초과할 수 없습니다.';
       }],
       linkRules: [function (v) {
         return !!v || 'required';
-      }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
       }, function (v) {
         return v != 0 || '0은 입력할 수 없습니다.';
       }, function (v) {
@@ -6062,21 +6081,17 @@ __webpack_require__.r(__webpack_exports__);
       pScaleRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
-      }, function (v) {
         return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
       }],
       atkRules: [function (v) {
         return !!v || 'required';
-      }, function (v) {
-        return v >= 0 || '숫자만 입력해주세요.';
       }, function (v) {
         return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
       }],
       defRules: [function (v) {
         return !!v || 'required';
       }, function (v) {
-        return v == '-' || v >= 0 || '숫자만 입력해주세요.';
+        return v >= 0 || '숫자만 입력해주세요.';
       }, function (v) {
         return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
       }]
@@ -6584,6 +6599,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     getSearch: function getSearch() {
       var _this3 = this;
+
+      if (this.search == '') {
+        alert('검색어를 입력해주세요.');
+        return;
+      }
 
       this.search1 = this.search;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricasearch/' + this.search1).then(function (response) {
@@ -40264,6 +40284,7 @@ var render = function () {
                                     label: "레벨",
                                     rules: _vm.levelRules,
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.level,
@@ -40281,6 +40302,7 @@ var render = function () {
                                     rules: _vm.levelRules,
                                     label: "랭크",
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.rank,
@@ -40298,6 +40320,7 @@ var render = function () {
                                     rules: _vm.pScaleRules,
                                     label: "펜듈럼 스케일",
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.pScale,
@@ -40333,6 +40356,7 @@ var render = function () {
                                     label: "링크",
                                     rules: _vm.linkRules,
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.link,
@@ -40342,6 +40366,14 @@ var render = function () {
                                     expression: "link",
                                   },
                                 })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c("label", [
+                                  _vm._v(
+                                    "\n          링크 방향에 복사 붙여넣기 해서 쓸 것 ←→↑↓↖↙↗↘ \n        "
+                                  ),
+                                ])
                               : _vm._e(),
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
@@ -40398,6 +40430,7 @@ var render = function () {
                                 label: "공격력",
                                 rules: _vm.atkRules,
                                 required: "",
+                                type: "number",
                               },
                               model: {
                                 value: _vm.atk,
@@ -40408,21 +40441,22 @@ var render = function () {
                               },
                             }),
                             _vm._v(" "),
-                            _c("v-text-field", {
-                              attrs: {
-                                label: "수비력",
-                                required: "",
-                                rules: _vm.defRules,
-                                readonly: this.monsterCategory === "링크",
-                              },
-                              model: {
-                                value: _vm.def,
-                                callback: function ($$v) {
-                                  _vm.def = $$v
-                                },
-                                expression: "def",
-                              },
-                            }),
+                            _vm.monsterCategory != "링크"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    label: "수비력",
+                                    required: "",
+                                    rules: _vm.defRules,
+                                  },
+                                  model: {
+                                    value: _vm.def,
+                                    callback: function ($$v) {
+                                      _vm.def = $$v
+                                    },
+                                    expression: "def",
+                                  },
+                                })
+                              : _vm._e(),
                           ],
                           1
                         )
@@ -40828,6 +40862,7 @@ var render = function () {
                                     label: "레벨",
                                     rules: _vm.levelRules,
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.level,
@@ -40845,6 +40880,7 @@ var render = function () {
                                     rules: _vm.levelRules,
                                     label: "랭크",
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.rank,
@@ -40862,6 +40898,7 @@ var render = function () {
                                     rules: _vm.pScaleRules,
                                     label: "펜듈럼 스케일",
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.pScale,
@@ -40897,6 +40934,7 @@ var render = function () {
                                     label: "링크",
                                     rules: _vm.linkRules,
                                     required: "",
+                                    type: "number",
                                   },
                                   model: {
                                     value: _vm.link,
@@ -40906,6 +40944,14 @@ var render = function () {
                                     expression: "link",
                                   },
                                 })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c("label", [
+                                  _vm._v(
+                                    "\n          링크 방향에 복사 붙여넣기 해서 쓸 것 ←→↑↓↖↙↗↘ \n        "
+                                  ),
+                                ])
                               : _vm._e(),
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
@@ -40962,6 +41008,7 @@ var render = function () {
                                 label: "공격력",
                                 rules: _vm.atkRules,
                                 required: "",
+                                type: "number",
                               },
                               model: {
                                 value: _vm.atk,
@@ -40972,21 +41019,22 @@ var render = function () {
                               },
                             }),
                             _vm._v(" "),
-                            _c("v-text-field", {
-                              attrs: {
-                                label: "수비력",
-                                required: "",
-                                rules: _vm.defRules,
-                                readonly: this.monsterCategory === "링크",
-                              },
-                              model: {
-                                value: _vm.def,
-                                callback: function ($$v) {
-                                  _vm.def = $$v
-                                },
-                                expression: "def",
-                              },
-                            }),
+                            _vm.monsterCategory != "링크"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    label: "수비력",
+                                    required: "",
+                                    rules: _vm.defRules,
+                                  },
+                                  model: {
+                                    value: _vm.def,
+                                    callback: function ($$v) {
+                                      _vm.def = $$v
+                                    },
+                                    expression: "def",
+                                  },
+                                })
+                              : _vm._e(),
                           ],
                           1
                         )

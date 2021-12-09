@@ -35,7 +35,7 @@
 
         <label>속성</label>
         <select v-model="attribute">
-          <option v-for="(a, index) in attributeItems"  :key="index">
+          <option v-for="(a, index) in attributeItems" :key="index">
             {{ a }}
           </option>
         </select>
@@ -45,18 +45,21 @@
           label="레벨"
           :rules="levelRules"
           required
+          type="number"
         ></v-text-field>
         <v-text-field v-if="monsterCategory==='엑시즈'"
             v-model="rank"
             :rules="levelRules"
             label="랭크"
             required
+            type="number"
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pScale"
             :rules="pScaleRules"
             label="펜듈럼 스케일"
             required
+            type="number"
           ></v-text-field>
         <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pEffect"
@@ -70,13 +73,20 @@
             label="링크"
             :rules="linkRules"
             required
+            type="number"
           ></v-text-field>
+
+        <label v-if="monsterCategory=='링크'">
+            링크 방향에 복사 붙여넣기 해서 쓸 것 ←→↑↓↖↙↗↘ 
+          </label>  
         <v-text-field v-if="monsterCategory=='링크'"
             v-model="linkArray"
             label="링크 방향"
             :rules="linkArrayRules"
             required
           ></v-text-field>
+          
+
         <v-text-field
             v-model="monsterType"
             label="몬스터 종족"
@@ -96,13 +106,14 @@
             label="공격력"
             :rules="atkRules"
             required
+            type="number"
           ></v-text-field>          
         <v-text-field
+            v-if="monsterCategory!='링크'"
             v-model="def"
             label="수비력"
             required
             :rules="defRules"
-            :readonly="this.monsterCategory==='링크'"
           ></v-text-field>
         </div>
       </div>
@@ -200,18 +211,15 @@ export default {
     ],
     levelRules: [
       v => !!v || 'required',
-      v => v >= 0 || '숫자만 입력해주세요.',
       v => v != 0 || '0은 입력할 수 없습니다.',
       v => v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.',
     ],
     linkArrayRules: [
       v => !!v || 'required',
-      v => v <= 0 || '숫자는 입력할 수 없습니다.',
       v => v.length <= 8 || v.length == undefined || '8을 초과할 수 없습니다.',
     ],
     linkRules: [
       v => !!v || 'required',
-      v => v >= 0 || '숫자만 입력해주세요.',
       v => v != 0 || '0은 입력할 수 없습니다.',
       v => v <= 8 || v.length == undefined || '13을 초과할 수 없습니다.'
     ],
@@ -225,19 +233,18 @@ export default {
     ],
     pScaleRules: [
       v => !!v || 'required',
-      v => v >= 0 || '숫자만 입력해주세요.',
       v => v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.',
     ],
     atkRules: [
       v => !!v || 'required',
-      v => v >= 0 || '숫자만 입력해주세요.',
       v => v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.',
     ],
     defRules: [
       v => !!v || 'required',
-      v => v == '-' || v >= 0 || '숫자만 입력해주세요.',
+      v => v >= 0 || '숫자만 입력해주세요.',
       v => v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.',
     ],
+    
   }),
   mounted() {
     let res = this.response
@@ -314,27 +321,27 @@ export default {
                                       this.attribute== '' || this.monsterType== '' ||
                                       this.effect== '' || this.atk== '' ||
                                       this.def== '' )) {
-        alert('no');
+        alert('모든 항목을 채워주세요.');
         return
       }
       if(this.category == "몬스터") {
         if(this.monsterCategory== '' || this.title== '' || this.attribute== '' || 
                                         this.monsterType== '' || this.effect== '' || 
                                         this.atk== '' || this.def== '' ) {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return
         } else if(this.monsterCategory== '엑시즈' && this.rank=='') {
-            alert('no');
+            alert('모든 항목을 채워주세요.');
             return
         } else if(this.monsterCategory== '펜듈럼' && (this.level== ''|| this.pScale== ''|| 
                                                                       this.pEffect== '')) {
-            alert('no');
+            alert('모든 항목을 채워주세요.');
             return
         } else if(this.monsterCategory== '링크' && (this.link== ''|| this.linkArray== '')) {
-            alert('no');
+            alert('모든 항목을 채워주세요.');
             return
         } else if(this.monsterCategory== '그외' && this.level== '') {
-            alert('no');
+            alert('모든 항목을 채워주세요.');
             return
         }
       }
