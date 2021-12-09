@@ -61,19 +61,21 @@
       </v-card-text>
 
       <v-card-actions>
-        <!-- <input type="text"
-          v-model="number"
-          size=17
-          label="title"
-          > -->
-        <v-text-field
-          v-model="number"
-          :counter="5"
-          label="개수"
-          required
-        ></v-text-field>
+          <v-form
+            ref="form"
+            v-model="valid">
+            <v-text-field
+              v-model="number"
+              :counter="5"
+              label="개수"
+                :rules="numberRules"
+              required
+            ></v-text-field>
+          </v-form>
+
 
         <v-btn v-if="check==false"
+        :disabled="!valid"
           color="deep-purple lighten-2"
           text
           @click="addCollection"
@@ -81,6 +83,7 @@
           추가하기
         </v-btn>
         <v-btn v-if="check==true"
+        :disabled="!valid"
           color="deep-purple lighten-2"
           text
           @click="editCollection"
@@ -107,9 +110,17 @@ export default {
   props: ['response', 'id'],
   data() {
     return {
+      valid: true,
       card: '',
       number: '',
-      check: false
+      number1: '',
+      check: false,
+      numberRules: [
+        v => !!v || '',
+        v => v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.',
+        v => v > 0 || '유효한 값을 입력해주세요.',
+        v => v != this.number1 || '' 
+      ],
     }
   },
   mounted() {
@@ -118,6 +129,7 @@ export default {
       .then(response=>{
         if(response.data.collection) {
           this.number = response.data.collection.number;
+          this.number1 = response.data.collection.number;
           this.check=true;
         }
       })

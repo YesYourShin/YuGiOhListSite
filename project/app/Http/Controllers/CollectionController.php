@@ -29,7 +29,6 @@ class CollectionController extends Controller
      */
     public function insert(Request $request)
     {
-        
         $input = $this->validate($request, [
             'title'=>'required',
             'number'=>'required',
@@ -39,8 +38,6 @@ class CollectionController extends Controller
         $input = array_merge($request->all(), [
             'user_id'=>Auth::user()->id
         ]);
-
-        // 이미 있는 카드일 경우 insert 안 되도록 코드 짜야됨
 
         Collection::create($input);
 
@@ -96,8 +93,6 @@ class CollectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $card = json_decode($request->getContent(), true);
-
         $request->validate(['number'=>'required']);
 
         $user_id = Auth::id();
@@ -141,7 +136,8 @@ class CollectionController extends Controller
     {
         $auth = Auth::id();
 
-        $cards = DB::table('collections')->where('user_id', 'like', $auth)->orderBy('id', 'DESC')->paginate(12);
+        $cards = DB::table('collections')->where('user_id', 'like', $auth)
+                ->orderBy('id', 'DESC')->paginate(12);
 
         return ['response' => $cards, 'success' => 1];
     }

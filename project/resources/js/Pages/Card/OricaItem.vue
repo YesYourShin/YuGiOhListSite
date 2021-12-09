@@ -17,11 +17,6 @@
         ></v-progress-linear>
       </template>
 
-      <v-img
-        height="250"
-        src="../../public/no_image.png"
-      ></v-img>
-
       <v-card-title>{{orica.title}}</v-card-title>
 
       <v-card-text>

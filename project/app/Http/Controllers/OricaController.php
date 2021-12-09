@@ -85,8 +85,6 @@ class OricaController extends Controller
             'def' => $request['def'],
             'user_id'=>Auth::user()->id
         ]);
-    
-
         return response(['success', 'id' => $orica -> id]);
     }
 
@@ -97,12 +95,8 @@ class OricaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        // $card = Card::with('likes')->find($id);
         $orica = DB::table('oricas')->where('id', 'like', $id)->first();
-        // $card = DB::table('cards')
-        //     ->where('id', 'like', $id)->get()
-        //     ->join('collections', 'cards.')
-        // ;
+
         return Inertia::render('Card/OricaItem', ['orica' => $orica]);
     }
 
@@ -117,7 +111,6 @@ class OricaController extends Controller
         $auth = Auth::id();
 
         $orica = DB::table('oricas')->where('id', 'like', $id)->first();
-
 
         if($orica->user_id == $auth) {
             return Inertia::render('Card/OricaEdit', ['response' => $orica]);
@@ -135,7 +128,6 @@ class OricaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'effect' => 'required',
@@ -178,9 +170,6 @@ class OricaController extends Controller
             'atk' => $request['atk'],
             'def' => $request['def'],
         ]);
-        // $this->authorize('update', $orica);
-
-        // $orica->save();
 
         return ['id' => $orica->id];
     }
@@ -193,25 +182,21 @@ class OricaController extends Controller
      */
     public function destroy($id)
     {
-        
         DB::table('oricas')->where('id','like', $id)->delete();
 
-        
         return ['success' => true];
     }
 
     public function oricalist()
     {
         return Inertia::render('Card/OricaList');
-
     }
 
     public function oricalistpage()
     {
-        
         $oricas = DB::table('oricas')->orderBy('id', 'DESC')->paginate(12);
-        return ['response' => $oricas, 'success' => 1];
 
+        return ['response' => $oricas, 'success' => 1];
     }
 
     public function search ($search) {
@@ -219,7 +204,6 @@ class OricaController extends Controller
                 ->orderBy('id', 'DESC')->paginate(12);
 
         return $oricas;
-        
     }
 
     public function myoricalist()
@@ -230,14 +214,12 @@ class OricaController extends Controller
 
     public function myoricalistpage()
     {
-
         $auth = Auth::id();
         
         $oricas = DB::table('oricas')->where('user_id', 'like', $auth)
                 ->orderBy('id', 'DESC')->paginate(12);
         
         return ['response' => $oricas, 'success' => 1];
-
     }
 
     public function check($user_id)
@@ -251,8 +233,8 @@ class OricaController extends Controller
         return ['check' => false];
     }
 
-    public function mysearch ($search) {
-
+    public function mysearch ($search) 
+    {
         $user_id = Auth::id();
 
         $oricas = DB::table('oricas')->where([
@@ -262,6 +244,5 @@ class OricaController extends Controller
             ])->orderBy('id', 'DESC')->paginate(12);
 
         return $oricas;
-        
     }
 }

@@ -5,178 +5,160 @@
               EditOrica
           </h2>
       </template>
-    <v-form>
+    <v-form ref="form" v-model="valid">
       <v-container>
-        <select 
-          v-model="category" 
-          required 
-          @change="categoryCheck()"
-        >
-          <option 
-            v-for="(c, index) in categoryItems"  
-            :key="index"
-          >
+        <label>카드 종류</label>
+        <select v-model="category" required @change="categoryCheck()">
+          <option v-for="(c, index) in categoryItems" :key="index" >
             {{ c }}
           </option>
         </select>
 
+        
         <div v-if="category=='몬스터'">
 
-        <select 
-          v-model="monsterCategory" 
-          @change="monsterCategoryCheck()"
-        >
-          <option 
-            v-for="(mc, index) in monsterCategoryItems"  
-            :key="index"
-          >
+        <label>몬스터 타입</label>
+        <select v-model="monsterCategory" @change="monsterCategoryCheck()">
+          <option v-for="(mc, index) in monsterCategoryItems" :key="index">
             {{ mc }}
           </option>
         </select>
 
         <div v-if="monsterCategory">
-          <v-text-field
-            v-model="title"
-            :counter="10"
-            label="title"
-            required
-          ></v-text-field>
+        <v-text-field
+          v-model="title"
+          :counter="255"
+          label="카드 이름"
+          :rules="titleRules"
+          required
+        ></v-text-field>
 
-          <select v-model="attribute">
-            <option 
-              v-for="(a, index) in attributeItems"  
-              :key="index"
-            >
-              {{ a }}
-            </option>
-          </select>
+        <label>속성</label>
+        <select v-model="attribute">
+          <option v-for="(a, index) in attributeItems"  :key="index">
+            {{ a }}
+          </option>
+        </select>
 
-          <v-text-field 
-            v-if="(monsterCategory!=='엑시즈') && (monsterCategory!=='링크')"
-            v-model="level"
-            label="level"
-            required
-          ></v-text-field>
-          <v-text-field 
-            v-if="monsterCategory==='엑시즈'"
+        <v-text-field v-if="(monsterCategory!=='엑시즈') && (monsterCategory!=='링크')"
+          v-model="level"
+          label="레벨"
+          :rules="levelRules"
+          required
+        ></v-text-field>
+        <v-text-field v-if="monsterCategory==='엑시즈'"
             v-model="rank"
-            label="rank"
+            :rules="levelRules"
+            label="랭크"
             required
           ></v-text-field>
-          <v-text-field 
-            v-if="monsterCategory=='펜듈럼'"
+        <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pScale"
-            label="pScale"
+            :rules="pScaleRules"
+            label="펜듈럼 스케일"
             required
           ></v-text-field>
-          <v-text-field 
-            v-if="monsterCategory=='펜듈럼'"
+        <v-text-field v-if="monsterCategory=='펜듈럼'"
             v-model="pEffect"
-            label="pEffect"
+            :counter="500"
+            label="펜듈럼 효과"
+            :rules="effectRules"
             required
           ></v-text-field>
-          <v-text-field 
-            v-if="monsterCategory=='링크'"
+        <v-text-field v-if="monsterCategory=='링크'"
             v-model="link"
-            label="link"
+            label="링크"
+            :rules="linkRules"
             required
           ></v-text-field>
-          <v-text-field 
-            v-if="monsterCategory=='링크'"
+        <v-text-field v-if="monsterCategory=='링크'"
             v-model="linkArray"
-            label="linkArray"
-            required
-            readonly
-          ></v-text-field>    
-          <select 
-            v-model="linkArray" 
-            v-if="monsterCategory=='링크'" 
-            required 
-            multiple='multiple'
-          >
-            <option 
-              v-for="(a, index) in linkArrayItems"  
-              :key="index"
-            >
-              {{ a }}
-            </option>
-          </select>
-          <v-text-field
-            v-model="monsterType"
-            label="monsterType"
+            label="링크 방향"
+            :rules="linkArrayRules"
             required
           ></v-text-field>
-          <v-text-field
+        <v-text-field
+            v-model="monsterType"
+            label="몬스터 종족"
+            :rules="monsterTypeRules"
+            :counter="20"
+            required
+          ></v-text-field>
+        <v-text-field
             v-model="effect"
-            label="effect"
+            label="효과"
+            :counter="500"
+            :rules="effectRules"
             required
           ></v-text-field>          
-          <v-text-field
+        <v-text-field
             v-model="atk"
-            label="atk"
+            label="공격력"
+            :rules="atkRules"
             required
           ></v-text-field>          
-          <v-text-field
+        <v-text-field
             v-model="def"
-            label="def"
+            label="수비력"
             required
+            :rules="defRules"
             :readonly="this.monsterCategory==='링크'"
           ></v-text-field>
-          </div>
         </div>
+      </div>
 
-        <div v-if="category=='마법'">
-          <select v-model="icon">
-            <option 
-              v-for="(i, index) in iconItems"  
-              :key="index"
-            >
-              {{ i }}
-            </option>
-          </select>
-          <v-text-field
+      <div v-if="category=='마법'">
+        <label>마법 종류</label>
+        <select v-model="icon">
+          <option v-for="(i, index) in iconItems" :key="index">
+            {{ i }}
+          </option>
+        </select>
+        <v-text-field
             v-model="title"
-            :counter="10"
-            label="title"
+            :counter="255"
+            label="카드 이름"
+            :rules="titleRules"
             required
           ></v-text-field>
-          <v-text-field
+        <v-text-field
             v-model="effect"
-            :counter="10"
-            label="effect"
+            :counter="500"
+            label="효과"
+            :rules="effectRules"
             required
           ></v-text-field>
-        </div>
+      </div>
 
-        <div v-if="category=='함정'">
-          <select v-model="icon">
-            <option 
-              v-for="(i, index) in iconItems" 
-              :key="index"
-            >
-              {{ i }}
-            </option>
-          </select>
-          <v-text-field
+      <div v-if="category=='함정'">
+        <label>함정 종류</label>
+        <select v-model="icon">
+          <option v-for="(i, index) in iconItems" :key="index">
+            {{ i }}
+          </option>
+        </select>
+        <v-text-field
             v-model="title"
-            :counter="10"
-            label="title"
+            :counter="255"
+            label="제목"
+            :rules="titleRules"
             required
           ></v-text-field>
-          <v-text-field
+        <v-text-field
             v-model="effect"
-            :counter="10"
-            label="effect"
+            :counter="500"
+            label="효과"
+            :rules="effectRules"
             required
           ></v-text-field>
         </div>
-        <v-btn 
-          v-if="category"
+          <v-btn v-if="category"
           color="deep-purple lighten-2"
           text
+        :disabled="!valid"
           @click="editOrica"
         >
-          카드 만들기
+          카드 수정
         </v-btn>
       </v-container>
     </v-form>
@@ -211,6 +193,51 @@ export default {
     effect: '',
     atk: '',
     def: '',
+    valid: true,
+    titleRules: [
+      v => !!v || 'required',
+      v => v.length <= 255 || v.length == undefined || '255자를 초과할 수 없습니다.',
+    ],
+    levelRules: [
+      v => !!v || 'required',
+      v => v >= 0 || '숫자만 입력해주세요.',
+      v => v != 0 || '0은 입력할 수 없습니다.',
+      v => v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.',
+    ],
+    linkArrayRules: [
+      v => !!v || 'required',
+      v => v <= 0 || '숫자는 입력할 수 없습니다.',
+      v => v.length <= 8 || v.length == undefined || '8을 초과할 수 없습니다.',
+    ],
+    linkRules: [
+      v => !!v || 'required',
+      v => v >= 0 || '숫자만 입력해주세요.',
+      v => v != 0 || '0은 입력할 수 없습니다.',
+      v => v <= 8 || v.length == undefined || '13을 초과할 수 없습니다.'
+    ],
+    monsterTypeRules: [
+      v => !!v || 'required',
+      v => v.length <= 20 || v.length == undefined || '20자를 초과할 수 없습니다.',
+    ],
+    effectRules: [
+      v => !!v || 'required',
+      v => v.length <= 500 || v.length == undefined || '500자를 초과할 수 없습니다.',
+    ],
+    pScaleRules: [
+      v => !!v || 'required',
+      v => v >= 0 || '숫자만 입력해주세요.',
+      v => v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.',
+    ],
+    atkRules: [
+      v => !!v || 'required',
+      v => v >= 0 || '숫자만 입력해주세요.',
+      v => v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.',
+    ],
+    defRules: [
+      v => !!v || 'required',
+      v => v == '-' || v >= 0 || '숫자만 입력해주세요.',
+      v => v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.',
+    ],
   }),
   mounted() {
     let res = this.response
@@ -311,23 +338,67 @@ export default {
             return
         }
       }
-      let orica = {
-        category: this.category,
-        monsterCategory: this.monsterCategory,
-        icon: this.icon,
-        iconItems: this.iconItems,
-        title: this.title,
-        attribute: this.attribute,
-        level: this.level,
-        rank: this.rank,
-        pScale: this.pScale,
-        pEffect: this.pEffect,
-        link: this.link,
-        linkArray: this.linkArray,
-        monsterType: this.monsterType,
-        effect: this.effect,
-        atk: this.atk,
-        def: this.def,
+      let orica
+      if (this.category == "몬스터" && this.monsterCategory == "그외") {
+          orica = {
+            category: this.category,
+            monsterCategory: this.monsterCategory,
+            title: this.title,
+            attribute: this.attribute,
+            level: this.level,
+            monsterType: this.monsterType,
+            effect: this.effect,
+            atk: this.atk,
+            def: this.def,
+          }
+      } else if (this.category == "몬스터" && this.monsterCategory == "엑시즈") {
+          orica = {
+            category: this.category,
+            monsterCategory: this.monsterCategory,
+            title: this.title,
+            attribute: this.attribute,
+            rank: this.rank,
+            monsterType: this.monsterType,
+            effect: this.effect,
+            atk: this.atk,
+            def: this.def,
+          }
+      } else if (this.category == "몬스터" && this.monsterCategory == "펜듈럼") {
+          orica = {
+            category: this.category,
+            monsterCategory: this.monsterCategory,
+            title: this.title,
+            attribute: this.attribute,
+            level: this.level,
+            pScale: this.pScale,
+            pEffect: this.pEffect,
+            monsterType: this.monsterType,
+            effect: this.effect,
+            atk: this.atk,
+            def: this.def,
+          }
+      } else if (this.category == "몬스터" && this.monsterCategory == "링크") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          link: this.link,
+          linkArray: this.linkArray,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def,
+        }
+      }
+
+      if (this.category == "마법" || this.category == "함정") {
+          orica = {
+          title: this.title,
+          category: this.category,
+          icon: this.icon,
+          effect: this.effect,
+        }
       }
       axios.patch('http://localhost:8000/oricaupdate/'+this.response.id, orica)
         .then(response=>{

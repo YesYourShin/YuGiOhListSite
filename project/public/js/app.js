@@ -4579,6 +4579,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4587,20 +4590,34 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['response', 'id'],
   data: function data() {
+    var _this = this;
+
     return {
+      valid: true,
       card: '',
       number: '',
-      check: false
+      number1: '',
+      check: false,
+      numberRules: [function (v) {
+        return !!v || '';
+      }, function (v) {
+        return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
+      }, function (v) {
+        return v > 0 || '유효한 값을 입력해주세요.';
+      }, function (v) {
+        return v != _this.number1 || '';
+      }]
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     this.card = this.response;
     axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionshow/' + this.card.id).then(function (response) {
       if (response.data.collection) {
-        _this.number = response.data.collection.number;
-        _this.check = true;
+        _this2.number = response.data.collection.number;
+        _this2.number1 = response.data.collection.number;
+        _this2.check = true;
       }
     })["catch"](function (error) {
       console.error(error);
@@ -4608,7 +4625,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addCollection: function addCollection() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.number == null) {
         alert('가진 카드 갯수를 입력해주세요.');
@@ -4620,7 +4637,7 @@ __webpack_require__.r(__webpack_exports__);
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
-        _this2.check = true;
+        _this3.check = true;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -4634,11 +4651,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteCollection: function deleteCollection() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.id).then(function (response) {
-        _this3.check = false;
-        _this3.number = '';
+        _this4.check = false;
+        _this4.number = '';
       })["catch"](function (error) {
         console.error(error);
       });
@@ -5511,24 +5528,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5558,7 +5557,69 @@ __webpack_require__.r(__webpack_exports__);
       monsterType: '',
       effect: '',
       atk: '',
-      def: ''
+      def: '',
+      valid: true,
+      titleRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v.length <= 255 || v.length == undefined || '255자를 초과할 수 없습니다.';
+      }],
+      levelRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v != 0 || '0은 입력할 수 없습니다.';
+      }, function (v) {
+        return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
+      }],
+      linkArrayRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v <= 0 || '숫자는 입력할 수 없습니다.';
+      }, function (v) {
+        return v.length <= 8 || v.length == undefined || '8을 초과할 수 없습니다.';
+      }],
+      linkRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v != 0 || '0은 입력할 수 없습니다.';
+      }, function (v) {
+        return v <= 8 || v.length == undefined || '13을 초과할 수 없습니다.';
+      }],
+      monsterTypeRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v.length <= 20 || v.length == undefined || '20자를 초과할 수 없습니다.';
+      }],
+      effectRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v.length <= 500 || v.length == undefined || '500자를 초과할 수 없습니다.';
+      }],
+      pScaleRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
+      }],
+      atkRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
+      }],
+      defRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v == '-' || v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
+      }]
     };
   },
   mounted: function mounted() {
@@ -5664,24 +5725,70 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      var orica = {
-        category: this.category,
-        monsterCategory: this.monsterCategory,
-        icon: this.icon,
-        iconItems: this.iconItems,
-        title: this.title,
-        attribute: this.attribute,
-        level: this.level,
-        rank: this.rank,
-        pScale: this.pScale,
-        pEffect: this.pEffect,
-        link: this.link,
-        linkArray: this.linkArray,
-        monsterType: this.monsterType,
-        effect: this.effect,
-        atk: this.atk,
-        def: this.def
-      };
+      var orica;
+
+      if (this.category == "몬스터" && this.monsterCategory == "그외") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          level: this.level,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      } else if (this.category == "몬스터" && this.monsterCategory == "엑시즈") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          rank: this.rank,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      } else if (this.category == "몬스터" && this.monsterCategory == "펜듈럼") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          level: this.level,
+          pScale: this.pScale,
+          pEffect: this.pEffect,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      } else if (this.category == "몬스터" && this.monsterCategory == "링크") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          link: this.link,
+          linkArray: this.linkArray,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      }
+
+      if (this.category == "마법" || this.category == "함정") {
+        orica = {
+          title: this.title,
+          category: this.category,
+          icon: this.icon,
+          effect: this.effect
+        };
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/oricaupdate/' + this.response.id, orica).then(function (response) {
         if (response.data.id) {
           location.href = "http://localhost:8000/oricashow/" + response.data.id;
@@ -5709,6 +5816,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5884,7 +6011,69 @@ __webpack_require__.r(__webpack_exports__);
       monsterType: '',
       effect: '',
       atk: '',
-      def: ''
+      def: '',
+      valid: true,
+      titleRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v.length <= 255 || v.length == undefined || '255자를 초과할 수 없습니다.';
+      }],
+      levelRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v != 0 || '0은 입력할 수 없습니다.';
+      }, function (v) {
+        return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
+      }],
+      linkArrayRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v <= 0 || '숫자는 입력할 수 없습니다.';
+      }, function (v) {
+        return v.length <= 8 || v.length == undefined || '8을 초과할 수 없습니다.';
+      }],
+      linkRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v != 0 || '0은 입력할 수 없습니다.';
+      }, function (v) {
+        return v <= 8 || v.length == undefined || '13을 초과할 수 없습니다.';
+      }],
+      monsterTypeRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v.length <= 20 || v.length == undefined || '20자를 초과할 수 없습니다.';
+      }],
+      effectRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v.length <= 500 || v.length == undefined || '500자를 초과할 수 없습니다.';
+      }],
+      pScaleRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v <= 13 || v.length == undefined || '13을 초과할 수 없습니다.';
+      }],
+      atkRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
+      }],
+      defRules: [function (v) {
+        return !!v || 'required';
+      }, function (v) {
+        return v == '-' || v >= 0 || '숫자만 입력해주세요.';
+      }, function (v) {
+        return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
+      }]
     };
   },
   methods: {
@@ -5926,42 +6115,90 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.category == "몬스터") {
         if (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '') {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '엑시즈' && this.rank == '') {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '펜듈럼' && (this.level == '' || this.pScale == '' || this.pEffect == '')) {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '링크' && (this.link == '' || this.linkArray == '')) {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         } else if (this.monsterCategory == '그외' && this.level == '') {
-          alert('no');
+          alert('모든 항목을 채워주세요.');
           return;
         }
       }
 
-      var orica = {
-        category: this.category,
-        monsterCategory: this.monsterCategory,
-        icon: this.icon,
-        iconItems: this.iconItems,
-        title: this.title,
-        attribute: this.attribute,
-        level: this.level,
-        rank: this.rank,
-        pScale: this.pScale,
-        pEffect: this.pEffect,
-        link: this.link,
-        linkArray: this.linkArray,
-        monsterType: this.monsterType,
-        effect: this.effect,
-        atk: this.atk,
-        def: this.def
-      };
+      var orica;
+
+      if (this.category == "몬스터" && this.monsterCategory == "그외") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          level: this.level,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      } else if (this.category == "몬스터" && this.monsterCategory == "엑시즈") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          rank: this.rank,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      } else if (this.category == "몬스터" && this.monsterCategory == "펜듈럼") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          level: this.level,
+          pScale: this.pScale,
+          pEffect: this.pEffect,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      } else if (this.category == "몬스터" && this.monsterCategory == "링크") {
+        orica = {
+          category: this.category,
+          monsterCategory: this.monsterCategory,
+          title: this.title,
+          attribute: this.attribute,
+          link: this.link,
+          linkArray: this.linkArray,
+          monsterType: this.monsterType,
+          effect: this.effect,
+          atk: this.atk,
+          def: this.def
+        };
+      }
+
+      if (this.category == "마법" || this.category == "함정") {
+        orica = {
+          title: this.title,
+          category: this.category,
+          icon: this.icon,
+          effect: this.effect
+        };
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('http://localhost:8000/oricainsert/', orica).then(function (response) {
+        console.log(response);
+
         if (response.data.id) {
           location.href = "http://localhost:8000/oricashow/" + response.data.id;
         }
@@ -5988,11 +6225,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-//
-//
-//
-//
-//
 //
 //
 //
@@ -38770,22 +39002,47 @@ var render = function () {
           _c(
             "v-card-actions",
             [
-              _c("v-text-field", {
-                attrs: { counter: 5, label: "개수", required: "" },
-                model: {
-                  value: _vm.number,
-                  callback: function ($$v) {
-                    _vm.number = $$v
+              _c(
+                "v-form",
+                {
+                  ref: "form",
+                  model: {
+                    value: _vm.valid,
+                    callback: function ($$v) {
+                      _vm.valid = $$v
+                    },
+                    expression: "valid",
                   },
-                  expression: "number",
                 },
-              }),
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      counter: 5,
+                      label: "개수",
+                      rules: _vm.numberRules,
+                      required: "",
+                    },
+                    model: {
+                      value: _vm.number,
+                      callback: function ($$v) {
+                        _vm.number = $$v
+                      },
+                      expression: "number",
+                    },
+                  }),
+                ],
+                1
+              ),
               _vm._v(" "),
               _vm.check == false
                 ? _c(
                     "v-btn",
                     {
-                      attrs: { color: "deep-purple lighten-2", text: "" },
+                      attrs: {
+                        disabled: !_vm.valid,
+                        color: "deep-purple lighten-2",
+                        text: "",
+                      },
                       on: { click: _vm.addCollection },
                     },
                     [_vm._v("\n        추가하기\n      ")]
@@ -38796,7 +39053,11 @@ var render = function () {
                 ? _c(
                     "v-btn",
                     {
-                      attrs: { color: "deep-purple lighten-2", text: "" },
+                      attrs: {
+                        disabled: !_vm.valid,
+                        color: "deep-purple lighten-2",
+                        text: "",
+                      },
                       on: { click: _vm.editCollection },
                     },
                     [_vm._v("\n        변경하기\n      ")]
@@ -39826,557 +40087,14 @@ var render = function () {
       _vm._v(" "),
       _c(
         "v-form",
-        [
-          _c(
-            "v-container",
-            [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.category,
-                      expression: "category",
-                    },
-                  ],
-                  attrs: { required: "" },
-                  on: {
-                    change: [
-                      function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.category = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      function ($event) {
-                        return _vm.categoryCheck()
-                      },
-                    ],
-                  },
-                },
-                _vm._l(_vm.categoryItems, function (c, index) {
-                  return _c("option", { key: index }, [
-                    _vm._v("\n          " + _vm._s(c) + "\n        "),
-                  ])
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _vm.category == "몬스터"
-                ? _c("div", [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.monsterCategory,
-                            expression: "monsterCategory",
-                          },
-                        ],
-                        on: {
-                          change: [
-                            function ($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function (o) {
-                                  return o.selected
-                                })
-                                .map(function (o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.monsterCategory = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            },
-                            function ($event) {
-                              return _vm.monsterCategoryCheck()
-                            },
-                          ],
-                        },
-                      },
-                      _vm._l(_vm.monsterCategoryItems, function (mc, index) {
-                        return _c("option", { key: index }, [
-                          _vm._v("\n          " + _vm._s(mc) + "\n        "),
-                        ])
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _vm.monsterCategory
-                      ? _c(
-                          "div",
-                          [
-                            _c("v-text-field", {
-                              attrs: {
-                                counter: 10,
-                                label: "title",
-                                required: "",
-                              },
-                              model: {
-                                value: _vm.title,
-                                callback: function ($$v) {
-                                  _vm.title = $$v
-                                },
-                                expression: "title",
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.attribute,
-                                    expression: "attribute",
-                                  },
-                                ],
-                                on: {
-                                  change: function ($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call(
-                                        $event.target.options,
-                                        function (o) {
-                                          return o.selected
-                                        }
-                                      )
-                                      .map(function (o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.attribute = $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  },
-                                },
-                              },
-                              _vm._l(_vm.attributeItems, function (a, index) {
-                                return _c("option", { key: index }, [
-                                  _vm._v(
-                                    "\n            " +
-                                      _vm._s(a) +
-                                      "\n          "
-                                  ),
-                                ])
-                              }),
-                              0
-                            ),
-                            _vm._v(" "),
-                            _vm.monsterCategory !== "엑시즈" &&
-                            _vm.monsterCategory !== "링크"
-                              ? _c("v-text-field", {
-                                  attrs: { label: "level", required: "" },
-                                  model: {
-                                    value: _vm.level,
-                                    callback: function ($$v) {
-                                      _vm.level = $$v
-                                    },
-                                    expression: "level",
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.monsterCategory === "엑시즈"
-                              ? _c("v-text-field", {
-                                  attrs: { label: "rank", required: "" },
-                                  model: {
-                                    value: _vm.rank,
-                                    callback: function ($$v) {
-                                      _vm.rank = $$v
-                                    },
-                                    expression: "rank",
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.monsterCategory == "펜듈럼"
-                              ? _c("v-text-field", {
-                                  attrs: { label: "pScale", required: "" },
-                                  model: {
-                                    value: _vm.pScale,
-                                    callback: function ($$v) {
-                                      _vm.pScale = $$v
-                                    },
-                                    expression: "pScale",
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.monsterCategory == "펜듈럼"
-                              ? _c("v-text-field", {
-                                  attrs: { label: "pEffect", required: "" },
-                                  model: {
-                                    value: _vm.pEffect,
-                                    callback: function ($$v) {
-                                      _vm.pEffect = $$v
-                                    },
-                                    expression: "pEffect",
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.monsterCategory == "링크"
-                              ? _c("v-text-field", {
-                                  attrs: { label: "link", required: "" },
-                                  model: {
-                                    value: _vm.link,
-                                    callback: function ($$v) {
-                                      _vm.link = $$v
-                                    },
-                                    expression: "link",
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.monsterCategory == "링크"
-                              ? _c("v-text-field", {
-                                  attrs: {
-                                    label: "linkArray",
-                                    required: "",
-                                    readonly: "",
-                                  },
-                                  model: {
-                                    value: _vm.linkArray,
-                                    callback: function ($$v) {
-                                      _vm.linkArray = $$v
-                                    },
-                                    expression: "linkArray",
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.monsterCategory == "링크"
-                              ? _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.linkArray,
-                                        expression: "linkArray",
-                                      },
-                                    ],
-                                    attrs: {
-                                      required: "",
-                                      multiple: "multiple",
-                                    },
-                                    on: {
-                                      change: function ($event) {
-                                        var $$selectedVal =
-                                          Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function (o) {
-                                                return o.selected
-                                              }
-                                            )
-                                            .map(function (o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                        _vm.linkArray = $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      },
-                                    },
-                                  },
-                                  _vm._l(
-                                    _vm.linkArrayItems,
-                                    function (a, index) {
-                                      return _c("option", { key: index }, [
-                                        _vm._v(
-                                          "\n            " +
-                                            _vm._s(a) +
-                                            "\n          "
-                                        ),
-                                      ])
-                                    }
-                                  ),
-                                  0
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c("v-text-field", {
-                              attrs: { label: "monsterType", required: "" },
-                              model: {
-                                value: _vm.monsterType,
-                                callback: function ($$v) {
-                                  _vm.monsterType = $$v
-                                },
-                                expression: "monsterType",
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("v-text-field", {
-                              attrs: { label: "effect", required: "" },
-                              model: {
-                                value: _vm.effect,
-                                callback: function ($$v) {
-                                  _vm.effect = $$v
-                                },
-                                expression: "effect",
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("v-text-field", {
-                              attrs: { label: "atk", required: "" },
-                              model: {
-                                value: _vm.atk,
-                                callback: function ($$v) {
-                                  _vm.atk = $$v
-                                },
-                                expression: "atk",
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("v-text-field", {
-                              attrs: {
-                                label: "def",
-                                required: "",
-                                readonly: this.monsterCategory === "링크",
-                              },
-                              model: {
-                                value: _vm.def,
-                                callback: function ($$v) {
-                                  _vm.def = $$v
-                                },
-                                expression: "def",
-                              },
-                            }),
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.category == "마법"
-                ? _c(
-                    "div",
-                    [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.icon,
-                              expression: "icon",
-                            },
-                          ],
-                          on: {
-                            change: function ($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function (o) {
-                                  return o.selected
-                                })
-                                .map(function (o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.icon = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            },
-                          },
-                        },
-                        _vm._l(_vm.iconItems, function (i, index) {
-                          return _c("option", { key: index }, [
-                            _vm._v(
-                              "\n            " + _vm._s(i) + "\n          "
-                            ),
-                          ])
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: { counter: 10, label: "title", required: "" },
-                        model: {
-                          value: _vm.title,
-                          callback: function ($$v) {
-                            _vm.title = $$v
-                          },
-                          expression: "title",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: { counter: 10, label: "effect", required: "" },
-                        model: {
-                          value: _vm.effect,
-                          callback: function ($$v) {
-                            _vm.effect = $$v
-                          },
-                          expression: "effect",
-                        },
-                      }),
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.category == "함정"
-                ? _c(
-                    "div",
-                    [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.icon,
-                              expression: "icon",
-                            },
-                          ],
-                          on: {
-                            change: function ($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function (o) {
-                                  return o.selected
-                                })
-                                .map(function (o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.icon = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            },
-                          },
-                        },
-                        _vm._l(_vm.iconItems, function (i, index) {
-                          return _c("option", { key: index }, [
-                            _vm._v(
-                              "\n            " + _vm._s(i) + "\n          "
-                            ),
-                          ])
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: { counter: 10, label: "title", required: "" },
-                        model: {
-                          value: _vm.title,
-                          callback: function ($$v) {
-                            _vm.title = $$v
-                          },
-                          expression: "title",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: { counter: 10, label: "effect", required: "" },
-                        model: {
-                          value: _vm.effect,
-                          callback: function ($$v) {
-                            _vm.effect = $$v
-                          },
-                          expression: "effect",
-                        },
-                      }),
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.category
-                ? _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "deep-purple lighten-2", text: "" },
-                      on: { click: _vm.editOrica },
-                    },
-                    [_vm._v("\n        카드 만들기\n      ")]
-                  )
-                : _vm._e(),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=template&id=2fefcdb2&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=template&id=2fefcdb2& ***!
-  \*********************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "app-layout",
-    {
-      scopedSlots: _vm._u([
         {
-          key: "header",
-          fn: function () {
-            return [
-              _c(
-                "h2",
-                {
-                  staticClass:
-                    "font-semibold text-xl text-gray-800 leading-tight",
-                },
-                [_vm._v("\n          MakeOrica\n      ")]
-              ),
-            ]
-          },
-          proxy: true,
-        },
-      ]),
-    },
-    [
-      _vm._v(" "),
-      _c(
-        "v-form",
-        {
+          ref: "form",
           model: {
-            value: _vm.orica,
+            value: _vm.valid,
             callback: function ($$v) {
-              _vm.orica = $$v
+              _vm.valid = $$v
             },
-            expression: "orica",
+            expression: "valid",
           },
         },
         [
@@ -40476,8 +40194,9 @@ var render = function () {
                           [
                             _c("v-text-field", {
                               attrs: {
-                                counter: 10,
+                                counter: 255,
                                 label: "카드 이름",
+                                rules: _vm.titleRules,
                                 required: "",
                               },
                               model: {
@@ -40488,6 +40207,8 @@ var render = function () {
                                 expression: "title",
                               },
                             }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v("속성")]),
                             _vm._v(" "),
                             _c(
                               "select",
@@ -40533,7 +40254,11 @@ var render = function () {
                             _vm.monsterCategory !== "엑시즈" &&
                             _vm.monsterCategory !== "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "레벨", required: "" },
+                                  attrs: {
+                                    label: "레벨",
+                                    rules: _vm.levelRules,
+                                    required: "",
+                                  },
                                   model: {
                                     value: _vm.level,
                                     callback: function ($$v) {
@@ -40546,7 +40271,11 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory === "엑시즈"
                               ? _c("v-text-field", {
-                                  attrs: { label: "랭크", required: "" },
+                                  attrs: {
+                                    rules: _vm.levelRules,
+                                    label: "랭크",
+                                    required: "",
+                                  },
                                   model: {
                                     value: _vm.rank,
                                     callback: function ($$v) {
@@ -40560,6 +40289,7 @@ var render = function () {
                             _vm.monsterCategory == "펜듈럼"
                               ? _c("v-text-field", {
                                   attrs: {
+                                    rules: _vm.pScaleRules,
                                     label: "펜듈럼 스케일",
                                     required: "",
                                   },
@@ -40575,7 +40305,12 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "펜듈럼"
                               ? _c("v-text-field", {
-                                  attrs: { label: "펜듈럼 효과", required: "" },
+                                  attrs: {
+                                    counter: 500,
+                                    label: "펜듈럼 효과",
+                                    rules: _vm.effectRules,
+                                    required: "",
+                                  },
                                   model: {
                                     value: _vm.pEffect,
                                     callback: function ($$v) {
@@ -40588,7 +40323,11 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "링크", required: "" },
+                                  attrs: {
+                                    label: "링크",
+                                    rules: _vm.linkRules,
+                                    required: "",
+                                  },
                                   model: {
                                     value: _vm.link,
                                     callback: function ($$v) {
@@ -40601,7 +40340,11 @@ var render = function () {
                             _vm._v(" "),
                             _vm.monsterCategory == "링크"
                               ? _c("v-text-field", {
-                                  attrs: { label: "링크 방향", required: "" },
+                                  attrs: {
+                                    label: "링크 방향",
+                                    rules: _vm.linkArrayRules,
+                                    required: "",
+                                  },
                                   model: {
                                     value: _vm.linkArray,
                                     callback: function ($$v) {
@@ -40613,7 +40356,12 @@ var render = function () {
                               : _vm._e(),
                             _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "몬스터 종족", required: "" },
+                              attrs: {
+                                label: "몬스터 종족",
+                                rules: _vm.monsterTypeRules,
+                                counter: 20,
+                                required: "",
+                              },
                               model: {
                                 value: _vm.monsterType,
                                 callback: function ($$v) {
@@ -40624,7 +40372,12 @@ var render = function () {
                             }),
                             _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "효과", required: "" },
+                              attrs: {
+                                label: "효과",
+                                counter: 500,
+                                rules: _vm.effectRules,
+                                required: "",
+                              },
                               model: {
                                 value: _vm.effect,
                                 callback: function ($$v) {
@@ -40635,7 +40388,11 @@ var render = function () {
                             }),
                             _vm._v(" "),
                             _c("v-text-field", {
-                              attrs: { label: "공격력", required: "" },
+                              attrs: {
+                                label: "공격력",
+                                rules: _vm.atkRules,
+                                required: "",
+                              },
                               model: {
                                 value: _vm.atk,
                                 callback: function ($$v) {
@@ -40649,6 +40406,7 @@ var render = function () {
                               attrs: {
                                 label: "수비력",
                                 required: "",
+                                rules: _vm.defRules,
                                 readonly: this.monsterCategory === "링크",
                               },
                               model: {
@@ -40709,8 +40467,9 @@ var render = function () {
                       _vm._v(" "),
                       _c("v-text-field", {
                         attrs: {
-                          counter: 10,
+                          counter: 255,
                           label: "카드 이름",
+                          rules: _vm.titleRules,
                           required: "",
                         },
                         model: {
@@ -40723,7 +40482,12 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { counter: 10, label: "효과", required: "" },
+                        attrs: {
+                          counter: 500,
+                          label: "효과",
+                          rules: _vm.effectRules,
+                          required: "",
+                        },
                         model: {
                           value: _vm.effect,
                           callback: function ($$v) {
@@ -40779,7 +40543,12 @@ var render = function () {
                       ),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { counter: 10, label: "제목", required: "" },
+                        attrs: {
+                          counter: 255,
+                          label: "제목",
+                          rules: _vm.titleRules,
+                          required: "",
+                        },
                         model: {
                           value: _vm.title,
                           callback: function ($$v) {
@@ -40790,7 +40559,12 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("v-text-field", {
-                        attrs: { counter: 10, label: "효과", required: "" },
+                        attrs: {
+                          counter: 500,
+                          label: "효과",
+                          rules: _vm.effectRules,
+                          required: "",
+                        },
                         model: {
                           value: _vm.effect,
                           callback: function ($$v) {
@@ -40808,7 +40582,575 @@ var render = function () {
                 ? _c(
                     "v-btn",
                     {
-                      attrs: { color: "deep-purple lighten-2", text: "" },
+                      attrs: {
+                        color: "deep-purple lighten-2",
+                        text: "",
+                        disabled: !_vm.valid,
+                      },
+                      on: { click: _vm.editOrica },
+                    },
+                    [_vm._v("\n        카드 수정\n      ")]
+                  )
+                : _vm._e(),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=template&id=2fefcdb2&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Card/OricaForm.vue?vue&type=template&id=2fefcdb2& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "app-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function () {
+            return [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "font-semibold text-xl text-gray-800 leading-tight",
+                },
+                [_vm._v("\n          MakeOrica\n      ")]
+              ),
+            ]
+          },
+          proxy: true,
+        },
+      ]),
+    },
+    [
+      _vm._v(" "),
+      _c(
+        "v-form",
+        {
+          ref: "form",
+          model: {
+            value: _vm.valid,
+            callback: function ($$v) {
+              _vm.valid = $$v
+            },
+            expression: "valid",
+          },
+        },
+        [
+          _c(
+            "v-container",
+            [
+              _c("label", [_vm._v("카드 종류")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.category,
+                      expression: "category",
+                    },
+                  ],
+                  attrs: { required: "" },
+                  on: {
+                    change: [
+                      function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.category = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      function ($event) {
+                        return _vm.categoryCheck()
+                      },
+                    ],
+                  },
+                },
+                _vm._l(_vm.categoryItems, function (c, index) {
+                  return _c("option", { key: index }, [
+                    _vm._v("\n          " + _vm._s(c) + "\n        "),
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _vm.category == "몬스터"
+                ? _c("div", [
+                    _c("label", [_vm._v("몬스터 타입")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.monsterCategory,
+                            expression: "monsterCategory",
+                          },
+                        ],
+                        on: {
+                          change: [
+                            function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.monsterCategory = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function ($event) {
+                              return _vm.monsterCategoryCheck()
+                            },
+                          ],
+                        },
+                      },
+                      _vm._l(_vm.monsterCategoryItems, function (mc, index) {
+                        return _c("option", { key: index }, [
+                          _vm._v("\n          " + _vm._s(mc) + "\n        "),
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _vm.monsterCategory
+                      ? _c(
+                          "div",
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                counter: 255,
+                                label: "카드 이름",
+                                rules: _vm.titleRules,
+                                required: "",
+                              },
+                              model: {
+                                value: _vm.title,
+                                callback: function ($$v) {
+                                  _vm.title = $$v
+                                },
+                                expression: "title",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v("속성")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.attribute,
+                                    expression: "attribute",
+                                  },
+                                ],
+                                on: {
+                                  change: function ($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call(
+                                        $event.target.options,
+                                        function (o) {
+                                          return o.selected
+                                        }
+                                      )
+                                      .map(function (o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.attribute = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                },
+                              },
+                              _vm._l(_vm.attributeItems, function (a, index) {
+                                return _c("option", { key: index }, [
+                                  _vm._v(
+                                    "\n          " + _vm._s(a) + "\n        "
+                                  ),
+                                ])
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _vm.monsterCategory !== "엑시즈" &&
+                            _vm.monsterCategory !== "링크"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    label: "레벨",
+                                    rules: _vm.levelRules,
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.level,
+                                    callback: function ($$v) {
+                                      _vm.level = $$v
+                                    },
+                                    expression: "level",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory === "엑시즈"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    rules: _vm.levelRules,
+                                    label: "랭크",
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.rank,
+                                    callback: function ($$v) {
+                                      _vm.rank = $$v
+                                    },
+                                    expression: "rank",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "펜듈럼"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    rules: _vm.pScaleRules,
+                                    label: "펜듈럼 스케일",
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.pScale,
+                                    callback: function ($$v) {
+                                      _vm.pScale = $$v
+                                    },
+                                    expression: "pScale",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "펜듈럼"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    counter: 500,
+                                    label: "펜듈럼 효과",
+                                    rules: _vm.effectRules,
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.pEffect,
+                                    callback: function ($$v) {
+                                      _vm.pEffect = $$v
+                                    },
+                                    expression: "pEffect",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    label: "링크",
+                                    rules: _vm.linkRules,
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.link,
+                                    callback: function ($$v) {
+                                      _vm.link = $$v
+                                    },
+                                    expression: "link",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.monsterCategory == "링크"
+                              ? _c("v-text-field", {
+                                  attrs: {
+                                    label: "링크 방향",
+                                    rules: _vm.linkArrayRules,
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.linkArray,
+                                    callback: function ($$v) {
+                                      _vm.linkArray = $$v
+                                    },
+                                    expression: "linkArray",
+                                  },
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "몬스터 종족",
+                                rules: _vm.monsterTypeRules,
+                                counter: 20,
+                                required: "",
+                              },
+                              model: {
+                                value: _vm.monsterType,
+                                callback: function ($$v) {
+                                  _vm.monsterType = $$v
+                                },
+                                expression: "monsterType",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "효과",
+                                counter: 500,
+                                rules: _vm.effectRules,
+                                required: "",
+                              },
+                              model: {
+                                value: _vm.effect,
+                                callback: function ($$v) {
+                                  _vm.effect = $$v
+                                },
+                                expression: "effect",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "공격력",
+                                rules: _vm.atkRules,
+                                required: "",
+                              },
+                              model: {
+                                value: _vm.atk,
+                                callback: function ($$v) {
+                                  _vm.atk = $$v
+                                },
+                                expression: "atk",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "수비력",
+                                required: "",
+                                rules: _vm.defRules,
+                                readonly: this.monsterCategory === "링크",
+                              },
+                              model: {
+                                value: _vm.def,
+                                callback: function ($$v) {
+                                  _vm.def = $$v
+                                },
+                                expression: "def",
+                              },
+                            }),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.category == "마법"
+                ? _c(
+                    "div",
+                    [
+                      _c("label", [_vm._v("마법 종류")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.icon,
+                              expression: "icon",
+                            },
+                          ],
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.icon = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                          },
+                        },
+                        _vm._l(_vm.iconItems, function (i, index) {
+                          return _c("option", { key: index }, [
+                            _vm._v("\n          " + _vm._s(i) + "\n        "),
+                          ])
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          counter: 255,
+                          label: "카드 이름",
+                          rules: _vm.titleRules,
+                          required: "",
+                        },
+                        model: {
+                          value: _vm.title,
+                          callback: function ($$v) {
+                            _vm.title = $$v
+                          },
+                          expression: "title",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          counter: 500,
+                          label: "효과",
+                          rules: _vm.effectRules,
+                          required: "",
+                        },
+                        model: {
+                          value: _vm.effect,
+                          callback: function ($$v) {
+                            _vm.effect = $$v
+                          },
+                          expression: "effect",
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.category == "함정"
+                ? _c(
+                    "div",
+                    [
+                      _c("label", [_vm._v("함정 종류")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.icon,
+                              expression: "icon",
+                            },
+                          ],
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.icon = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                          },
+                        },
+                        _vm._l(_vm.iconItems, function (i, index) {
+                          return _c("option", { key: index }, [
+                            _vm._v("\n          " + _vm._s(i) + "\n        "),
+                          ])
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          counter: 255,
+                          label: "제목",
+                          rules: _vm.titleRules,
+                          required: "",
+                        },
+                        model: {
+                          value: _vm.title,
+                          callback: function ($$v) {
+                            _vm.title = $$v
+                          },
+                          expression: "title",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          counter: 500,
+                          label: "효과",
+                          rules: _vm.effectRules,
+                          required: "",
+                        },
+                        model: {
+                          value: _vm.effect,
+                          callback: function ($$v) {
+                            _vm.effect = $$v
+                          },
+                          expression: "effect",
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.category
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        color: "deep-purple lighten-2",
+                        text: "",
+                        disabled: !_vm.valid,
+                      },
                       on: { click: _vm.makeOrica },
                     },
                     [_vm._v("\n        카드 만들기\n      ")]
@@ -40889,10 +41231,6 @@ var render = function () {
             ],
             1
           ),
-          _vm._v(" "),
-          _c("v-img", {
-            attrs: { height: "250", src: "../../public/no_image.png" },
-          }),
           _vm._v(" "),
           _c("v-card-title", [_vm._v(_vm._s(_vm.orica.title))]),
           _vm._v(" "),
