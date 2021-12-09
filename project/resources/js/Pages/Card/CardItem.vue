@@ -117,9 +117,10 @@ export default {
       check: false,
       numberRules: [
         v => !!v || '',
+        v => v != this.number1 || '' ,
         v => v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.',
         v => v > 0 || '유효한 값을 입력해주세요.',
-        v => v != this.number1 || '' 
+        
       ],
     }
   },
@@ -143,9 +144,13 @@ export default {
         alert('가진 카드 갯수를 입력해주세요.');
         return;
       }
+      this.number1 = this.number;
       axios.post('http://localhost:8000/collectioninsert', {title: this.card.title, number: this.number, card_id: this.card.id})
         .then(response=>{
-          this.check = true;
+          location.href=("http://localhost:8000/show/"+this.card.id)
+          // this.check = true;
+
+          
         })
         .catch (function (error) {
           console.error(error);
@@ -154,7 +159,7 @@ export default {
     editCollection() {
       axios.patch('http://localhost:8000/collectionupdate/'+this.card.id, {number: this.number, card_id: this.card.id})
         .then(response=>{
-          
+          location.href=("http://localhost:8000/show/"+this.card.id)
         })
         .catch (function (error) {
           console.error(error);
@@ -163,8 +168,9 @@ export default {
     deleteCollection() {
       axios.delete('http://localhost:8000/collectiondestroy/'+this.card.id)
         .then(response=>{
-          this.check=false;
-          this.number='';
+          this.check=false
+          this.number=''
+          this.number1=''
         })
         .catch (function (error) {
           console.error(error);

@@ -4601,11 +4601,11 @@ __webpack_require__.r(__webpack_exports__);
       numberRules: [function (v) {
         return !!v || '';
       }, function (v) {
+        return v != _this.number1 || '';
+      }, function (v) {
         return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
       }, function (v) {
         return v > 0 || '유효한 값을 입력해주세요.';
-      }, function (v) {
-        return v != _this.number1 || '';
       }]
     };
   },
@@ -4632,30 +4632,36 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      this.number1 = this.number;
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('http://localhost:8000/collectioninsert', {
         title: this.card.title,
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
-        _this3.check = true;
+        location.href = "http://localhost:8000/show/" + _this3.card.id; // this.check = true;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     editCollection: function editCollection() {
+      var _this4 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/collectionupdate/' + this.card.id, {
         number: this.number,
         card_id: this.card.id
-      }).then(function (response) {})["catch"](function (error) {
+      }).then(function (response) {
+        location.href = "http://localhost:8000/show/" + _this4.card.id;
+      })["catch"](function (error) {
         console.error(error);
       });
     },
     deleteCollection: function deleteCollection() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.id).then(function (response) {
-        _this4.check = false;
-        _this4.number = '';
+        _this5.check = false;
+        _this5.number = '';
+        _this5.number1 = '';
       })["catch"](function (error) {
         console.error(error);
       });
