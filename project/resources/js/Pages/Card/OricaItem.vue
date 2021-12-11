@@ -39,6 +39,9 @@
         <div v-if="orica.link">
           <br>링크 {{ orica.link }}
         </div>
+        <div v-if="orica.link">
+          <br>링크 방향 {{ orica.linkArray }}
+        </div>
         <div v-if="orica.pEffect">
           <br>펜듈럼 효과 : <br> {{ orica.pEffect }}
         </div>
@@ -112,6 +115,7 @@ export default {
     deleteCollection() {
       axios.delete('http://localhost:8000/oricadestroy/'+this.orica.id)
         .then(response=>{
+          alert('오리카를 삭제했습니다.');
           location.href="http://localhost:8000/oricalist"  
         })
         .catch (function (error) {

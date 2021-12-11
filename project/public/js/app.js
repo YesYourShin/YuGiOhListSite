@@ -4638,6 +4638,7 @@ __webpack_require__.r(__webpack_exports__);
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
+        alert('카드를 추가했습니다.');
         location.href = "http://localhost:8000/show/" + _this3.card.id;
       })["catch"](function (error) {
         console.error(error);
@@ -4650,6 +4651,7 @@ __webpack_require__.r(__webpack_exports__);
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
+        alert('카드 개수를 변경했습니다.');
         location.href = "http://localhost:8000/show/" + _this4.card.id;
       })["catch"](function (error) {
         console.error(error);
@@ -4659,6 +4661,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.id).then(function (response) {
+        alert('카드 개수를 삭제했습니다.');
         location.href = "http://localhost:8000/show/" + _this5.card.id;
       })["catch"](function (error) {
         console.error(error);
@@ -4850,6 +4853,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.search1) {
         var url = 'http://localhost:8000/cardlistpage?page=' + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
+          console.log(response);
           var res = response.data.response;
           _this2.cards = res.data;
           _this2.currentPage = res.current_page;
@@ -4866,7 +4870,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.cards = res.data;
           _this2.currentPage = res.current_page;
           _this2.lastPage = res.last_page;
-          _this2.itemsPerPage = res.itemsPerPage;
+          _this2.itemsPerPage = res.per_page;
         })["catch"](function (error) {
           console.error(error);
         });
@@ -5091,7 +5095,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.cards = response.data.data;
           _this2.currentPage = response.data.current_page;
           _this2.lastPage = response.data.last_page;
-          _this2.itemsPerPage = response.data.itemsPerPage;
+          _this2.itemsPerPage = response.data.per_page;
         })["catch"](function (error) {
           console.error(error);
         });
@@ -5346,7 +5350,7 @@ __webpack_require__.r(__webpack_exports__);
     getSearch: function getSearch() {
       var _this3 = this;
 
-      if (this.search == '') {
+      if (!this.search) {
         alert('검색어를 입력해주세요.');
         return;
       }
@@ -5571,7 +5575,7 @@ __webpack_require__.r(__webpack_exports__);
       category: '',
       categoryItems: ['몬스터', '마법', '함정'],
       monsterCategory: '',
-      monsterCategoryItems: ['엑시즈', '펜듈럼', '링크', '그외'],
+      monsterCategoryItems: ['일반', '효과', '의식', '융합', '싱크로', '엑시즈', '툰', '스피릿', '유니온', '듀얼', '튜너', '리버스', '펜듈럼', '특수소환', '링크'],
       icon: '',
       iconItems: '',
       title: '',
@@ -5670,7 +5674,7 @@ __webpack_require__.r(__webpack_exports__);
         this.linkArray = res.linkArray;
       }
 
-      if (this.monsterCategory == "그외") {
+      if (this.monsterCategory == '일반' || this.monsterCategory == '효과' || this.monsterCategory == '의식' || this.monsterCategory == '융합' || this.monsterCategory == '싱크로' || this.monsterCategory == '툰' || this.monsterCategory == '스피릿' || this.monsterCategory == '유니온' || this.monsterCategory == '듀얼' || this.monsterCategory == '튜너' || this.monsterCategory == '리버스' || this.monsterCategory == '특수소환') {
         this.level = res.level;
       }
     }
@@ -5692,19 +5696,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     categoryCheck: function categoryCheck() {
       if (this.category === '마법') {
-        this.icon = '일반 마법';
         this.iconItems = ['일반 마법', '지속 마법', '장착 마법', '속공 마법', '필드 마법', ' 의식 마법'];
       }
 
       if (this.category === '함정') {
-        this.icon = '일반 함정';
         this.iconItems = ['일반 함정', '지속 함정', '카운터 함정'];
-      }
-
-      if (this.category === '몬스터') {
-        this.monsterCategory = '그외';
-      } else {
-        this.monsterCategory = '';
       }
     },
     monsterCategoryCheck: function monsterCategoryCheck() {
@@ -5721,7 +5717,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     editOrica: function editOrica() {
-      if (this.category == "몬스터" && (this.monsterCategory == '' || this.title == '' || this.attribute == '' || this.monsterType == '' || this.effect == '' || this.atk == '' || this.def == '')) {
+      if (this.category == "") {
         alert('모든 항목을 채워주세요.');
         return;
       }
@@ -5739,7 +5735,12 @@ __webpack_require__.r(__webpack_exports__);
         } else if (this.monsterCategory == '링크' && (this.link == '' || this.linkArray == '')) {
           alert('모든 항목을 채워주세요.');
           return;
-        } else if (this.monsterCategory == '그외' && this.level == '') {
+        } else if ((this.monsterCategory == '일반' || this.monsterCategory == '효과' || this.monsterCategory == '의식' || this.monsterCategory == '융합' || this.monsterCategory == '싱크로' || this.monsterCategory == '툰' || this.monsterCategory == '스피릿' || this.monsterCategory == '유니온' || this.monsterCategory == '듀얼' || this.monsterCategory == '튜너' || this.monsterCategory == '리버스' || this.monsterCategory == '특수소환') && this.level == '') {
+          alert('모든 항목을 채워주세요.');
+          return;
+        }
+
+        if ((this.monsterCategory == '마법' || this.monsterCategory == '함정') && (this.icon == '' || this.effect == '')) {
           alert('모든 항목을 채워주세요.');
           return;
         }
@@ -5747,7 +5748,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var orica;
 
-      if (this.category == "몬스터" && this.monsterCategory == "그외") {
+      if (this.category == "몬스터" && (this.monsterCategory == '일반' || this.monsterCategory == '효과' || this.monsterCategory == '의식' || this.monsterCategory == '융합' || this.monsterCategory == '싱크로' || this.monsterCategory == '툰' || this.monsterCategory == '스피릿' || this.monsterCategory == '유니온' || this.monsterCategory == '듀얼' || this.monsterCategory == '튜너' || this.monsterCategory == '리버스' || this.monsterCategory == '특수소환')) {
         orica = {
           category: this.category,
           monsterCategory: this.monsterCategory,
@@ -5811,6 +5812,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/oricaupdate/' + this.response.id, orica).then(function (response) {
         if (response.data.id) {
+          alert('오리카를 수정했습니다.');
           location.href = "http://localhost:8000/oricashow/" + response.data.id;
         }
       })["catch"](function (error) {
@@ -6027,7 +6029,7 @@ __webpack_require__.r(__webpack_exports__);
       category: '',
       categoryItems: ['몬스터', '마법', '함정'],
       monsterCategory: '',
-      monsterCategoryItems: ['엑시즈', '펜듈럼', '링크', '그외'],
+      monsterCategoryItems: ['일반', '효과', '의식', '융합', '싱크로', '엑시즈', '툰', '스피릿', '유니온', '듀얼', '튜너', '리버스', '펜듈럼', '특수소환', '링크'],
       icon: '',
       iconItems: '',
       title: '',
@@ -6100,19 +6102,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     categoryCheck: function categoryCheck() {
       if (this.category === '마법') {
-        this.icon = '일반 마법';
         this.iconItems = ['일반 마법', '지속 마법', '장착 마법', '속공 마법', '필드 마법', ' 의식 마법'];
       }
 
       if (this.category === '함정') {
-        this.icon = '일반 함정';
         this.iconItems = ['일반 함정', '지속 함정', '카운터 함정'];
-      }
-
-      if (this.category === '몬스터') {
-        this.monsterCategory = '그외';
-      } else {
-        this.monsterCategory = '';
       }
     },
     monsterCategoryCheck: function monsterCategoryCheck() {
@@ -6147,7 +6141,7 @@ __webpack_require__.r(__webpack_exports__);
         } else if (this.monsterCategory == '링크' && (this.link == '' || this.linkArray == '')) {
           alert('모든 항목을 채워주세요.');
           return;
-        } else if (this.monsterCategory == '그외' && this.level == '') {
+        } else if ((this.monsterCategory == '일반' || this.monsterCategory == '효과' || this.monsterCategory == '의식' || this.monsterCategory == '융합' || this.monsterCategory == '싱크로' || this.monsterCategory == '툰' || this.monsterCategory == '스피릿' || this.monsterCategory == '유니온' || this.monsterCategory == '듀얼' || this.monsterCategory == '튜너' || this.monsterCategory == '리버스' || this.monsterCategory == '특수소환') && this.level == '') {
           alert('모든 항목을 채워주세요.');
           return;
         }
@@ -6155,7 +6149,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var orica;
 
-      if (this.category == "몬스터" && this.monsterCategory == "그외") {
+      if (this.category == "몬스터" && (this.monsterCategory == '일반' || this.monsterCategory == '효과' || this.monsterCategory == '의식' || this.monsterCategory == '융합' || this.monsterCategory == '싱크로' || this.monsterCategory == '툰' || this.monsterCategory == '스피릿' || this.monsterCategory == '유니온' || this.monsterCategory == '듀얼' || this.monsterCategory == '튜너' || this.monsterCategory == '리버스' || this.monsterCategory == '특수소환')) {
         orica = {
           category: this.category,
           monsterCategory: this.monsterCategory,
@@ -6218,7 +6212,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('http://localhost:8000/oricainsert/', orica).then(function (response) {
-        console.log(response);
+        alert('오리카를 만들었습니다.');
 
         if (response.data.id) {
           location.href = "http://localhost:8000/oricashow/" + response.data.id;
@@ -6246,6 +6240,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+//
+//
+//
 //
 //
 //
@@ -6358,6 +6355,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteCollection: function deleteCollection() {
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/oricadestroy/' + this.orica.id).then(function (response) {
+        alert('오리카를 삭제했습니다.');
         location.href = "http://localhost:8000/oricalist";
       })["catch"](function (error) {
         console.error(error);
@@ -41334,6 +41332,15 @@ var render = function () {
                 ? _c("div", [
                     _c("br"),
                     _vm._v("링크 " + _vm._s(_vm.orica.link) + "\n      "),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.orica.link
+                ? _c("div", [
+                    _c("br"),
+                    _vm._v(
+                      "링크 방향 " + _vm._s(_vm.orica.linkArray) + "\n      "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),

@@ -160,6 +160,7 @@ export default {
                 let url = 'http://localhost:8000/cardlistpage?page=' + value
                 axios.get(url)
                     .then(response=>{
+                        console.log(response);
                         let res = response.data.response
                         this.cards = res.data
                         this.currentPage = res.current_page
@@ -173,11 +174,12 @@ export default {
                 let url = 'http://localhost:8000/search/' + this.search1+ '?page=' + value
                 axios.get(url)
                     .then(response=>{
+                        
                         let res = response.data
                         this.cards = res.data
                         this.currentPage = res.current_page
                         this.lastPage = res.last_page
-                        this.itemsPerPage = res.itemsPerPage
+                        this.itemsPerPage = res.per_page
                     })
                     .catch (function (error) {
                         console.error(error);

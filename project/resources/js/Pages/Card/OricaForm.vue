@@ -187,7 +187,8 @@ export default {
     category: '',
     categoryItems: ['몬스터', '마법', '함정'],
     monsterCategory: '',
-    monsterCategoryItems: ['엑시즈', '펜듈럼', '링크', '그외'],
+    monsterCategoryItems: ['일반', '효과', '의식', '융합', '싱크로', '엑시즈', '툰', '스피릿',
+                          '유니온', '듀얼', '튜너', '리버스', '펜듈럼', '특수소환', '링크'],
     icon: '',
     iconItems: '',
     title: '',
@@ -248,17 +249,10 @@ export default {
   methods: {
     categoryCheck() {
       if (this.category==='마법') {
-        this.icon = '일반 마법'
         this.iconItems = ['일반 마법', '지속 마법', '장착 마법', '속공 마법', '필드 마법',' 의식 마법']
       }
       if (this.category==='함정') {
-        this.icon = '일반 함정'
         this.iconItems = ['일반 함정', '지속 함정', '카운터 함정']
-      }
-      if (this.category==='몬스터') {
-        this.monsterCategory = '그외'
-      }else {
-        this.monsterCategory = ''
       }
     },
     monsterCategoryCheck() {
@@ -302,13 +296,24 @@ export default {
           alert('모든 항목을 채워주세요.');
           return
         }
-        else if(this.monsterCategory== '그외' && this.level== '') {
+        else if((this.monsterCategory== '일반' || this.monsterCategory== '효과' || 
+                this.monsterCategory== '의식' || this.monsterCategory== '융합' || 
+                this.monsterCategory== '싱크로' || this.monsterCategory== '툰' || 
+                this.monsterCategory== '스피릿' || this.monsterCategory== '유니온' || 
+                this.monsterCategory== '듀얼' || this.monsterCategory== '튜너' || 
+                this.monsterCategory== '리버스' || this.monsterCategory== '특수소환')
+                && this.level== '') {
           alert('모든 항목을 채워주세요.');
           return
         }
       }
       let orica
-      if (this.category == "몬스터" && this.monsterCategory == "그외") {
+      if (this.category == "몬스터" && (this.monsterCategory== '일반' || this.monsterCategory== '효과' || 
+                this.monsterCategory== '의식' || this.monsterCategory== '융합' || 
+                this.monsterCategory== '싱크로' || this.monsterCategory== '툰' || 
+                this.monsterCategory== '스피릿' || this.monsterCategory== '유니온' || 
+                this.monsterCategory== '듀얼' || this.monsterCategory== '튜너' || 
+                this.monsterCategory== '리버스' || this.monsterCategory== '특수소환')) {
           orica = {
             category: this.category,
             monsterCategory: this.monsterCategory,
@@ -372,7 +377,7 @@ export default {
       axios.post('http://localhost:8000/oricainsert/', orica)
         .then(response=>{
           
-      console.log(response)
+      alert('오리카를 만들었습니다.');
           if(response.data.id) {
             location.href=("http://localhost:8000/oricashow/"+response.data.id)
           }

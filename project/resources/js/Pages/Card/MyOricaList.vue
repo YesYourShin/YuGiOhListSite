@@ -205,7 +205,7 @@ export default {
             }
         },
         getSearch() {
-            if (this.search == '') {
+            if (!this.search) {
                 alert('검색어를 입력해주세요.')
                 return
             }

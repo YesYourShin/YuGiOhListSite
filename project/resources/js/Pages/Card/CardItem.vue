@@ -147,6 +147,7 @@ export default {
       this.number1 = this.number;
       axios.post('http://localhost:8000/collectioninsert', {title: this.card.title, number: this.number, card_id: this.card.id})
         .then(response=>{
+          alert('카드를 추가했습니다.');
           location.href=("http://localhost:8000/show/"+this.card.id)
         })
         .catch (function (error) {
@@ -156,6 +157,7 @@ export default {
     editCollection() {
       axios.patch('http://localhost:8000/collectionupdate/'+this.card.id, {number: this.number, card_id: this.card.id})
         .then(response=>{
+          alert('카드 개수를 변경했습니다.');
           location.href=("http://localhost:8000/show/"+this.card.id)
         })
         .catch (function (error) {
@@ -165,6 +167,7 @@ export default {
     deleteCollection() {
       axios.delete('http://localhost:8000/collectiondestroy/'+this.card.id)
         .then(response=>{
+          alert('카드 개수를 삭제했습니다.');
           location.href=("http://localhost:8000/show/"+this.card.id)
         })
         .catch (function (error) {
