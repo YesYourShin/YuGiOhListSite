@@ -198,7 +198,7 @@ export default {
                     this.cards = res.data
                     this.currentPage = res.current_page
                     this.lastPage = res.last_page
-                    this.itemsPerPage = res.itemsPerPage
+                    this.itemsPerPage = res.per_page
                 })
                 .catch (function (error) {
                     console.error(error);

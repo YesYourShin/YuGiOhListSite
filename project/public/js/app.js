@@ -4890,7 +4890,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.cards = res.data;
         _this3.currentPage = res.current_page;
         _this3.lastPage = res.last_page;
-        _this3.itemsPerPage = res.itemsPerPage;
+        _this3.itemsPerPage = res.per_page;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -5114,7 +5114,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.cards = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
-        _this3.itemsPerPage = response.data.itemsPerPage;
+        _this3.itemsPerPage = response.data.per_page;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -5341,7 +5341,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.oricas = response.data.data;
           _this2.currentPage = response.data.current_page;
           _this2.lastPage = response.data.last_page;
-          _this2.itemsPerPage = response.data.itemsPerPage;
+          _this2.itemsPerPage = response.data.per_page;
         })["catch"](function (error) {
           console.error(error);
         });
@@ -5360,7 +5360,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.oricas = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
-        _this3.itemsPerPage = response.data.itemsPerPage;
+        _this3.itemsPerPage = response.data.per_page;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -6608,7 +6608,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.oricas = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
-        _this3.itemsPerPage = response.data.itemsPerPage;
+        _this3.itemsPerPage = response.data.per_page;
       })["catch"](function (error) {
         console.error(error);
       });

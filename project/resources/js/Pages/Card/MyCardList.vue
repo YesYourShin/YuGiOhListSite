@@ -193,7 +193,7 @@ export default {
                     this.cards = response.data.data
                     this.currentPage = response.data.current_page
                     this.lastPage = response.data.last_page
-                    this.itemsPerPage = response.data.itemsPerPage
+                    this.itemsPerPage = response.data.per_page
                 })
                 .catch (function (error) {
                     console.error(error);
