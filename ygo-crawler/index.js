@@ -1,147 +1,36 @@
-const fs = require('fs')
-const axios = require('axios').default
-const cheerio = require('cheerio')
+const fs = require("fs");
+const axios = require("axios").default;
+const cheerio = require("cheerio");
 
-const cardInfoJson = require('./cardinfo.php.json')
+// 의문점
+// 주소창에서 입력 해 json파일을 받을 때와 js파일을 실행해서 받는 파일의 배열 순서가 뭔가 다름
+// 7(세븐) 카드가 js파일로 받을 때 맨 처음임
 
-const delay = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms))
+// 끝을 알 수가 없음
+// offset을 말도 안 되는 숫자인 20000으로 했을 때 0부터 다시 받았음
+
+// 퍼센트 인코딩 변환 인코더
+// https://www.convertstring.com/ko/EncodeDecode/UrlEncode
 
 // 각 카드의 페이지 번호 가져오기
-const fetchCardList = async (page, locale) => {
-    const response = await axios.get(`https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=1&page=${page}&request_locale=${locale}`)
-    const $ = cheerio.load(response.data)
-    const list = []
+const fetchCardList = async (offset, limit) => {
+    const response = await axios.get(
+        // `http://yugioh.wikia.com/index.php?title=Special:Ask&q=[[Japanese+kana+name::%2B]]&po=?Japanese name%0A?Page name%0A?Japanese name%0A?Japanese kana name%0A?Ruby Japanese name%0A?Ruby text%0A?Card image%0A?Card category%0A?Card type%0A?Card type (short)%0A?Property%0A?Property (short)%0A?S/T Class%0A?Attribute%0A?Type%0A?Type3%0A?Type4%0A?Level string%0A?Rank string%0A?Pendulum Scale String%0A?Link Arrows%0A?Link Rating%0A?Japanese Pendulum Effect%0A?Japanese lore%0A?Materials%0A?ATK string%0A?DEF string%0A?Passcode%0A?OCG Status%0A?Japanese database ID%0A?Card Gallery page for%0A?Card Tips page for%0A?Cover card%0A?Fusion Material%0A?Support%0A?Archetype support%0A?Archseries%0A?Primary type%0A?Set information%0A?Set information (JSON)%0A?Limitation Text%0A&eq=yes&p%5Bformat%5D=JSON&sort%5B0%5D=&order%5B0%5D=ASC&sort_num=&order_num=ASC&p%5Blimit%5D=500&p%5Boffset%5D=&p%5Blink%5D=all&p%5Bsort%5D=&p%5Bheaders%5D=show&p%5Bmainlabel%5D=&p%5Bintro%5D=&p%5Boutro%5D=&p%5Bsearchlabel%5D=...+further+results&p%5Bdefault%5D=&p%5Bclass%5D=sortable+wikitable+smwtable&p%5Bsep%5D=&eq=yes`
+        `http://yugioh.wikia.com/index.php?title=Special:Ask&q=[[Japanese+kana+name::%2B]]&po=?Japanese name%0A?Page name%0A?Japanese name%0A?Japanese kana name%0A?Ruby Japanese name%0A?Ruby text%0A?Card image%0A?Card category%0A?Card type%0A?Card type (short)%0A?Property%0A?Property (short)%0A?S/T Class%0A?Attribute%0A?Type%0A?Type3%0A?Type4%0A?Level string%0A?Rank string%0A?Pendulum Scale String%0A?Link Arrows%0A?Link Rating%0A?Japanese Pendulum Effect%0A?Japanese lore%0A?Materials%0A?ATK string%0A?DEF string%0A?Passcode%0A?OCG Status%0A?Japanese database ID%0A?Card Gallery page for%0A?Card Tips page for%0A?Cover card%0A?Fusion Material%0A?Support%0A?Archetype support%0A?Archseries%0A?Primary type%0A?Set information%0A?Set information (JSON)%0A?Limitation Text%0A&eq=yes&p%5Bformat%5D=JSON&sort%5B0%5D=&order%5B0%5D=ASC&sort_num=&order_num=ASC&p%5Blimit%5D=${limit}&p%5Boffset%5D=${offset}&p%5Blink%5D=all&p%5Bsort%5D=&p%5Bheaders%5D=show&p%5Bmainlabel%5D=&p%5Bintro%5D=&p%5Boutro%5D=&p%5Bsearchlabel%5D=...+further+results&p%5Bdefault%5D=&p%5Bclass%5D=sortable+wikitable+smwtable&p%5Bsep%5D=&eq=yes`
+    );
 
-    if($.html().includes('no_data')){
-        return list
-    }
-
-    $('.box_list > li > input.link_value').map((_i, item) => {
-        const values = $(item).val().split('=')
-        list.push(values[values.length - 1])
-    })
-    console.log(page)
-    return list
-}
-
-
-const fetchCardInfo = async (id, locale) => {
-    const info = {}
-    const response = await axios.get(`https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid=${id}&request_locale=${locale}`)
-    const $ = cheerio.load(response.data)
-    // info.titles = $('#broad_title h1').text().trim().split('\n').map((t) => t.trim()).filter((t) => t)
-    info.title = $('#broad_title h1').text().trim().split('\n').map((t) => t.trim()).filter((t) => t)[0]
-    
-    // if(info.text)
-    if($('.item_box_title').text().includes('펜듈럼')) {
-        console.log($('.item_box_text').text().trim().split('\n').slice(1).join('').trim().split('\t')[0]=='카드 텍스트')
-        if($('.item_box_text').text().trim().split('\n').slice(1).join('').trim().split('\t')[0]=='카드 텍스트') {
-            info.ptext = ''
-            info.text = $('.item_box_text').text().trim().split('\n').slice(1).join('').trim().split('\t').slice(1).join('')
-        }else{
-            info.ptext = $('.item_box_text').text().trim().split('\n').slice(1).join('').trim().split('\t')
-            info.text = info.ptext[48]
-            // info.text.push(info.ptext[30], info.ptext[48])
-            info.ptext = info.ptext[0]
-            // console.log(info.ptext[0])
-        }
-    }else {
-        // info.text = $('.item_box_text').text().trim().split('\n').slice(1).join('\n').trim()
-        info.text = $('.item_box_text').text().trim().split('\n').slice(1).join('').trim().split('\t').shift()
-    }
-
-    // if($('.forbidden_limiteds').text()) {
-        
-    // }
-
-    $('#details .item_box').map((_i, box) => {
-        box = $(box)
-        const key = box.children('.item_box_title').text().trim()
-        // console.log(box.children('div.item_box').remove().end().text().trim())
-        let value = box.children('.item_box_value').text().trim()
-
-        // https://stackoverflow.com/questions/20832910/get-text-in-parent-without-children-using-cheerio
-
-        if(!value){
-            // if(key=='종족') {
-            //     value = box.children('div.item_box').remove().end().text().trim().split('\n').slice(1).join('').trim()
-            // } else if(key=='기타 항목') { 
-            //     value = box.children('div.item_box').remove().end().text().trim().split('\n').slice(1).join('').trim().split('\t').join('')
-
-            // } else if (key=='펜듈럼 스케일'){
-            //     value = box.children('div.item_box').remove().end().text().trim().split('\n').slice(1).join('').trim().split('\t').join('')
-            //     console.log(value)
-            // }
-            value = box.children('div.item_box').remove().end().text().trim().split('\n').slice(1).join('').trim().split('\t').join('')
-        }
-
-        // if(!box.includes('item_box_value')) {
-        //     const value = box.children('.item_box_title').text().trim()[1]
-        // }
-
-        
-        info[key] = value
-    })
-
-    if($('.forbidden_limited').text()) {
-        info.limited = $('.forbidden_limited').text().split('\n').slice(1).join('').split('\t').join('')
-    }
-
-    // $('#broad_title .row').map((_i, box) => {
-
-    // })
-
-    // console.log(info)
-    return info
-}
-
-const mergeCardInfo = (info) => {
-    const json = JSON.stringify(info)
-    return json
-}
+    return response.data;
+};
 
 const main = async () => {
-
-
-    const data = []
-    for(let page = 1 ; true ; page++) {
-        const koids = await fetchCardList(page, 'ko')
-        for(let id of koids){
-            const info = await fetchCardInfo(id, 'ko');
-            // const merged = mergeCardInfo(info)
-            // console.log(merged)
-            data.push(info)
-            // console.log(info)
-        }
-
-        fs.writeFileSync('out.json', JSON.stringify(data))
+    let offset = 20000;
+    let limit = 500;
+    for (let i = 1; i < 2; i++) {
+        let data = await fetchCardList(offset, limit);
+        fs.writeFileSync(`./outJson/out${i}.json`, JSON.stringify(data));
+        offset += 500;
+        console.log(i);
     }
+};
 
-
-
-
-
-
-
-    // const jaids = await fetchCardList(ja)
-    // const koids = await fetchCardList(ko)
-    // for(let id of jaids) {
-    //     const info = await fetchCardInfo(id, 'ja')
-    //     const merged = mergeCardInfo(info)
-    // }
-
-    // for(let page = 1 ; page <= 2 ; page++) {
-    //     console.log(`page ${page}`)
-    //     const ids = await fetchCardList(page)
-    //     for(let id of ids) {
-    //         const info = await fetchCardInfo(id, 'ko')
-    //         const merged = mergeCardInfo(info, cardInfoJson)
-    //         delete merged.card_pricesz
-    //         data.push(merged)
-    //     }
-    //     fs.writeFileSync('out.json', JSON.stringify(data))
-    //     // await delay(1000)
-    // }
-}
-
-main()
+main();
