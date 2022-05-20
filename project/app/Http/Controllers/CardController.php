@@ -18,35 +18,40 @@ class CardController extends Controller
 
         foreach($data as $entry) {
             $title = $entry['title'];
-            $effect = $entry['text'];
-            $pEffect = isset($entry['ptext']) ? $entry['ptext'] : '';
-            $icon = isset($entry['효과']) ? $entry['효과'] : '';
-            $attribute = isset($entry['속성']) ? $entry['속성'] : '';
-            $level = isset($entry['레벨']) ? $entry['레벨'] : '';
-            $rank = isset($entry['랭크']) ? $entry['랭크'] : '';
-            $pScale = isset($entry['펜듈럼 스케일']) ? $entry['펜듈럼 스케일'] : '';
-            $link = isset($entry['링크']) ? $entry['링크'] : '';
-            $monsterType = isset($entry['종족']) ? $entry['종족'] : '';
-            $cardType = isset($entry['기타 항목']) ? $entry['기타 항목'] : '';
-            $atk = isset($entry['공격력']) ? $entry['공격력'] : '';
-            $def = isset($entry['수비력']) ? $entry['수비력'] : '';
+            $title2 = $entry['title2'];
             $limited = isset($entry['limited']) ? $entry['limited'] : '';
+            $icon = isset($entry['icon']) ? $entry['icon'] : '';
+            $attribute = isset($entry['attribute']) ? $entry['attribute'] : '';
+            $level = isset($entry['level']) ? $entry['level'] : '';
+            $rank = isset($entry['rank']) ? $entry['rank'] : '';
+            $link = isset($entry['link']) ? $entry['link'] : '';
+            $atk = isset($entry['atk']) ? $entry['atk'] : '';
+            $def = isset($entry['def']) ? $entry['def'] : '';
+            $monsterType = isset($entry['monsterType']) ? $entry['monsterType'] : '';
+            $cardType1 = isset($entry['cardType1']) ? $entry['cardType1'] : '';
+            $cardType2 = isset($entry['cardType2']) ? $entry['cardType2'] : '';
+            $cardType3 = isset($entry['cardType3']) ? $entry['cardType3'] : '';
+            $pScale = isset($entry['pScale']) ? $entry['pScale'] : '';
+            $pEffect = isset($entry['pEffect']) ? $entry['pEffect'] : '';
+            $cardText = $entry['cardText'];
+            
 
             $validator = Validator::make($entry, [
                 'title' => 'required|unique:cards',
-                'text' => 'required',
-                'ptext' => 'nullable',
+                'title2' => 'nullable',
+                'limited' => 'nullable',
                 'icon' => 'nullable',
                 'attribute' => 'nullable',
                 'level' => 'nullable',
                 'rank' => 'nullable',
-                'pScale' => 'nullable',
                 'link' => 'nullable',
-                'monsterType' => 'nullable',
-                'cardType' => 'nullable',
                 'atk' => 'nullable',
                 'def' => 'nullable',
-                'limited' => 'nullable',
+                'monsterType' => 'nullable',
+                'cardType' => 'nullable',
+                'pScale' => 'nullable',
+                'pEffect' => 'nullable',
+                'cardText' => 'required',
             ]);
 
             if ($validator->fails()){
@@ -56,19 +61,22 @@ class CardController extends Controller
             
             Card::create([
                 'title' => $title,
-                'effect' => $effect,
-                'pEffect' => $pEffect,
+                'title2' => $title2,
+                'limited' => $limited,
                 'icon' => $icon,
-                'attribute' => $attribute,
-                'level' => $level,
-                'rank' => $rank,
-                'pScale' => $pScale,
-                'link' => $link,
-                'monsterType' => $monsterType,
-                'cardType' => $cardType,
+                'attribute' =>  $attribute,
+                'level' =>  $level,
+                'rank' =>  $rank,
+                'link' =>  $link,
                 'atk' => $atk,
                 'def' => $def,
-                'limited' => $limited,
+                'monsterType' => $monsterType,
+                'cardType1' => $cardType1,
+                'cardType2' => $cardType2,
+                'cardType3' => $cardType3,
+                'pScale' => $pScale,
+                'pEffect' => $pEffect,
+                'cardText' => $cardText,
             ]);
         }
         return response(['success']);

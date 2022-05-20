@@ -18,7 +18,7 @@ const cheerio = require('cheerio');
 
 const conditions = 'Japanese%20kana%20name::%2B';
 const printouts =
-    'Japanese%20name|Page%20name|Japanese%20name|Japanese%20kana%20name|Ruby%20Japanese%20name|Ruby%20text|Card%20image|Card%20category|Card%20type|Card%20type%20(short)|Property|Property%20(short)|S/T%20Class|Attribute|Type|Type3|Type4|Level%20string|Rank%20string|Pendulum%20Scale%20String|Link%20Arrows|Link%20Rating|Japanese%20Pendulum%20Effect|Japanese%20lore|Materials|ATK%20string|DEF%20string|Passcode|OCG%20Status|Japanese%20database%20ID|Card%20Gallery%20page%20for|Card%20Tips%20page%20for|Cover%20card|Fusion%20Material|Support|Archetype%20support|Archseries|Primary%20type|Set%20information|Set%20information%20(JSON)|Limitation%20Text';
+    'Japanese%20name|Page%20name|Japanese%20name|Japanese%20kana%20name|Card%20image|Card%20category|Card%20type|Card%20type%20(short)|Property|Property%20(short)|S/T%20Class|Attribute|Type|Type3|Type4|Level%20string|Rank%20string|Pendulum%20Scale%20String|Link%20Arrows|Link%20Rating|Japanese%20Pendulum%20Effect|Japanese%20lore|Materials|ATK%20string|DEF%20string|Passcode|OCG%20Status|Japanese%20database%20ID|Card%20Gallery%20page%20for|Card%20Tips%20page%20for|Cover%20card|Fusion%20Material|Support|Archetype%20support|Archseries|Primary%20type|Set%20information|Set%20information%20(JSON)|Limitation%20Text';
 
 // 각 카드의 페이지 번호 가져오기
 const fetchCardList = async (offset, limit) => {

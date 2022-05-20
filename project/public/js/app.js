@@ -4570,42 +4570,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['response', 'id'],
+  props: ["response", "id"],
   data: function data() {
     var _this = this;
 
     return {
       valid: true,
-      card: '',
-      number: '',
-      number1: '',
+      card: "",
+      number: "",
+      number1: "",
       check: false,
       numberRules: [function (v) {
-        return !!v || '';
+        return !!v || "";
       }, function (v) {
-        return v != _this.number1 || '';
+        return v != _this.number1 || "";
       }, function (v) {
-        return v.length <= 5 || v.length == undefined || '5자리를 넘길 수 없습니다.';
+        return v.length <= 5 || v.length == undefined || "5桁を超えることはできません。";
       }, function (v) {
-        return v > 0 || '유효한 값을 입력해주세요.';
+        return v > 0 || "有効な値を入力してください。";
       }]
     };
   },
@@ -4613,7 +4601,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     this.card = this.response;
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionshow/' + this.card.id).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:8000/collectionshow/" + this.card.id).then(function (response) {
       if (response.data.collection) {
         _this2.number = response.data.collection.number;
         _this2.number1 = response.data.collection.number;
@@ -4628,17 +4616,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       if (this.number == null) {
-        alert('가진 카드 갯수를 입력해주세요.');
+        alert("所持しているカードの枚数を入力してください。");
         return;
       }
 
       this.number1 = this.number;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post('http://localhost:8000/collectioninsert', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("http://localhost:8000/collectioninsert", {
         title: this.card.title,
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
-        alert('카드를 추가했습니다.');
+        alert("カードを追加しました。");
         location.href = "http://localhost:8000/show/" + _this3.card.id;
       })["catch"](function (error) {
         console.error(error);
@@ -4647,11 +4635,11 @@ __webpack_require__.r(__webpack_exports__);
     editCollection: function editCollection() {
       var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().patch('http://localhost:8000/collectionupdate/' + this.card.id, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().patch("http://localhost:8000/collectionupdate/" + this.card.id, {
         number: this.number,
         card_id: this.card.id
       }).then(function (response) {
-        alert('카드 개수를 변경했습니다.');
+        alert("カードの枚数を変更しました。");
         location.href = "http://localhost:8000/show/" + _this4.card.id;
       })["catch"](function (error) {
         console.error(error);
@@ -4660,8 +4648,8 @@ __webpack_require__.r(__webpack_exports__);
     deleteCollection: function deleteCollection() {
       var _this5 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/collectiondestroy/' + this.card.id).then(function (response) {
-        alert('카드 개수를 삭제했습니다.');
+      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("http://localhost:8000/collectiondestroy/" + this.card.id).then(function (response) {
+        alert("カードを削除しました。");
         location.href = "http://localhost:8000/show/" + _this5.card.id;
       })["catch"](function (error) {
         console.error(error);
@@ -4787,18 +4775,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
  // import CardItem from './CardItem.vue';
@@ -4814,21 +4790,21 @@ __webpack_require__.r(__webpack_exports__);
       currentPage: null,
       lastPage: 0,
       itemsPerPage: null,
-      search: '',
-      search1: '',
+      search: "",
+      search1: "",
       filter: {},
-      sortBy: 'title',
+      sortBy: "title",
       sortDesc: false,
-      // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
-      //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
+      // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute',
+      //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType',
       //         'atk', 'def', 'limited', ],
-      keys: ['title']
+      keys: ["title"]
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/cardlistpage').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:8000/cardlistpage").then(function (response) {
       var res = response.data.response;
       _this.cards = res.data;
       _this.currentPage = res.current_page;
@@ -4841,7 +4817,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     filteredKeys: function filteredKeys() {
       var array = this.keys.filter(function (key) {
-        return key !== 'title';
+        return key !== "title";
       });
       return array;
     }
@@ -4851,7 +4827,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (!this.search1) {
-        var url = 'http://localhost:8000/cardlistpage?page=' + value;
+        var url = "http://localhost:8000/cardlistpage?page=" + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
           console.log(response);
           var res = response.data.response;
@@ -4863,7 +4839,7 @@ __webpack_require__.r(__webpack_exports__);
           console.error(error);
         });
       } else {
-        var _url = 'http://localhost:8000/search/' + this.search1 + '?page=' + value;
+        var _url = "http://localhost:8000/search/" + this.search1 + "?page=" + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
           var res = response.data;
@@ -4879,13 +4855,13 @@ __webpack_require__.r(__webpack_exports__);
     getSearch: function getSearch() {
       var _this3 = this;
 
-      if (this.search == '') {
-        alert('검색어를 입력해주세요.');
+      if (this.search == "") {
+        alert("검색어를 입력해주세요.");
         return;
       }
 
       this.search1 = this.search;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/search/' + this.search1).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:8000/search/" + this.search1).then(function (response) {
         var res = response.data;
         _this3.cards = res.data;
         _this3.currentPage = res.current_page;
@@ -5015,18 +4991,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5041,21 +5005,21 @@ __webpack_require__.r(__webpack_exports__);
       currentPage: null,
       lastPage: 0,
       itemsPerPage: null,
-      search: '',
-      search1: '',
+      search: "",
+      search1: "",
       filter: {},
-      sortBy: 'id',
+      sortBy: "id",
       sortDesc: true,
-      // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute', 
-      //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType', 
+      // keys: ['title', 'effect', 'pEffect', 'icon', 'attribute',
+      //         'level', 'rank', 'pScale', 'link', 'monsterType', 'cardType',
       //         'atk', 'def', 'limited', ],
-      keys: ['id']
+      keys: ["id"]
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionlistpage').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:8000/collectionlistpage").then(function (response) {
       var res = response.data.response;
       _this.cards = res.data;
       _this.currentPage = res.current_page;
@@ -5068,7 +5032,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     filteredKeys: function filteredKeys() {
       var array = this.keys.filter(function (key) {
-        return key !== 'title';
+        return key !== "title";
       });
       return array;
     }
@@ -5078,7 +5042,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (!this.search1) {
-        var url = 'http://localhost:8000/collectionlistpage?page=' + value;
+        var url = "http://localhost:8000/collectionlistpage?page=" + value;
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (response) {
           var res = response.data.response;
           _this2.cards = res.data;
@@ -5089,7 +5053,7 @@ __webpack_require__.r(__webpack_exports__);
           console.error(error);
         });
       } else {
-        var _url = 'http://localhost:8000/collectionsearch/' + this.search1 + '?page=' + value;
+        var _url = "http://localhost:8000/collectionsearch/" + this.search1 + "?page=" + value;
 
         axios__WEBPACK_IMPORTED_MODULE_0___default().get(_url).then(function (response) {
           _this2.cards = response.data.data;
@@ -5104,13 +5068,13 @@ __webpack_require__.r(__webpack_exports__);
     getSearch: function getSearch() {
       var _this3 = this;
 
-      if (this.search == '') {
-        alert('검색어를 입력해주세요.');
+      if (this.search == "") {
+        alert("검색어를 입력해주세요.");
         return;
       }
 
       this.search1 = this.search;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/collectionsearch/' + this.search1).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:8000/collectionsearch/" + this.search1).then(function (response) {
         _this3.cards = response.data.data;
         _this3.currentPage = response.data.current_page;
         _this3.lastPage = response.data.last_page;
@@ -6309,26 +6273,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['orica'],
+  props: ["orica"],
   data: function data() {
     return {
       check: false
@@ -6337,8 +6288,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricashow/' + this.orica.id).then(function (response) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:8000/oricacheck/' + _this.orica.user_id).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:8000/oricashow/" + this.orica.id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:8000/oricacheck/" + _this.orica.user_id).then(function (response) {
         if (response.data.check) {
           _this.check = true;
         }
@@ -6354,8 +6305,8 @@ __webpack_require__.r(__webpack_exports__);
       location.href = "http://localhost:8000/orica/" + this.orica.id + "/edit";
     },
     deleteCollection: function deleteCollection() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]('http://localhost:8000/oricadestroy/' + this.orica.id).then(function (response) {
-        alert('오리카를 삭제했습니다.');
+      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("http://localhost:8000/oricadestroy/" + this.orica.id).then(function (response) {
+        alert("오리카를 삭제했습니다.");
         location.href = "http://localhost:8000/oricalist";
       })["catch"](function (error) {
         console.error(error);
@@ -38887,7 +38838,7 @@ var render = function () {
                   staticClass:
                     "font-semibold text-xl text-gray-800 leading-tight",
                 },
-                [_vm._v("\n          카드 상세페이지\n      ")]
+                [_vm._v("\n            カードの詳細ページ\n        ")]
               ),
             ]
           },
@@ -38916,38 +38867,38 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("v-card-title", [_vm._v(_vm._s(_vm.card.title))]),
-          _vm._v(" "),
           _c(
             "v-card-text",
             [
+              _c("div", [_vm._v(_vm._s(_vm.card.title2))]),
+              _vm._v(" "),
+              _c("v-card-title", [_vm._v(_vm._s(_vm.card.title))]),
+              _vm._v(" "),
               _vm.card.icon
                 ? _c("div", [
-                    _vm._v("\n        " + _vm._s(_vm.card.icon) + "\n      "),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.card.icon) +
+                        "\n            "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.attribute
-                ? _c("div", [
-                    _vm._v(
-                      "\n        " +
-                        _vm._s(_vm.card.attribute) +
-                        " 속성\n      "
-                    ),
-                  ])
+                ? _c("div", [_vm._v("属性 : " + _vm._s(_vm.card.attribute))])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.level
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("레벨 " + _vm._s(_vm.card.level) + "\n      "),
+                    _vm._v("レベル : " + _vm._s(_vm.card.level)),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.rank
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("랭크 " + _vm._s(_vm.card.rank) + "\n      "),
+                    _vm._v("ランク : " + _vm._s(_vm.card.rank)),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -38955,7 +38906,9 @@ var render = function () {
                 ? _c("div", [
                     _c("br"),
                     _vm._v(
-                      "펜듈럼 스케일 " + _vm._s(_vm.card.pScale) + "\n      "
+                      "ペンデュラムスケール : " +
+                        _vm._s(_vm.card.pScale) +
+                        "\n            "
                     ),
                   ])
                 : _vm._e(),
@@ -38963,53 +38916,49 @@ var render = function () {
               _vm.card.link
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("링크 " + _vm._s(_vm.card.link) + "\n      "),
+                    _vm._v("リンク : " + _vm._s(_vm.card.link)),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.pEffect
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("펜듈럼 효과 "),
+                    _vm._v("ペンデュラム効果 "),
                     _c("br"),
-                    _vm._v(" " + _vm._s(_vm.card.pEffect) + "\n      "),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.card.pEffect) +
+                        "\n            "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.card.monsterType
+              _vm.card.cardType
                 ? _c("div", { staticClass: "my-4 text-subtitle-1" }, [
                     _vm._v(
-                      "\n        " +
+                      "\n                " +
                         _vm._s(_vm.card.monsterType) +
                         " • " +
                         _vm._s(_vm.card.cardType) +
-                        "\n      "
+                        "\n            "
                     ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _c("div", [
-                _vm._v("효과 : "),
+                _vm._v("テキスト : "),
                 _c("br"),
-                _vm._v(_vm._s(_vm.card.effect)),
+                _vm._v(_vm._s(_vm.card.cardText)),
               ]),
               _vm._v(" "),
               _c("v-divider", { staticClass: "mx-4" }),
               _vm._v(" "),
               _vm.card.atk
-                ? _c("div", [
-                    _vm._v(
-                      "\n        ATK " + _vm._s(_vm.card.atk) + "\n      "
-                    ),
-                  ])
+                ? _c("div", [_vm._v("攻撃力 " + _vm._s(_vm.card.atk))])
                 : _vm._e(),
               _vm._v(" "),
               _vm.card.def
-                ? _c("div", [
-                    _vm._v(
-                      "\n        DEF " + _vm._s(_vm.card.def) + " \n      "
-                    ),
-                  ])
+                ? _c("div", [_vm._v("守備力 " + _vm._s(_vm.card.def))])
                 : _vm._e(),
             ],
             1
@@ -39042,7 +38991,7 @@ var render = function () {
                   _c("v-text-field", {
                     attrs: {
                       counter: 5,
-                      label: "개수",
+                      label: "所持枚数",
                       rules: _vm.numberRules,
                       required: "",
                     },
@@ -39069,7 +39018,7 @@ var render = function () {
                       },
                       on: { click: _vm.addCollection },
                     },
-                    [_vm._v("\n        추가하기\n      ")]
+                    [_vm._v("\n                追加する\n            ")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -39084,7 +39033,7 @@ var render = function () {
                       },
                       on: { click: _vm.editCollection },
                     },
-                    [_vm._v("\n        변경하기\n      ")]
+                    [_vm._v("\n                変更する\n            ")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -39095,7 +39044,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.deleteCollection },
                     },
-                    [_vm._v("\n        삭제하기\n      ")]
+                    [_vm._v("\n                削除する\n            ")]
                   )
                 : _vm._e(),
             ],
@@ -39214,11 +39163,7 @@ var render = function () {
                                   },
                                 },
                               },
-                              [
-                                _vm._v(
-                                  "\n                            검색\n                        "
-                                ),
-                              ]
+                              [_vm._v(" 検索 ")]
                             ),
                             _vm._v(" "),
                             _vm.$vuetify.breakpoint.mdAndUp
@@ -39508,11 +39453,7 @@ var render = function () {
                                   },
                                 },
                               },
-                              [
-                                _vm._v(
-                                  "\n                            검색\n                        "
-                                ),
-                              ]
+                              [_vm._v(" 検索 ")]
                             ),
                             _vm._v(" "),
                             _vm.$vuetify.breakpoint.mdAndUp
@@ -41255,7 +41196,7 @@ var render = function () {
                   staticClass:
                     "font-semibold text-xl text-gray-800 leading-tight",
                 },
-                [_vm._v("\n          오리카 상세페이지\n      ")]
+                [_vm._v("\n            오리카 상세페이지\n        ")]
               ),
             ]
           },
@@ -41291,31 +41232,29 @@ var render = function () {
             [
               _vm.orica.icon
                 ? _c("div", [
-                    _vm._v("\n        " + _vm._s(_vm.orica.icon) + "\n      "),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.orica.icon) +
+                        "\n            "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.attribute
-                ? _c("div", [
-                    _vm._v(
-                      "\n        " +
-                        _vm._s(_vm.orica.attribute) +
-                        " 속성\n      "
-                    ),
-                  ])
+                ? _c("div", [_vm._v(_vm._s(_vm.orica.attribute) + " 속성")])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.level
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("레벨 " + _vm._s(_vm.orica.level) + "\n      "),
+                    _vm._v("レベル " + _vm._s(_vm.orica.level)),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.rank
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("랭크 " + _vm._s(_vm.orica.rank) + "\n      "),
+                    _vm._v("랭크 " + _vm._s(_vm.orica.rank)),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -41323,7 +41262,9 @@ var render = function () {
                 ? _c("div", [
                     _c("br"),
                     _vm._v(
-                      "펜듈럼 스케일 " + _vm._s(_vm.orica.pScale) + "\n      "
+                      "펜듈럼 스케일 " +
+                        _vm._s(_vm.orica.pScale) +
+                        "\n            "
                     ),
                   ])
                 : _vm._e(),
@@ -41331,7 +41272,7 @@ var render = function () {
               _vm.orica.link
                 ? _c("div", [
                     _c("br"),
-                    _vm._v("링크 " + _vm._s(_vm.orica.link) + "\n      "),
+                    _vm._v("링크 " + _vm._s(_vm.orica.link)),
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -41339,7 +41280,9 @@ var render = function () {
                 ? _c("div", [
                     _c("br"),
                     _vm._v(
-                      "링크 방향 " + _vm._s(_vm.orica.linkArray) + "\n      "
+                      "링크 방향 " +
+                        _vm._s(_vm.orica.linkArray) +
+                        "\n            "
                     ),
                   ])
                 : _vm._e(),
@@ -41349,18 +41292,22 @@ var render = function () {
                     _c("br"),
                     _vm._v("펜듈럼 효과 : "),
                     _c("br"),
-                    _vm._v(" " + _vm._s(_vm.orica.pEffect) + "\n      "),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.orica.pEffect) +
+                        "\n            "
+                    ),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.monsterType
                 ? _c("div", { staticClass: "my-4 text-subtitle-1" }, [
                     _vm._v(
-                      "\n        " +
+                      "\n                " +
                         _vm._s(_vm.orica.monsterType) +
                         " • " +
                         _vm._s(_vm.orica.monsterCategory) +
-                        "\n      "
+                        "\n            "
                     ),
                   ])
                 : _vm._e(),
@@ -41374,19 +41321,11 @@ var render = function () {
               _c("v-divider", { staticClass: "mx-4" }),
               _vm._v(" "),
               _vm.orica.atk
-                ? _c("div", [
-                    _vm._v(
-                      "\n        ATK " + _vm._s(_vm.orica.atk) + "\n      "
-                    ),
-                  ])
+                ? _c("div", [_vm._v("ATK " + _vm._s(_vm.orica.atk))])
                 : _vm._e(),
               _vm._v(" "),
               _vm.orica.def
-                ? _c("div", [
-                    _vm._v(
-                      "\n        DEF " + _vm._s(_vm.orica.def) + " \n      "
-                    ),
-                  ])
+                ? _c("div", [_vm._v("DEF " + _vm._s(_vm.orica.def))])
                 : _vm._e(),
             ],
             1
@@ -41402,7 +41341,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.editCollection },
                     },
-                    [_vm._v("\n        수정하기\n      ")]
+                    [_vm._v("\n                수정하기\n            ")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -41413,7 +41352,7 @@ var render = function () {
                       attrs: { color: "deep-purple lighten-2", text: "" },
                       on: { click: _vm.deleteCollection },
                     },
-                    [_vm._v("\n        삭제하기\n      ")]
+                    [_vm._v("\n                삭제하기\n            ")]
                   )
                 : _vm._e(),
             ],

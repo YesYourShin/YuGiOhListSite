@@ -16,19 +16,20 @@ class CreateCardsTable extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->text("effect");
-            $table->text("pEffect")->nullable();
+            $table->string("title2");
+            $table->string("limited")->nullable();
             $table->string("icon")->nullable();
             $table->string("attribute")->nullable();
             $table->string("level")->nullable();
             $table->string("rank")->nullable();
-            $table->string("pScale")->nullable();
             $table->string("link")->nullable();
-            $table->string("monsterType")->nullable();
-            $table->string("cardType")->nullable();
             $table->string("atk")->nullable();
             $table->string("def")->nullable();
-            $table->string("limited")->nullable();
+            $table->string("monsterType")->nullable();
+            $table->string("cardType")->nullable();
+            $table->string("pScale")->nullable();
+            $table->text("pEffect")->nullable();
+            $table->text("cardText");
 
             // $table->string("card_id")->nullable()->unique();
             $table->timestamps();

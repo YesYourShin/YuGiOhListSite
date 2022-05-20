@@ -14,19 +14,20 @@ class Card extends Model
 
     protected $fillable = [
         'title',
-        'effect',
-        'pEffect',
+        'title2',
+        'limited',
         'icon',
         'attribute',
         'level',
         'rank',
-        'pScale',
         'link',
-        'monsterType',
-        'cardType',
         'atk',
         'def',
-        'limited',
+        'monsterType' ,
+        'cardType' ,
+        'pScale' ,
+        'pEffect' ,
+        'cardText' ,
 
         // 'card_id',
     ];
