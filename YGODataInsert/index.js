@@ -10,7 +10,7 @@ const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 const main = async () => {
     connection.connect();
-    for (let i = 1; i <= 1; i++) {
+    for (let i = 1; i <= 5; i++) {
         fs.readFile(`../ygo-crawler/output-ja/output${i}.json`, 'utf8', (error, cards) => {
             if (error) return console.log(error);
             const jsonFile = JSON.parse(cards);
@@ -30,9 +30,9 @@ const main = async () => {
                     if (error) return console.log(error);
                     console.log(results);
                 });
-            }await delay(1000);
+            }
         });
-        
+        // await delay(1000);
     }
 };
 main();
