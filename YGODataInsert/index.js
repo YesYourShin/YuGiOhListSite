@@ -6,8 +6,6 @@ const connection = mysql.createConnection({
     password: 'rootuser',
     database: 'yugiohtest',
 });
-const { mainModule } = require('process');
-const axios = require('axios').default;
 const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 const main = async () => {
@@ -32,25 +30,9 @@ const main = async () => {
                     if (error) return console.log(error);
                     console.log(results);
                 });
-
-                // connection.query(
-                //     `INSERT INTO cards(
-                //         title, title2, limited, icon, attribute, `level`, `rank`, link, atk, def,
-                //         monsterType, cardType, pScale, pEffect, cardText) VALUES(
-                //     "${card.title}","${card.title2}","${card.limited}","${card.icon}","${card.attribute}","${card.level}",
-                //     "${card.rank}","${card.link}","${card.atk}","${card.def}","${card.monsterType}","${card.cardType}",
-                //     "${card.pScale}","${card.pEffect}","${card.cardText}"
-                //     );`,
-                //     (error, results, fields) => {
-                //         console.log(error);
-                //     }
-                // );
             }
         });
         await delay(1000);
     }
-    // connection.query('select * from cards', (error, result) => {
-    //     console.log(result);
-    // });
 };
 main();
