@@ -30,9 +30,9 @@ const main = async () => {
                     if (error) return console.log(error);
                     console.log(results);
                 });
-            }
+            }await delay(1000);
         });
-        await delay(1000);
+        
     }
 };
 main();
