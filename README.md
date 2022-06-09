@@ -58,3 +58,5 @@ cheerioを利用して必要なデータだけを出力する
 ---
 ## 3. DataInsert
 YuGiOh-crawlerで出力されたデータをmysqlにInsert
+
+---
