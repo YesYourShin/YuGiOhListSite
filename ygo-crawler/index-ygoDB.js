@@ -120,7 +120,7 @@ const main = async () => {
         const locale = 'ja';
         const koids = await fetchCardList(item, page, locale);
         if (!koids) {
-            break;
+            return;
         }
         console.log(page);
         for (let id of koids) {
