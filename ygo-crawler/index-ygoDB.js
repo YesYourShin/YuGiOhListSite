@@ -108,11 +108,6 @@ const fetchCardInfo = async (id, locale) => {
     return info;
 };
 
-const mergeCardInfo = info => {
-    const json = JSON.stringify(info);
-    return json;
-};
-
 const main = async () => {
     for (let page = 1; true; page++) {
         const data = [];
@@ -125,35 +120,12 @@ const main = async () => {
         console.log(page);
         for (let id of koids) {
             const info = await fetchCardInfo(id, locale);
-            // const merged = mergeCardInfo(info)
-            // console.log(merged)
             data.push(info);
-            // console.log(info);
             await delay(500);
         }
 
         fs.writeFileSync(`output-${locale}/output${page}.json`, JSON.stringify(data));
     }
-
-    // const jaids = await fetchCardList(ja)
-    // const koids = await fetchCardList(ko)
-    // for(let id of jaids) {
-    //     const info = await fetchCardInfo(id, 'ja')
-    //     const merged = mergeCardInfo(info)
-    // }
-
-    // for(let page = 1 ; page <= 2 ; page++) {
-    //     console.log(`page ${page}`)
-    //     const ids = await fetchCardList(page)
-    //     for(let id of ids) {
-    //         const info = await fetchCardInfo(id, 'ko')
-    //         const merged = mergeCardInfo(info, cardInfoJson)
-    //         delete merged.card_pricesz
-    //         data.push(merged)
-    //     }
-    //     fs.writeFileSync('out.json', JSON.stringify(data))
-    //     // await delay(1000)
-    // }
 };
 
 main();
