@@ -23,3 +23,13 @@
 ## CardDetail
 カードをクリックするとカードの情報ページに移動  
 ![image](https://user-images.githubusercontent.com/53047744/172506644-fa65c0a3-3c60-4ba7-806d-4e233fa528ff.png)
+
+# YuGiOh-crawler
+YuGiOh公式 CARD DBサイトhttps://www.db.yugioh-card.com/yugiohdb/?request_locale=ja  
+
+cheerioを利用して必要なデータだけを出力する
+  ページのカードのidを出力  
+  カードのidを使ってカードの情報を出力  
+
+# DataInsert
+YuGiOh-crawlerで出力されたデータをmysqlにInsert
