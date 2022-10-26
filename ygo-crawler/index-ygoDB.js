@@ -39,14 +39,14 @@ const fetchCardInfo = async (id, locale) => {
         .map(t => t.trim())
         .filter(t => t)[n];
 
-    locale === 'ja'
-        ? (info.title2 = $('#cardname h1')
-              .text()
-              .trim()
-              .split('\n')
-              .map(t => t.trim())
-              .filter(t => t)[n - 1])
-        : false;
+    if (locale === 'ja') {
+        info.title2 = $('#cardname h1')
+            .text()
+            .trim()
+            .split('\n')
+            .map(t => t.trim())
+            .filter(t => t)[n - 1];
+    }
 
     const limited = $('#CardSet > .forbidden_limited_ber > .title').text();
     limited !== '' ? (info.limited = limited) : false;
@@ -120,6 +120,7 @@ const main = async () => {
         console.log(page);
         for (let id of koids) {
             const info = await fetchCardInfo(id, locale);
+            console.log(info);
             data.push(info);
             await delay(500);
         }
