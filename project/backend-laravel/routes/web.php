@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\CardController;
+use App\Http\Controllers\CardJPController;
+use App\Http\Controllers\CardKRController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/store', [CardController::class, 'store']);
+Route::prefix('kr')->group(function () {
+    Route::post('/store', [CardKRController::class, 'storeCard']);
+
+});
+
+Route::prefix('jp')->group(function () {
+    Route::post('/store', [CardJPController::class, 'storeCard']);
+
+});

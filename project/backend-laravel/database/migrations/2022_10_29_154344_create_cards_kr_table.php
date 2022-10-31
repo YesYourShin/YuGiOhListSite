@@ -13,21 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cards', function (Blueprint $table) {
+        Schema::create('cards_kr', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->text("p_effect")->nullable();
-            $table->text("card_text")->nullable();
+            $table->string("name");
             $table->char("icon")->nullable();
             $table->char("attribute")->nullable();
             $table->char("level")->nullable();
             $table->char("rank")->nullable();
             $table->char("link")->nullable();
             $table->char("link_arrow")->nullable();
+            $table->char("p_scale")->nullable();
+            $table->text("p_effect")->nullable();
+            $table->text("card_text")->nullable();
+            $table->text("monster_type")->nullable();
+            $table->text("card_type")->nullable();
             $table->char("atk")->nullable();
             $table->char("def")->nullable();
-            $table->char("species")->nullable();
-            $table->char("p_scale")->nullable();
             $table->timestamps();
         });
     }
@@ -39,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('cards_kr');
     }
 };
