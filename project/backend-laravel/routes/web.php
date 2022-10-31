@@ -20,11 +20,11 @@ Route::get('/', function () {
 });
 
 Route::prefix('kr')->group(function () {
-    Route::post('/store', [CardKRController::class, 'storeCard']);
+    Route::post('/store', [CardKRController::class, 'store']);
 
 });
 
 Route::prefix('jp')->group(function () {
-    Route::post('/store', [CardJPController::class, 'storeCard']);
+    Route::post('/store', [CardJPController::class, 'store']);
 
 });
