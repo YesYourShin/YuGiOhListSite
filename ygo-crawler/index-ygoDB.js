@@ -120,7 +120,7 @@ const fetchCardInfo = async (id, locale) => {
       .map(t => t.trim())
       .filter(t => t)
       .slice(-1)[0];
-    console.log(obj);
+    cardList.unshift(obj);
   });
 
   console.log(cardList);
