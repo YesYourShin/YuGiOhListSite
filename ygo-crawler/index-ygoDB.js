@@ -49,8 +49,10 @@ const fetchCardInfo = async (id, locale) => {
       .filter(t => t)[n - 1];
   }
 
-  const limited = $('#CardSet > .forbidden_limited_ber > .title').text();
-  limited !== '' ? (info.limited = limited) : false;
+  // limited는 나중에 테이블 따로 만들면 그 떄 필요할 거 같으니
+  // 쓰기 전까지는 주석 처리함
+  // const limited = $('#CardSet > .forbidden_limited_ber > .title').text();
+  // limited !== '' ? (info.limited = limited) : false;
 
   // 카드 상세 데이터
   const cardData = $('#CardTextSet > .CardText > .frame > .item_box > .item_box_value')
