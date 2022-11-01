@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->char("card_id");
             $table->string("time");
+            $table->string("card_number")->nullable();
             $table->string("pack_name");
-            $table->string("card_number");
             $table->string("rare");
             $table->timestamps();
         });
