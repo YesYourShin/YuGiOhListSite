@@ -9,20 +9,10 @@ class JaCardNumber extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'name2',
-        'icon',
-        'attribute',
-        'level',
-        'rank',
-        'link',
-        'link_arrow',
-        'p_scale',
-        'p_effect',
-        'card_text',
-        'monster_type',
-        'card_type',
-        'atk',
-        'def',
+        'card_id',
+        'time',
+        'card_number',
+        'pack_name',
+        'rare'
     ];
 }
