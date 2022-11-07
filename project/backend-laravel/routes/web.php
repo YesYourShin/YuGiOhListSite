@@ -25,6 +25,7 @@ Route::prefix('kr')->group(function () {
 });
 
 Route::prefix('jp')->group(function () {
+    Route::get('/index', [CardJPController::class, 'index']);
     Route::post('/store', [CardJPController::class, 'store']);
 
 });

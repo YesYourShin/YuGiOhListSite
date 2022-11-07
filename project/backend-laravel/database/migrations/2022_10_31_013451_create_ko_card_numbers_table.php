@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cards_jp_list', function (Blueprint $table) {
+        Schema::create('ko_card_numbers', function (Blueprint $table) {
             $table->id();
             $table->char("card_id");
             $table->string("time");
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cards_jp_list');
+        Schema::dropIfExists('cards_kr_list');
     }
 };

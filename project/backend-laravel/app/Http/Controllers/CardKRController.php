@@ -53,17 +53,17 @@ class CardKRController extends Controller
             // echo(json_encode($array));
 
             # cards_kr에 카드 정보 넣음
-            DB::table('cards_kr')->insert([
+            DB::table('kr_cards')->insert([
                 $array
             ]);
 
             # cards_kr에 넣은 카드의 카드 아이디를 구하는 쿼리
-            $cardId = DB::table('cards_kr')->where('name', $array['name'])->value('id');
+            $cardId = DB::table('kr_cards')->where('name', $array['name'])->value('id');
 
             # cards_kr_list에 카드 아이디와 같이 card_list 정보를 넣음
             foreach($cardList as $card) {
                 $card['card_id'] = $cardId;
-                DB::table('cards_kr_list')->insert([
+                DB::table('kr_card_number')->insert([
                     $card
                 ]);
             }

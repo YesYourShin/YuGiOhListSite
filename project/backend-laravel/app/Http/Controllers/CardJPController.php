@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JaCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class CardJPController extends Controller
      */
     public function index()
     {
-        //
+        return JaCard::all();
     }
 
     /**
@@ -53,17 +54,17 @@ class CardJPController extends Controller
             // echo(json_encode($array));
 
             # cards_jp에 카드 정보 넣음
-            DB::table('cards_jp')->insert([
+            DB::table('ja_cards')->insert([
                 $array
             ]);
 
             # cards_jp에 넣은 카드의 카드 아이디를 구하는 쿼리
-            $cardId = DB::table('cards_jp')->where('name', $array['name'])->value('id');
+            $cardId = DB::table('ja_cards')->where('name', $array['name'])->value('id');
 
             # cards_jp_list에 카드 아이디와 같이 card_list 정보를 넣음
             foreach($cardList as $card) {
                 $card['card_id'] = $cardId;
-                DB::table('cards_jp_list')->insert([
+                DB::table('ja_card_numbers')->insert([
                     $card
                 ]);
             }

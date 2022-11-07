@@ -5,22 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model
+class JaCardNumber extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
-        'p_effect',
-        'card_text',
+        'name',
+        'name2',
         'icon',
         'attribute',
         'level',
         'rank',
         'link',
         'link_arrow',
+        'p_scale',
+        'p_effect',
+        'card_text',
+        'monster_type',
+        'card_type',
         'atk',
         'def',
-        'species',
-        'p_scale',
     ];
 }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cards_kr', function (Blueprint $table) {
+        Schema::create('ko_cards', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->char("icon")->nullable();
