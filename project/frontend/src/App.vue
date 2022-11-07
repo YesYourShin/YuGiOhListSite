@@ -1,20 +1,24 @@
 <template>
   <div id="app">
     <MenuBar />
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
+    <CardList />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
-import MenuBar from './components/MenuBar.vue';
+// import HelloWorld from './components/HelloWorld.vue';
+// import MenuBar from './components/MenuBar.vue';
+// import CardList from './components/CardList.vue';
+import { MenuBar, CardList } from './components/index.js';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    // HelloWorld,
     MenuBar,
+    CardList,
   },
 };
 </script>
