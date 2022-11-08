@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CardJPController;
-use App\Http\Controllers\CardKRController;
+use App\Http\Controllers\CardJAController;
+use App\Http\Controllers\CardKOController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,13 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('kr')->group(function () {
-    Route::post('/store', [CardKRController::class, 'store']);
+Route::prefix('ko')->group(function () {
+    Route::post('/store', [CardKOController::class, 'store']);
 
 });
 
-Route::prefix('jp')->group(function () {
-    Route::get('/index', [CardJPController::class, 'index']);
-    Route::post('/store', [CardJPController::class, 'store']);
+Route::prefix('ja')->group(function () {
+    Route::get('/index', [CardJAController::class, 'index']);
+    Route::post('/store', [CardJAController::class, 'store']);
+    Route::get('/show/{id}', [CardJAController::class, 'show']);
 
 });

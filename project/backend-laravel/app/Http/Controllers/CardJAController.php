@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JaCard;
+use App\Models\JaCardNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CardKRController extends Controller
+class CardJAController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class CardKRController extends Controller
      */
     public function index()
     {
-        //
+        return JaCard::all();
     }
 
     /**
@@ -52,25 +54,25 @@ class CardKRController extends Controller
             }
             // echo(json_encode($array));
 
-            # cards_kr에 카드 정보 넣음
-            DB::table('kr_cards')->insert([
+            # cards_jp에 카드 정보 넣음
+            DB::table('ja_cards')->insert([
                 $array
             ]);
 
-            # cards_kr에 넣은 카드의 카드 아이디를 구하는 쿼리
-            $cardId = DB::table('kr_cards')->where('name', $array['name'])->value('id');
+            # cards_jp에 넣은 카드의 카드 아이디를 구하는 쿼리
+            $cardId = DB::table('ja_cards')->where('name', $array['name'])->value('id');
 
-            # cards_kr_list에 카드 아이디와 같이 card_list 정보를 넣음
+            # cards_jp_list에 카드 아이디와 같이 card_list 정보를 넣음
             foreach($cardList as $card) {
                 $card['card_id'] = $cardId;
-                DB::table('kr_card_number')->insert([
+                DB::table('ja_card_numbers')->insert([
                     $card
                 ]);
             }
 
         }
 
-        return "insert kr cards success";
+        return "insert jp cards success";
     }
 
     /**
@@ -81,7 +83,15 @@ class CardKRController extends Controller
      */
     public function show($id)
     {
-        //
+        $card = JaCard::where('id', $id)->first()->toArray();
+        $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
+        // echo($card);
+        // $card_id = $card->id;
+        // dd($card->id);
+
+        $card = array_merge($card, ['cardNumber' => $cardNumber]);
+        return $card;
+
     }
 
     /**
