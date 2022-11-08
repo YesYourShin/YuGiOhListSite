@@ -17,7 +17,7 @@
           <td class="py-4 px-6">Laptop</td>
           <td class="py-4 px-6">$2999</td>
           <td class="py-4 px-6">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
           </td>
         </tr>
       </tbody>
@@ -37,15 +37,14 @@ export default {
     console.log('CardList');
     this.test();
 
-    const index = axios
-      .get('/jp/index')
+    axios
+      .get('/ja/index')
       .then(response => {
         this.cards = response.data;
       })
       .catch(function (error) {
         console.error(error);
       });
-    console.log(index);
   },
   methods: {
     test() {
