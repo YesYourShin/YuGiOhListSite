@@ -53,6 +53,7 @@ export default {
     },
     onClick(id) {
       console.log(id);
+      this.$router.push({ path: `card/${id}` });
     },
   },
 };
