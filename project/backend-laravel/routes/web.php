@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\CardJAController;
-use App\Http\Controllers\CardKOController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,14 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('ko')->group(function () {
-    Route::post('/store', [CardKOController::class, 'store']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-});
-
-Route::prefix('ja')->group(function () {
-    Route::get('/index', [CardJAController::class, 'index']);
-    Route::post('/store', [CardJAController::class, 'store']);
-    Route::get('/show/{id}', [CardJAController::class, 'show']);
-
-});
+require __DIR__.'/auth.php';
