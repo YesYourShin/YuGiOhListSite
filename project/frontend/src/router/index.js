@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { Home, Card, MyCard, Login, CardItem } from './components/index.js';
+import { Home, Card, MyCard, LoginPage, CardItem, Register } from '../components/index.js';
 
 Vue.use(VueRouter);
 
@@ -19,7 +19,11 @@ const routes = [
   },
   {
     path: '/login',
-    component: Login,
+    component: LoginPage,
+  },
+  {
+    path: '/register',
+    component: Register,
   },
   {
     path: '/card/:id',
