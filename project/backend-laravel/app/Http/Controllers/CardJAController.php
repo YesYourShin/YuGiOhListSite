@@ -34,6 +34,8 @@ class CardJAController extends Controller
 
         // 유저가 보낸 아이디를 테이블에 저장
 
+        // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
+
         // 이거 더 좋게 고칠 것
         $userId = $request->user_id;
         $cardNumberId = $request->card_number_id;
@@ -132,9 +134,21 @@ class CardJAController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // 유저가 가진 카드 개수 업데이트
+
+        // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
+
+        $userId = $request->user_id;
+        $cardNumberId = $request->card_number_id;
+        $amount = $request->amount;
+
+        UserCard::where('user_id', $userId)
+            ->where('card_number_id', $cardNumberId)
+            ->update(['amount' => $amount]);
+
+        return 'success';
     }
 
     /**

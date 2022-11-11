@@ -24,4 +24,5 @@ Route::post('login', [PassportAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('logout',  [PassportAuthController::class, 'logout']);
     Route::post('create', [CardJAController::class, 'create']);
+    Route::post('update', [CardJAController::class, 'update']);
 });
