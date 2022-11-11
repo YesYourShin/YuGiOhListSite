@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('ko_card_numbers', function (Blueprint $table) {
             $table->id();
-            $table->char("card_id");
-            $table->string("time");
-            $table->string("card_number")->nullable();
-            $table->string("pack_name");
-            $table->string("rare");
+            $table->chstringar('card_id');
+            $table->string('time');
+            $table->string('card_number')->nullable();
+            $table->string('pack_name');
+            $table->string('rare');
             $table->timestamps();
         });
     }

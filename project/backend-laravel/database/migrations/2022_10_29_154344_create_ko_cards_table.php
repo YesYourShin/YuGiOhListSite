@@ -15,20 +15,20 @@ return new class extends Migration
     {
         Schema::create('ko_cards', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->char("icon")->nullable();
-            $table->char("attribute")->nullable();
-            $table->char("level")->nullable();
-            $table->char("rank")->nullable();
-            $table->char("link")->nullable();
-            $table->char("link_arrow")->nullable();
-            $table->char("p_scale")->nullable();
-            $table->text("p_effect")->nullable();
-            $table->text("card_text")->nullable();
-            $table->text("monster_type")->nullable();
-            $table->text("card_type")->nullable();
-            $table->char("atk")->nullable();
-            $table->char("def")->nullable();
+            $table->string('name');
+            $table->string('icon')->nullable();
+            $table->string('attribute')->nullable();
+            $table->string('level')->nullable();
+            $table->string('rank')->nullable();
+            $table->string('link')->nullable();
+            $table->string('link_arrow')->nullable();
+            $table->string('p_scale')->nullable();
+            $table->text('p_effect')->nullable();
+            $table->text('card_text')->nullable();
+            $table->text('monster_type')->nullable();
+            $table->text('card_type')->nullable();
+            $table->string('atk')->nullable();
+            $table->string('def')->nullable();
             $table->timestamps();
         });
     }
