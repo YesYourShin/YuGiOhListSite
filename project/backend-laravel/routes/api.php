@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CardJAController;
+use App\Http\Controllers\JaCardController;
 use App\Http\Controllers\PassportAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +24,7 @@ Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('logout',  [PassportAuthController::class, 'logout']);
-    Route::post('create', [CardJAController::class, 'create']);
-    Route::post('update', [CardJAController::class, 'update']);
-    Route::post('destroy', [CardJAController::class, 'destroy']);
+    Route::post('create', [JaCardController::class, 'create']);
+    Route::post('update', [JaCardController::class, 'update']);
+    Route::post('destroy', [JaCardController::class, 'destroy']);
 });

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CardJAController;
-use App\Http\Controllers\CardKOController;
+use App\Http\Controllers\JaCardController;
+use App\Http\Controllers\KoCardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,13 +30,13 @@ Route::get('/', function () {
 });
 
 Route::prefix('ko')->group(function () {
-    Route::post('/store', [CardKOController::class, 'store']);
+    Route::post('/store', [KoCardController::class, 'store']);
 
 });
 
 Route::prefix('ja')->group(function () {
-    Route::get('/index', [CardJAController::class, 'index']);
-    Route::post('/store', [CardJAController::class, 'store']);
-    Route::get('/show/{id}', [CardJAController::class, 'show']);
+    Route::get('/index', [JaCardController::class, 'index']);
+    Route::post('/store', [JaCardController::class, 'store']);
+    Route::get('/show/{id}', [JaCardController::class, 'show']);
 
 });
