@@ -15,11 +15,9 @@ return new class extends Migration
     {
         Schema::create('user_cards', function (Blueprint $table) {
             $table->id();
-            $table->char('user_id');
-            $table->char('card_number_id');
-            $table->char('amount');
-
-
+            $table->string('user_id');
+            $table->string('card_number_id');
+            $table->string('amount');
             $table->timestamps();
         });
     }
