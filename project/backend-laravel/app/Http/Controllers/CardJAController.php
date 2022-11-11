@@ -157,8 +157,16 @@ class CardJAController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         // 유저가 가진 카드 삭제
+        $userId = $request->user_id;
+        $cardNumberId = $request->card_number_id;
+
+        $card = UserCard::where('user_id', $userId)
+            ->where('card_number_id', $cardNumberId)
+            ->delete();
+
+        return 'delete success';
     }
 }
