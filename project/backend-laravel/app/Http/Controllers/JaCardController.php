@@ -8,6 +8,8 @@ use App\Models\UserCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class JaCardController extends Controller
 {
@@ -35,6 +37,18 @@ class JaCardController extends Controller
         // 유저가 보낸 카드 아이디를 테이블에 저장
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
+
+        $validator = Validator::make($request->all(), [
+                'user_id' => 'required|string',
+                'card_number_id' => 'required|string',
+                'amount' => ['required','string',Rule::notIn(["0"])]
+        ]);
+
+        if ($validator->fails()) {
+            return "에러";
+        }
+
+
 
         UserCard::insert([
             'user_id' => $request->user_id,
@@ -134,6 +148,16 @@ class JaCardController extends Controller
         // 유저가 가진 카드 개수 업데이트
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|string',
+            'card_number_id' => 'required|string',
+            'amount' => ['required','string',Rule::notIn(["0"])]
+        ]);
+
+        if ($validator->fails()) {
+            return "에러";
+        }
 
         UserCard::where('user_id', $request->user_id)
             ->where('card_number_id', $request->card_number_id)
