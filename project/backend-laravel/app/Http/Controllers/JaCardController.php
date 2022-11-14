@@ -32,19 +32,14 @@ class JaCardController extends Controller
 
         // 로그인이 됐는지는 routes/api.php에서 Middleware로 확인하고 여기로 옴
 
-        // 유저가 보낸 아이디를 테이블에 저장
+        // 유저가 보낸 카드 아이디를 테이블에 저장
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
 
-        // 이거 더 좋게 고칠 것
-        $userId = $request->user_id;
-        $cardNumberId = $request->card_number_id;
-        $amount = $request->amount;
-
         UserCard::insert([
-            'user_id' => $userId,
-            'card_number_id' => $cardNumberId,
-            'amount' => $amount
+            'user_id' => $request->user_id,
+            'card_number_id' => $request->card_number_id,
+            'amount' => $request->amount
         ]);
 
         return 'success';
@@ -140,13 +135,9 @@ class JaCardController extends Controller
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
 
-        $userId = $request->user_id;
-        $cardNumberId = $request->card_number_id;
-        $amount = $request->amount;
-
-        UserCard::where('user_id', $userId)
-            ->where('card_number_id', $cardNumberId)
-            ->update(['amount' => $amount]);
+        UserCard::where('user_id', $request->user_id)
+            ->where('card_number_id', $request->card_number_id)
+            ->update(['amount' => $request->amount]);
 
         return 'success';
     }
@@ -160,11 +151,9 @@ class JaCardController extends Controller
     public function destroy(Request $request)
     {
         // 유저가 가진 카드 삭제
-        $userId = $request->user_id;
-        $cardNumberId = $request->card_number_id;
 
-        $card = UserCard::where('user_id', $userId)
-            ->where('card_number_id', $cardNumberId)
+        $card = UserCard::where('user_id', $request->user_id)
+            ->where('card_number_id', $request->card_number_id)
             ->delete();
 
         return 'delete success';
