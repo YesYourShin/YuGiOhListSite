@@ -176,6 +176,16 @@ class JaCardController extends Controller
     {
         // 유저가 가진 카드 삭제
 
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|string',
+            'card_number_id' => 'required|string',
+            'amount' => ['required','string',Rule::In(["0"])]
+        ]);
+
+        if ($validator->fails()) {
+            return "에러";
+        }
+
         $card = UserCard::where('user_id', $request->user_id)
             ->where('card_number_id', $request->card_number_id)
             ->delete();
