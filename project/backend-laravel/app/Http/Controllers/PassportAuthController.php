@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\Token;
 
 class PassportAuthController extends Controller
 {
@@ -38,7 +39,7 @@ class PassportAuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        $token = $user->createToken('MingyuApp')->accessToken;
+        $token = $user->createToken('token_name')->accessToken;
 
         return response()->json(['token' => $token], 200);
     }
@@ -59,7 +60,7 @@ class PassportAuthController extends Controller
         ];
 
         if (auth()->attempt($data)) {
-            $token = auth()->user()->createToken('MingyuApp')->accessToken;
+            $token = auth()->user()->createToken('token_name')->accessToken;
             return response()->json(['token' => $token], 200);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
@@ -76,4 +77,11 @@ class PassportAuthController extends Controller
             }
         return $response;
     }
+
+    public function userInfo()
+    {
+        $user_info = auth('api')->user()->name;
+        return $user_info;
+    }
+
 }
