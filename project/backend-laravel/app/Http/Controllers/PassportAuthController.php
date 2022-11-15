@@ -80,7 +80,10 @@ class PassportAuthController extends Controller
 
     public function userInfo()
     {
-        $user_info = auth('api')->user()->name;
+        $user_info = [
+            'user_email' => auth('api')->user()->email,
+            'user_name' => auth('api')->user()->name,
+        ];
         return $user_info;
     }
 
