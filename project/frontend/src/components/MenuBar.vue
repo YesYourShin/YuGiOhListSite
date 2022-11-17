@@ -37,7 +37,7 @@
         </div>
       </label>
       <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-        <li><a>Settings</a></li>
+        <li><a @click="register">Register</a></li>
         <li><a @click="login">Login</a></li>
       </ul>
     </div>
@@ -49,6 +49,9 @@ export default {
   methods: {
     login() {
       if (this.$route.path !== '/login') this.$router.push({ path: '/login' });
+    },
+    register() {
+      if (this.$route.path !== '/register') this.$router.push({ path: '/register' });
     },
     logout() {
       this.$store.commit('logout');
