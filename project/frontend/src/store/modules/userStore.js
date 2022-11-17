@@ -2,23 +2,22 @@ import router from '../../router/index.js';
 
 const userStore = {
   state: {
-    // userId: '',
-    // userName: '',
+    myInfo: {
+      email: '',
+      nickname: '',
+    },
     token: '',
   },
   mutations: {
     login(state, payload) {
-      // state.userId = payload.userId;
-      // state.userName = payload.userName;
       state.token = payload.token;
-      console.log(state.token);
-      router.push({ path: '/card' });
+      // router.push({ path: '/card' });
     },
-    loginCheck(state) {
+    getMyInfo(state, payload) {
       if (!state.token) {
         router
           .push({
-            name: 'login',
+            path: 'login',
           })
           .catch(error => {
             console.log(error);
@@ -26,10 +25,14 @@ const userStore = {
       } else {
         return true;
       }
+      state.myInfo.email = payload.myInfo.email;
+      state.myInfo.name = payload.myInfo.name;
     },
     logout(state) {
+      // 서버에 요청해서 로그아웃 하기
       state.token = '';
-      router.push({ path: '/' });
+      // console.log(router.path)
+      // router.push({ path: '/' });
     },
   },
   getters: {},

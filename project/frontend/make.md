@@ -12,20 +12,25 @@
 
 - 로그인 안 된 유저가 카드 crud 할 경우 에러 메세지 출력
 
+- 로그인 후 토큰 만료 기간 따로 설정 가능하면 짧게 설정하기 (1년은 너무 긴 듯?)
+  아니면 이미 토큰을 받은 사람은 다음에 로그인 할 때도 같은 토큰 주기
+
+- 비밀번호 찾기 기능 만들기
+
 - CardController 에서 create와 update 궁금한거
   다른 함수 하나 만들어서 카드 정보 받은 후에 DB에 카드 정보 없으면 create, 있으면 update 하는 게 낫나?
 
 프론트 엔드
 완료
 
+- 로그인 페이지에 회원 가입 페이지로 가는 버튼 추가
+- 회원가입 페이지 css 적용
+
 미완료
 
 ---
 
 지금 하는 중
-
-- 로그인 페이지에 회원 가입 페이지로 가는 버튼 추가
-- 회원가입 페이지 css 적용
 
 ---
 
@@ -40,3 +45,48 @@
 
 - 유저가 현재 로그인이 됐는지 체크는 토큰만 확인
 - 유저가 토큰을 가지고 있을 경우 유저 정보 요청
+
+- 로그인 후 뒤로가기 같은 걸 했을 때 안 되게 하기
+
+- 로그인 후 바로 사용자 정보 요청하기
+
+- 비밀번호 찾기 페이지
+
+- 로그인 페이지에서 로그인 할 때 로그인 버튼 한 번 누르고 나면 다시 버튼 못 누르게 해서 요청 못 보내게 하기
+
+- 로그아웃 했을 때 로그인 된 유저만 있을 수 있는 페이지면 페이지 이동시키기
+
+기록
+
+- 라라벨 유저의 토큰으로 유저의 정보를 찾는 방법
+  https://laracasts.com/discuss/channels/laravel/get-user-id-by-access-token
+
+- 토큰 보낼 때 이렇게 해야됨
+- 헤더 안에 Bearer 꼭 넣어야 됨
+- headers: {
+  'Content-Type': `application/json`,
+  Authorization: 'Bearer ' + this.$store.state.userStore.token,
+  },
+
+try {
+axios
+.get('api/myinfo', {
+headers: {
+'Content-Type': `application/json`,
+Authorization: 'Bearer ' + this.$store.state.userStore.token,
+            },
+          })
+          .then(res => {
+            console.log(res);
+            if (res.status === 200) {
+              // 로그인 성공시 처리해줘야할 부분
+              console.log('유저 정보 가져오기 성공!');
+              this.data.myEmail = res.data.my_email;
+              this.data.myNickname = res.data.my_name;
+              this.$store.commit('login', this.data);
+}
+});
+} catch (error) {
+console.log('에러');
+console.error(error);
+}

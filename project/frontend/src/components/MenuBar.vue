@@ -48,7 +48,7 @@
 export default {
   methods: {
     login() {
-      this.$router.push({ path: '/login' });
+      if (this.$route.path !== '/login') this.$router.push({ path: '/login' });
     },
     logout() {
       this.$store.commit('logout');
