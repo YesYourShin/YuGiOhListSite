@@ -27,5 +27,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('create', [JaCardController::class, 'create']);
     Route::post('update', [JaCardController::class, 'update']);
     Route::post('destroy', [JaCardController::class, 'destroy']);
-    Route::get('myinfo',  [PassportAuthController::class, 'myInfo']);
+    Route::get('myinfo',  [PassportAuthController::class, 'myinfo']);
 });
