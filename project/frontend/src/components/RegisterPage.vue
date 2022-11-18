@@ -1,5 +1,5 @@
 <template>
-  <div class="hero min-h-screen bg-base-200">
+  <div v-if="isNotLogin" class="hero min-h-screen bg-base-200">
     <div class="hero-content flex-col lg:flex-row-reverse">
       <div class="text-center lg:text-left">
         <h1 class="text-5xl font-bold">Register now!</h1>
@@ -50,7 +50,14 @@ export default {
       name: null,
       email: null,
       password: null,
+      isLogin: false,
     };
+  },
+  computed: {
+    isNotLogin() {
+      // 로그인이 안 되어 있으면 페이지를 안 보여줌
+      return this.$store.getters.isNotLogin;
+    },
   },
   methods: {
     registerSubmit() {

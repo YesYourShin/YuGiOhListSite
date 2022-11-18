@@ -26,8 +26,10 @@
 - 회원가입 페이지 css 적용
 - 유저가 현재 로그인이 됐는지 체크는 토큰만 확인
 - 유저가 토큰을 가지고 있을 경우 유저 정보 요청해 유저 정보 저장
+- 네이게이션바 프로필 누르면 나오는 드롭메뉴에도 로그인 되어있지 않을 때 회원가입 버튼 추가
+- 로그인 된 유저는 로그인, 회원가입 페이지 갈 수 없도록 하기
 
-미완료
+- 미완료
 
 ---
 
@@ -35,9 +37,6 @@
 
 ---
 
-- 네이게이션바 프로필 누르면 나오는 드롭메뉴에도 로그인 되어있지 않을 때 회원가입 버튼 추가
-
-- 로그인 된 유저는 로그인, 회원가입 페이지 갈 수 없도록 하기
 - 로그인 된 유저만 카드 개수 crud 할 수 있도록 하기
 - 로그인 안 된 유저는 카드 crud 못하게 막기
 
@@ -57,6 +56,10 @@
 - 로그인 dropdown에 a태그 썼는데 href안쓰면 굳이 a태그 쓸 필요 있나? href를 안 쓰는 데 a태그를 쓰는 건 맞는 건가?
 
 기록
+
+- vuex mutation getters actions 등 설명 사용법
+  https://ux.stories.pe.kr/149
+  getters는 computed에서 this.$store.getters.isLogin; 이런 식으로 씀
 
 - 라라벨 유저의 토큰으로 유저의 정보를 찾는 방법
   https://laracasts.com/discuss/channels/laravel/get-user-id-by-access-token
