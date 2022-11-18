@@ -24,8 +24,9 @@ Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('logout',  [PassportAuthController::class, 'logout']);
-    Route::post('create', [JaCardController::class, 'create']);
-    Route::post('update', [JaCardController::class, 'update']);
-    Route::post('destroy', [JaCardController::class, 'destroy']);
+    // Route::post('create', [JaCardController::class, 'create']);
+    // Route::post('update', [JaCardController::class, 'update']);
+    // Route::post('destroy', [JaCardController::class, 'destroy']);
+    Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
     Route::get('myinfo',  [PassportAuthController::class, 'myinfo']);
 });

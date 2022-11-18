@@ -32,31 +32,15 @@ class JaCardController extends Controller
     {
         // 유저가 가진 카드를 저장할 때 쓰는 함수
 
-        // 로그인이 됐는지는 routes/api.php에서 Middleware로 확인하고 여기로 옴
-
         // 유저가 보낸 카드 아이디를 테이블에 저장
 
-        // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
-
-        $validator = Validator::make($request->all(), [
-                'user_id' => 'required|string',
-                'card_number_id' => 'required|string',
-                'amount' => ['required','string',Rule::notIn(["0"])]
-        ]);
-
-        if ($validator->fails()) {
-            return "에러";
-        }
-
-
-
         UserCard::insert([
-            'user_id' => $request->user_id,
-            'card_number_id' => $request->card_number_id,
+            'user_id' => $request->userId,
+            'card_number_id' => $request->cardNumberId,
             'amount' => $request->amount
         ]);
 
-        return 'success';
+        return 'create success';
     }
 
     /**
@@ -149,21 +133,11 @@ class JaCardController extends Controller
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
 
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|string',
-            'card_number_id' => 'required|string',
-            'amount' => ['required','string',Rule::notIn(["0"])]
-        ]);
-
-        if ($validator->fails()) {
-            return "에러";
-        }
-
-        UserCard::where('user_id', $request->user_id)
-            ->where('card_number_id', $request->card_number_id)
+        UserCard::where('user_id', $request->userId)
+            ->where('card_number_id', $request->cardNumberId)
             ->update(['amount' => $request->amount]);
 
-        return 'success';
+        return 'update success';
     }
 
     /**
@@ -176,20 +150,57 @@ class JaCardController extends Controller
     {
         // 유저가 가진 카드 삭제
 
+        UserCard::where('user_id', $request->userId)
+            ->where('card_number_id', $request->cardNumberId)
+            ->delete();
+
+        return 'delete success';
+    }
+
+    public function userCardStore(Request $request)
+    {
+        // 받은 카드 데이터를 바탕으로 create인지 update인지 destroy인지 판단함
+
+        // 로그인이 됐는지는 routes/api.php에서 Middleware로 확인하고 여기로 옴
+
+        // validate 체크
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|string',
-            'card_number_id' => 'required|string',
-            'amount' => ['required','string',Rule::In(["0"])]
+            'cardNumberId' => 'required|string',
+            'amount' => ['required','string']
         ]);
 
         if ($validator->fails()) {
             return "에러";
         }
 
-        $card = UserCard::where('user_id', $request->user_id)
-            ->where('card_number_id', $request->card_number_id)
-            ->delete();
+        // post 한 유저의 아이디를 가져옴
+        $userId = auth('api')->user()->id;
 
-        return 'delete success';
+        // request 객체에 userId 추가
+        $request['userId'] = $userId;
+
+        // user_cards 테이블에서 해당 유저가 이 카드를 가지고 있는지 판단함
+        $card = UserCard::where('user_id', $userId)
+            ->where('card_number_id', $request->cardNumberId)
+            ->get();
+
+        // --------------------
+        // create
+        // 카드를 가지고 있지 않을 경우 create
+        if (!count($card)) {
+
+            return JaCardController::create($request);
+        }
+        // --------------------
+        // update
+        // 카드를 가지고 있고 amount가 0이 아닐 경우 update
+        if ($request['amount']) {
+            return JaCardController::update($request);
+        }
+        // --------------------
+        // 카드를 가지고 있고 amount가 0인 경우 destroy
+        else {
+            return JaCardController::destroy($request);
+        }
     }
 }
