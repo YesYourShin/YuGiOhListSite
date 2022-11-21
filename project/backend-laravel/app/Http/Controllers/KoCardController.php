@@ -214,11 +214,11 @@ class KoCardController extends Controller
         // 유저의 아이디를 가져옴
         $userId = auth('api')->user()->id;
 
-        $cards = KoCard::join('ja_card_numbers', 'ja_cards.id', '=', 'ja_card_numbers.card_id')
-            ->join('ja_user_cards', 'ja_card_numbers.id', '=', 'ja_user_cards.card_number_id')
-            ->where('ja_user_cards.user_id', $userId)
-            ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_user_cards.*')
-            ->paginate(10);
+        $cards = KoCard::join('ko_card_numbers', 'ko_cards.id', '=', 'ko_card_numbers.card_id')
+            ->join('ko_user_cards', 'ko_card_numbers.id', '=', 'ko_user_cards.card_number_id')
+            ->where('ko_user_cards.user_id', $userId)
+            ->select('ko_cards.*', 'ko_card_numbers.*', 'ko_user_cards.*')
+            ->paginate(100);
         return $cards;
     }
 }
