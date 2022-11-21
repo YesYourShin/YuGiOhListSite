@@ -7,6 +7,7 @@ const userStore = {
       nickname: '',
     },
     token: '',
+    lang: '',
   },
   mutations: {
     login(state, payload) {
@@ -33,6 +34,10 @@ const userStore = {
       // console.log(router.path)
       // router.push({ path: '/' });
     },
+    updateLang(state, lang) {
+      // console.log('lang', lang);
+      state.lang = lang;
+    },
   },
   getters: {
     isLogin(state) {
@@ -42,6 +47,12 @@ const userStore = {
       }
       // 로그인이 안 되어 있으면 false
       return false;
+    },
+    getToken(state) {
+      return state.token;
+    },
+    getLang(state) {
+      return state.lang;
     },
   },
   actions: {},

@@ -17,9 +17,20 @@
         <li>
           <a><router-link to="/mycard">MyCard</router-link></a>
         </li>
+        <li>
+          <!-- <select class="select select-bordered w-full max-w-xs" @change="updateLang(lang)">
+            <option disabled selected>Language</option>
+            <option value="ko">한국어</option>
+            <option value="ja">日本語</option>
+          </select> -->
+          <select v-model="lang" @change="updateLang()">
+            <option v-for="language in languages" v-bind:key="language.value">{{ language.country }}</option>
+          </select>
+        </li>
       </ul>
     </div>
-    <div v-if="this.$store.state.userStore.token" class="dropdown dropdown-end">
+
+    <div v-if="getToken" class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
           <img src="../assets/evil_twin_Ki-sikil.jpg" />
@@ -46,7 +57,35 @@
 
 <script>
 export default {
+  data() {
+    return {
+      languages: [
+        {
+          country: 'ko',
+          value: 1,
+        },
+        {
+          country: 'ja',
+          value: 2,
+        },
+      ],
+      lang: 'ko',
+    };
+  },
+  computed: {
+    getToken() {
+      return this.$store.getters.getToken;
+    },
+  },
+  created() {
+    // 진짜 mounted로 해야되는가? select에서 할 수 없나?
+    this.updateLang();
+  },
   methods: {
+    updateLang() {
+      console.log('변경됨');
+      this.$store.commit('updateLang', this.lang);
+    },
     login() {
       if (this.$route.path !== '/login') this.$router.push({ path: '/login' });
     },

@@ -33,23 +33,36 @@ export default {
       cards: [],
     };
   },
+  computed: {
+    getLang() {
+      return this.$store.getters.getLang;
+    },
+  },
+  watch: {
+    getLang() {
+      // console.log('getLang 들어옴');
+      this.getCards();
+    },
+  },
   mounted() {
-    console.log('CardList');
-
-    axios
-      .get('/api/card/ja/index')
-      .then(response => {
-        console.log('card data', response.data.data);
-        this.cards = response.data.data;
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    // 이것도 mounted에서 해줘야 하나? watch에서 한 번에 못하나
+    this.getCards();
   },
   methods: {
     onClick(id) {
       console.log(id);
       this.$router.push({ path: `card/${id}` });
+    },
+    getCards() {
+      axios
+        .get(`/api/card/${this.getLang}/index`)
+        .then(response => {
+          console.log('card data', response.data.data);
+          this.cards = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
     },
   },
 };
