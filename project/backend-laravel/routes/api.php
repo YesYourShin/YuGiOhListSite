@@ -32,12 +32,12 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('card')->group(function () {
     Route::prefix('ko')->group(function () {
-        Route::get('index', [JaCardController::class, 'index']);
-        Route::get('/show/{id}', [JaCardController::class, 'show']);
+        Route::get('index', [KoCardController::class, 'index']);
+        Route::get('/show/{id}', [KoCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
             // usercardstore에서 create update destroy 다 함
-            Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
-            Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
+            Route::post('usercardstore',  [KoCardController::class, 'userCardStore']);
+            Route::get('usercardshow',  [KoCardController::class, 'userCardShow']);
         });
     });
     Route::prefix('ja')->group(function () {
