@@ -20,7 +20,8 @@ class JaCardController extends Controller
      */
     public function index()
     {
-        return JaCard::all();
+        // 여기서 전체 카드 리스트를 보여줌
+        return JaCard::paginate(10);
     }
 
     /**
@@ -98,6 +99,7 @@ class JaCardController extends Controller
      */
     public function show($id)
     {
+        // 카드 상세 정보 표시
         $card = JaCard::where('id', $id)->first()->toArray();
         $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
         // echo($card);
@@ -202,5 +204,17 @@ class JaCardController extends Controller
         else {
             return JaCardController::destroy($request);
         }
+    }
+
+    public function userCardShow() {
+        // 유저의 아이디를 가져옴
+        $userId = auth('api')->user()->id;
+
+        $cards = JaCard::join('ja_card_numbers', 'ja_cards.id', '=', 'ja_card_numbers.card_id')
+            ->join('user_cards', 'ja_card_numbers.id', '=', 'user_cards.card_number_id')
+            ->where('user_cards.user_id', $userId)
+            ->select('ja_cards.*', 'ja_card_numbers.*', 'user_cards.*')
+            ->paginate(10);
+        return $cards;
     }
 }

@@ -22,11 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // post put patch delete 등의 메소드 사용법 찾아보기
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
+Route::get('show', [JaCardController::class, 'index']);
 Route::middleware('auth:api')->group(function () {
     Route::post('logout',  [PassportAuthController::class, 'logout']);
     // Route::post('create', [JaCardController::class, 'create']);
     // Route::post('update', [JaCardController::class, 'update']);
     // Route::post('destroy', [JaCardController::class, 'destroy']);
     Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
+    Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
     Route::get('myinfo',  [PassportAuthController::class, 'myinfo']);
 });
