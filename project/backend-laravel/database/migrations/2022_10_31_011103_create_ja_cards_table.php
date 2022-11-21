@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cards_jp');
+        Schema::dropIfExists('ja_cards');
     }
 };

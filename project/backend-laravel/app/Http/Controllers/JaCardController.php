@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JaCard;
 use App\Models\JaCardNumber;
-use App\Models\UserCard;
+use App\Models\JaUserCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +35,7 @@ class JaCardController extends Controller
 
         // 유저가 보낸 카드 아이디를 테이블에 저장
 
-        UserCard::insert([
+        JaUserCard::insert([
             'user_id' => $request->userId,
             'card_number_id' => $request->cardNumberId,
             'amount' => $request->amount
@@ -135,7 +135,7 @@ class JaCardController extends Controller
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
 
-        UserCard::where('user_id', $request->userId)
+        JaUserCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->update(['amount' => $request->amount]);
 
@@ -152,7 +152,7 @@ class JaCardController extends Controller
     {
         // 유저가 가진 카드 삭제
 
-        UserCard::where('user_id', $request->userId)
+        JaUserCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->delete();
 
@@ -182,7 +182,7 @@ class JaCardController extends Controller
         $request['userId'] = $userId;
 
         // user_cards 테이블에서 해당 유저가 이 카드를 가지고 있는지 판단함
-        $card = UserCard::where('user_id', $userId)
+        $card = JaUserCard::where('user_id', $userId)
             ->where('card_number_id', $request->cardNumberId)
             ->get();
 
@@ -211,9 +211,9 @@ class JaCardController extends Controller
         $userId = auth('api')->user()->id;
 
         $cards = JaCard::join('ja_card_numbers', 'ja_cards.id', '=', 'ja_card_numbers.card_id')
-            ->join('user_cards', 'ja_card_numbers.id', '=', 'user_cards.card_number_id')
-            ->where('user_cards.user_id', $userId)
-            ->select('ja_cards.*', 'ja_card_numbers.*', 'user_cards.*')
+            ->join('ja_user_cards', 'ja_card_numbers.id', '=', 'ja_user_cards.card_number_id')
+            ->where('ja_user_cards.user_id', $userId)
+            ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_user_cards.*')
             ->paginate(10);
         return $cards;
     }

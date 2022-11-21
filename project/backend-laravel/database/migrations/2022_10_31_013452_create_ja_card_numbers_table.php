@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_cards', function (Blueprint $table) {
+        Schema::create('ja_card_numbers', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('card_number_id');
-            $table->string('amount');
+            $table->bigInteger('card_id');
+            $table->string('time');
+            $table->string('card_number')->nullable();
+            $table->string('pack_name');
+            $table->string('rare');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_cards');
+        Schema::dropIfExists('ja_card_numbers');
     }
 };

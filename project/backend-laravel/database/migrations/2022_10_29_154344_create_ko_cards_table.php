@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cards_kr');
+        Schema::dropIfExists('ko_cards');
     }
 };
