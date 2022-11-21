@@ -97,10 +97,10 @@ class JaCardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($code)
     {
         // 카드 상세 정보 표시
-        $card = JaCard::where('id', $id)->first()->toArray();
+        $card = JaCard::where('code', $code)->first()->toArray();
         $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
         // echo($card);
         // $card_id = $card->id;
