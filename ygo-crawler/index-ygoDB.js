@@ -49,6 +49,9 @@ const fetchCardInfo = async (id, locale) => {
       .filter(t => t)[n - 1];
   }
 
+  // 유희왕 db 사이트의 해당 카드의 id를 code로 저장
+  info.code = id;
+
   // limited는 나중에 테이블 따로 만들면 그 떄 필요할 거 같으니
   // 쓰기 전까지는 주석 처리함
   // const limited = $('#CardSet > .forbidden_limited_ber > .title').text();
@@ -125,7 +128,7 @@ const fetchCardInfo = async (id, locale) => {
     cardList.unshift(obj);
   });
 
-  console.log(cardList);
+  // console.log(cardList);
 
   info.card_list = cardList;
 
