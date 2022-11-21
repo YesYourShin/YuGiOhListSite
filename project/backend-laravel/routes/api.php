@@ -32,7 +32,7 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('card')->group(function () {
     Route::prefix('ko')->group(function () {
-        Route::get('show', [JaCardController::class, 'index']);
+        Route::get('index', [JaCardController::class, 'index']);
         Route::get('/show/{id}', [JaCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
             // usercardstore에서 create update destroy 다 함
@@ -41,7 +41,7 @@ Route::prefix('card')->group(function () {
         });
     });
     Route::prefix('ja')->group(function () {
-        Route::get('show', [JaCardController::class, 'index']);
+        Route::get('index', [JaCardController::class, 'index']);
         Route::get('/show/{id}', [JaCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
             // usercardstore에서 create update destroy 다 함
