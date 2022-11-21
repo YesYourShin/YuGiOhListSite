@@ -98,7 +98,6 @@ class KoCardController extends Controller
     public function show($code)
     {
         // 카드 상세 정보 표시
-        // $card = KoCard::where('code', $code)->first()->toArray();
         try {
             $card = KoCard::where('code', $code)->firstOrFail();
         }
