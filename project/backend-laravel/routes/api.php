@@ -20,15 +20,45 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 // post put patch delete 등의 메소드 사용법 찾아보기
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']);
-Route::get('show', [JaCardController::class, 'index']);
+
+Route::prefix('auth')->group(function () {
+    Route::post('register', [PassportAuthController::class, 'register']);
+    Route::post('login', [PassportAuthController::class, 'login']);
+    Route::middleware('auth:api')->group(function () {
+        Route::post('logout',  [PassportAuthController::class, 'logout']);
+        Route::get('myinfo',  [PassportAuthController::class, 'myinfo']);
+    });
+});
+
+Route::prefix('card')->group(function () {
+    Route::prefix('ko')->group(function () {
+        Route::get('show', [JaCardController::class, 'index']);
+        Route::get('/show/{id}', [JaCardController::class, 'show']);
+        Route::middleware('auth:api')->group(function () {
+            // usercardstore에서 create update destroy 다 함
+            Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
+            Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
+        });
+    });
+    Route::prefix('ja')->group(function () {
+        Route::get('show', [JaCardController::class, 'index']);
+        Route::get('/show/{id}', [JaCardController::class, 'show']);
+        Route::middleware('auth:api')->group(function () {
+            // usercardstore에서 create update destroy 다 함
+            Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
+            Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
+        });
+    });
+});
+
+
 Route::middleware('auth:api')->group(function () {
-    Route::post('logout',  [PassportAuthController::class, 'logout']);
     // Route::post('create', [JaCardController::class, 'create']);
     // Route::post('update', [JaCardController::class, 'update']);
     // Route::post('destroy', [JaCardController::class, 'destroy']);
-    Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
-    Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
-    Route::get('myinfo',  [PassportAuthController::class, 'myinfo']);
+    Route::prefix('ja')->group(function () {
+
+
+    });
+
 });

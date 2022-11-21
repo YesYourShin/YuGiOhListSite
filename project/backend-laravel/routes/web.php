@@ -29,14 +29,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('ko')->group(function () {
-    Route::post('/store', [KoCardController::class, 'store']);
-
-});
-
-Route::prefix('ja')->group(function () {
-    Route::get('/index', [JaCardController::class, 'index']);
-    Route::post('/store', [JaCardController::class, 'store']);
-    Route::get('/show/{id}', [JaCardController::class, 'show']);
-
-});
