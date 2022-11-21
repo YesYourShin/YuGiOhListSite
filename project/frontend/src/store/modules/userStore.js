@@ -7,7 +7,7 @@ const userStore = {
       nickname: '',
     },
     token: '',
-    lang: '',
+    lang: 'ko',
   },
   mutations: {
     login(state, payload) {

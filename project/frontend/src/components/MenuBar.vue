@@ -23,7 +23,7 @@
             <option value="ko">한국어</option>
             <option value="ja">日本語</option>
           </select> -->
-          <select v-model="lang" @change="updateLang()">
+          <select v-model="lang">
             <option v-for="language in languages" v-bind:key="language.value">{{ language.country }}</option>
           </select>
         </li>
@@ -69,23 +69,30 @@ export default {
           value: 2,
         },
       ],
-      lang: 'ko',
+      lang: '',
     };
   },
   computed: {
     getToken() {
       return this.$store.getters.getToken;
     },
+    getLang() {
+      return this.$store.getters.getLang;
+    },
+  },
+  watch: {
+    lang() {
+      console.log('변경됨');
+      console.log(this.lang);
+      this.$store.commit('updateLang', this.lang);
+    },
   },
   created() {
     // 진짜 mounted로 해야되는가? select에서 할 수 없나?
-    this.updateLang();
+    this.lang = this.getLang;
+    // console.log('lang', this.lang);
   },
   methods: {
-    updateLang() {
-      console.log('변경됨');
-      this.$store.commit('updateLang', this.lang);
-    },
     login() {
       if (this.$route.path !== '/login') this.$router.push({ path: '/login' });
     },
