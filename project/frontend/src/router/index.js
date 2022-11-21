@@ -26,7 +26,7 @@ const routes = [
     component: Register,
   },
   {
-    path: '/card/:id',
+    path: '/card/:code',
     component: CardItem,
   },
 ];

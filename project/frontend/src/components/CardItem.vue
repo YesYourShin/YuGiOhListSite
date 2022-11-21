@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="card">
     <p>CardItem</p>
-    <div>{{ id }} 페이지 입니다.</div>
+    <div>{{ code }} 페이지 입니다.</div>
     <div class="flex">
       <div>
         <img :src="require(`../assets/black_magic_girl.jpg`)" />
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div v-for="item in card.cardNumber" v-bind:key="item.id">
+    <div v-for="item in card.cardNumber" v-bind:key="item.code">
       <p>Card Number: {{ item.card_number }}</p>
       <p>Pack Name: {{ item.pack_name }}</p>
       <p>Rare: {{ item.rare }}</p>
@@ -28,8 +28,8 @@ export default {
   name: 'CardItem',
   data() {
     return {
-      id: this.$route.params.id,
-      card: [],
+      code: this.$route.params.code,
+      card: null,
     };
   },
   created() {
@@ -38,7 +38,7 @@ export default {
   methods: {
     getCard() {
       axios
-        .get(`/api/card/ja/show/${this.id}`)
+        .get(`/api/card/ja/show/${this.code}`)
         .then(response => {
           this.card = response.data;
         })

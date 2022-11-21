@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in cards" v-bind:key="item.id" @click="onClick(item.id)" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <tr v-for="item in cards" v-bind:key="item.id" @click="onClick(item.code)" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ item.name }}</th>
           <td class="py-4 px-6">Sliver</td>
           <td class="py-4 px-6">Laptop</td>
@@ -68,9 +68,9 @@ export default {
       });
   },
   methods: {
-    onClick(id) {
-      console.log(id);
-      this.$router.push({ path: `card/${id}` });
+    onClick(code) {
+      console.log(code);
+      this.$router.push({ path: `card/${code}` });
     },
   },
 };
