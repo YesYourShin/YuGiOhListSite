@@ -195,18 +195,18 @@ class KoCardController extends Controller
         // 카드를 가지고 있지 않을 경우 create
         if (!count($card)) {
 
-            return JaCardController::create($request);
+            return KoCardController::create($request);
         }
         // --------------------
         // update
         // 카드를 가지고 있고 amount가 0이 아닐 경우 update
         if ($request['amount']) {
-            return JaCardController::update($request);
+            return KoCardController::update($request);
         }
         // --------------------
         // 카드를 가지고 있고 amount가 0인 경우 destroy
         else {
-            return JaCardController::destroy($request);
+            return KoCardController::destroy($request);
         }
     }
 
