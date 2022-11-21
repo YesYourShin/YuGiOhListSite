@@ -38,9 +38,10 @@ export default {
     this.test();
 
     axios
-      .get('/ja/index')
+      .get('/api/card/ja/index')
       .then(response => {
-        this.cards = response.data;
+        console.log('card data', response.data.data);
+        this.cards = response.data.data;
       })
       .catch(function (error) {
         console.error(error);

@@ -38,7 +38,7 @@ export default {
   methods: {
     getCard() {
       axios
-        .get(`/ja/show/${this.id}`)
+        .get(`/api/card/ja/show/${this.id}`)
         .then(response => {
           this.card = response.data;
         })
