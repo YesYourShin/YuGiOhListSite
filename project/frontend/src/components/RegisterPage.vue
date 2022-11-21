@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isNotLogin" class="hero min-h-screen bg-base-200">
+  <div v-if="!isLogin" class="hero min-h-screen bg-base-200">
     <div class="hero-content flex-col lg:flex-row-reverse">
       <div class="text-center lg:text-left">
         <h1 class="text-5xl font-bold">Register now!</h1>
@@ -50,14 +50,21 @@ export default {
       name: null,
       email: null,
       password: null,
-      isLogin: false,
+      // isLogin: false,
     };
   },
   computed: {
-    isNotLogin() {
-      // 로그인이 안 되어 있으면 페이지를 안 보여줌
-      return this.$store.getters.isNotLogin;
+    isLogin() {
+      // 로그인이 되어 있는지 체크
+      return this.$store.getters.isLogin;
     },
+  },
+  mounted() {
+    if (this.isLogin) {
+      // 로그인이 되어 있을 경우
+      alert('잘못된 요청입니다.');
+      this.$router.push({ path: '/' });
+    }
   },
   methods: {
     registerSubmit() {
@@ -68,7 +75,7 @@ export default {
 
       try {
         axios
-          .post('api/register', JSON.stringify(saveData), {
+          .post('api/auth/register', JSON.stringify(saveData), {
             headers: {
               'Content-Type': `application/json`,
             },

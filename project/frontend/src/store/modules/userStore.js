@@ -35,16 +35,13 @@ const userStore = {
     },
   },
   getters: {
-    isNotLogin(state) {
-      // 로그인이 안 되어 있으면 페이지를 안 보여줌
+    isLogin(state) {
+      // 로그인이 되어 있으면 true
       if (state.token) {
-        // 로그인이 되어 있을 경우
-        alert('잘못된 요청입니다.');
-        router.push({ path: '/' });
-        return false;
+        return true;
       }
-      // 로그인이 안 되어 있을 경우
-      return true;
+      // 로그인이 안 되어 있으면 false
+      return false;
     },
   },
   actions: {},

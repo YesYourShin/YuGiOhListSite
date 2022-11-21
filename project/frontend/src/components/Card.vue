@@ -35,7 +35,6 @@ export default {
   },
   mounted() {
     console.log('CardList');
-    this.test();
 
     axios
       .get('/api/card/ja/index')
@@ -48,9 +47,6 @@ export default {
       });
   },
   methods: {
-    test() {
-      console.log('test');
-    },
     onClick(id) {
       console.log(id);
       this.$router.push({ path: `card/${id}` });
