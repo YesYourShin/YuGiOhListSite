@@ -45,6 +45,8 @@ Route::prefix('card')->group(function () {
         Route::get('index', [JaCardController::class, 'index']);
         Route::get('/show/{id}', [JaCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
+            // 관리자만 할 수 있는 store
+            Route::post('store',  [JaCardController::class, 'store']);
             // usercardstore에서 create update destroy 다 함
             Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
             Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
