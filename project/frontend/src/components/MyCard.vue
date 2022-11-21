@@ -40,6 +40,14 @@ export default {
       // 로그인이 되어 있는지 체크
       return this.$store.getters.isLogin;
     },
+    getLang() {
+      return this.$store.getters.getLang;
+    },
+  },
+  watch: {
+    getLang() {
+      this.getCard();
+    },
   },
   mounted() {
     console.log('MyCardList');
@@ -51,26 +59,28 @@ export default {
       this.$router.push({ path: '/' });
       return;
     }
-
-    axios
-      .get('/api/card/ja/usercardshow', {
-        headers: {
-          'Content-Type': `application/json`,
-          Authorization: 'Bearer ' + this.$store.state.userStore.token,
-        },
-      })
-      .then(response => {
-        console.log('card data', response.data.data);
-        this.cards = response.data.data;
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    this.getCard();
   },
   methods: {
     onClick(code) {
       console.log(code);
       this.$router.push({ path: `card/${code}` });
+    },
+    getCard() {
+      axios
+        .get(`/api/card/${this.getLang}/usercardshow`, {
+          headers: {
+            'Content-Type': `application/json`,
+            Authorization: 'Bearer ' + this.$store.state.userStore.token,
+          },
+        })
+        .then(response => {
+          console.log('my card data', response.data.data);
+          this.cards = response.data.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
     },
   },
 };
