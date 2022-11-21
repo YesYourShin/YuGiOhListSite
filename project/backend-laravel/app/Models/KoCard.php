@@ -23,5 +23,6 @@ class JaCard extends Model
         'card_type',
         'atk',
         'def',
+        'code',
     ];
 }

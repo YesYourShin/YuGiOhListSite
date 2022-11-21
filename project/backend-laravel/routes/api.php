@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JaCardController;
+use App\Http\Controllers\KoCardController;
 use App\Http\Controllers\PassportAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

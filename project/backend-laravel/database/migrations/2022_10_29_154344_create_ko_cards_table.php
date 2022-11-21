@@ -29,6 +29,7 @@ return new class extends Migration
             $table->text('card_type')->nullable();
             $table->string('atk')->nullable();
             $table->string('def')->nullable();
+            $table->bigInteger('code');
             $table->timestamps();
         });
     }
