@@ -9,7 +9,7 @@
 
       <div>
         <p>Name: {{ card.name }}</p>
-        <p>Hiragana: {{ card.name2 }}</p>
+        <p v-if="this.getLang == 'ja'">Hiragana: {{ card.name2 }}</p>
         <p>Card Text: {{ card.card_text }}</p>
       </div>
     </div>
@@ -32,13 +32,23 @@ export default {
       card: null,
     };
   },
+  computed: {
+    getLang() {
+      return this.$store.getters.getLang;
+    },
+  },
+  watch: {
+    getLang() {
+      this.getCard();
+    },
+  },
   created() {
     this.getCard();
   },
   methods: {
     getCard() {
       axios
-        .get(`/api/card/ja/show/${this.code}`)
+        .get(`/api/card/${this.getLang}/show/${this.code}`)
         .then(response => {
           this.card = response.data;
         })

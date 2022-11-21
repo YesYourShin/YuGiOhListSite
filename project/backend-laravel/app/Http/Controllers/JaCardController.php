@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JaCard;
 use App\Models\JaCardNumber;
 use App\Models\JaUserCard;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -100,7 +101,14 @@ class JaCardController extends Controller
     public function show($code)
     {
         // 카드 상세 정보 표시
-        $card = JaCard::where('code', $code)->first()->toArray();
+        try {
+            $card = JaCard::where('code', $code)->firstOrFail();
+        }
+        catch(ModelNotFoundException $e){
+            return "Not Found";
+        }
+
+        $card = $card->toArray();
         $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
         // echo($card);
         // $card_id = $card->id;

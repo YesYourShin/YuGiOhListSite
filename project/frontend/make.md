@@ -54,13 +54,11 @@
 - 미완료
 
 - 언어 선택하는 버튼 만들고 언어 변경되면 카드 리스트 변경되기
+- 카드 정보 페이지 아이디가 아니라 code로 파라미터 전송
 
 ---
 
 지금 하는 중
-
-- 카드 정보 페이지 아이디가 아니라 code로 파라미터 전송
--
 
 ---
 
@@ -127,3 +125,7 @@ Authorization: 'Bearer ' + this.$store.state.userStore.token,
 console.log('에러');
 console.error(error);
 }
+
+스크립트 부분
+
+- 한글 카드 스크립트 할 때 ""로 카드 이름 표시하는 경우 있어서 json 양식 안 맞으니 수정할 것

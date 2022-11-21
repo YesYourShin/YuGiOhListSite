@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KoCard;
 use App\Models\KoCardNumber;
 use App\Models\KoUserCard;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -97,13 +98,21 @@ class KoCardController extends Controller
     public function show($code)
     {
         // 카드 상세 정보 표시
-        $card = KoCard::where('code', $code)->first()->toArray();
+        // $card = KoCard::where('code', $code)->first()->toArray();
+        try {
+            $card = KoCard::where('code', $code)->firstOrFail();
+        }
+        catch(ModelNotFoundException $e){
+            return "Not Found";
+        }
+
+        $card = $card->toArray();
         $cardNumber = KoCardNumber::where('card_id', $card['id'])->get()->toArray();
         // echo($card);
         // $card_id = $card->id;
         // dd($card->id);
-
         $card = array_merge($card, ['cardNumber' => $cardNumber]);
+
         return $card;
     }
 
