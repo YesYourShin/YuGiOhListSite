@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KoCard;
+use App\Models\KoCardNumber;
+use App\Models\KoUserCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class KoCardController extends Controller
 {
@@ -14,7 +18,8 @@ class KoCardController extends Controller
      */
     public function index()
     {
-        //
+        // 여기서 전체 카드 리스트를 보여줌
+        return KoCard::paginate(100);
     }
 
     /**
@@ -22,9 +27,19 @@ class KoCardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // 유저가 가진 카드를 저장할 때 쓰는 함수
+
+        // 유저가 보낸 카드 아이디를 테이블에 저장
+
+        KoUserCard::insert([
+            'user_id' => $request->userId,
+            'card_number_id' => $request->cardNumberId,
+            'amount' => $request->amount
+        ]);
+
+        return 'create success';
     }
 
     /**
@@ -53,17 +68,17 @@ class KoCardController extends Controller
             // echo(json_encode($array));
 
             # cards_kr에 카드 정보 넣음
-            DB::table('kr_cards')->insert([
+            DB::table('ko_cards')->insert([
                 $array
             ]);
 
             # cards_kr에 넣은 카드의 카드 아이디를 구하는 쿼리
-            $cardId = DB::table('kr_cards')->where('name', $array['name'])->value('id');
+            $cardId = DB::table('ko_cards')->where('name', $array['name'])->value('id');
 
             # cards_kr_list에 카드 아이디와 같이 card_list 정보를 넣음
             foreach($cardList as $card) {
                 $card['card_id'] = $cardId;
-                DB::table('kr_card_number')->insert([
+                DB::table('ko_card_numbers')->insert([
                     $card
                 ]);
             }
@@ -79,9 +94,17 @@ class KoCardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($code)
     {
-        //
+        // 카드 상세 정보 표시
+        $card = KoCard::where('code', $code)->first()->toArray();
+        $cardNumber = KoCardNumber::where('card_id', $card['id'])->get()->toArray();
+        // echo($card);
+        // $card_id = $card->id;
+        // dd($card->id);
+
+        $card = array_merge($card, ['cardNumber' => $cardNumber]);
+        return $card;
     }
 
     /**
@@ -102,9 +125,17 @@ class KoCardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // 유저가 가진 카드 개수 업데이트
+
+        // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
+
+        KoUserCard::where('user_id', $request->userId)
+            ->where('card_number_id', $request->cardNumberId)
+            ->update(['amount' => $request->amount]);
+
+        return 'update success';
     }
 
     /**
@@ -113,8 +144,73 @@ class KoCardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        // 유저가 가진 카드 삭제
+
+        KoUserCard::where('user_id', $request->userId)
+            ->where('card_number_id', $request->cardNumberId)
+            ->delete();
+
+        return 'delete success';
+    }
+
+    public function userCardStore(Request $request)
+    {
+        // 받은 카드 데이터를 바탕으로 create인지 update인지 destroy인지 판단함
+
+        // 로그인이 됐는지는 routes/api.php에서 Middleware로 확인하고 여기로 옴
+
+        // validate 체크
+        $validator = Validator::make($request->all(), [
+            'cardNumberId' => 'required|string',
+            'amount' => ['required','string']
+        ]);
+
+        if ($validator->fails()) {
+            return "에러";
+        }
+
+        // post 한 유저의 아이디를 가져옴
+        $userId = auth('api')->user()->id;
+
+        // request 객체에 userId 추가
+        $request['userId'] = $userId;
+
+        // user_cards 테이블에서 해당 유저가 이 카드를 가지고 있는지 판단함
+        $card = KoUserCard::where('user_id', $userId)
+            ->where('card_number_id', $request->cardNumberId)
+            ->get();
+
+        // --------------------
+        // create
+        // 카드를 가지고 있지 않을 경우 create
+        if (!count($card)) {
+
+            return JaCardController::create($request);
+        }
+        // --------------------
+        // update
+        // 카드를 가지고 있고 amount가 0이 아닐 경우 update
+        if ($request['amount']) {
+            return JaCardController::update($request);
+        }
+        // --------------------
+        // 카드를 가지고 있고 amount가 0인 경우 destroy
+        else {
+            return JaCardController::destroy($request);
+        }
+    }
+
+    public function userCardShow() {
+        // 유저의 아이디를 가져옴
+        $userId = auth('api')->user()->id;
+
+        $cards = KoCard::join('ja_card_numbers', 'ja_cards.id', '=', 'ja_card_numbers.card_id')
+            ->join('ja_user_cards', 'ja_card_numbers.id', '=', 'ja_user_cards.card_number_id')
+            ->where('ja_user_cards.user_id', $userId)
+            ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_user_cards.*')
+            ->paginate(10);
+        return $cards;
     }
 }

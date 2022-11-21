@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JaCard extends Model
+class KoCard extends Model
 {
     use HasFactory;
     protected $fillable = [

@@ -36,6 +36,8 @@ Route::prefix('card')->group(function () {
         Route::get('index', [KoCardController::class, 'index']);
         Route::get('/show/{id}', [KoCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
+            // 관리자만 할 수 있는 store로 바꾸기
+            Route::post('store',  [KoCardController::class, 'store']);
             // usercardstore에서 create update destroy 다 함
             Route::post('usercardstore',  [KoCardController::class, 'userCardStore']);
             Route::get('usercardshow',  [KoCardController::class, 'userCardShow']);
@@ -45,7 +47,7 @@ Route::prefix('card')->group(function () {
         Route::get('index', [JaCardController::class, 'index']);
         Route::get('/show/{id}', [JaCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
-            // 관리자만 할 수 있는 store
+            // 관리자만 할 수 있는 store로 바꾸기
             Route::post('store',  [JaCardController::class, 'store']);
             // usercardstore에서 create update destroy 다 함
             Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);

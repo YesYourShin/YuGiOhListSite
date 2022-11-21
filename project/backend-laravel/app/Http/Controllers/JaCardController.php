@@ -21,7 +21,7 @@ class JaCardController extends Controller
     public function index()
     {
         // 여기서 전체 카드 리스트를 보여줌
-        return JaCard::paginate(10);
+        return JaCard::paginate(100);
     }
 
     /**
