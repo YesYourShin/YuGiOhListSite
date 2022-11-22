@@ -39,14 +39,13 @@ export default {
     },
   },
   watch: {
-    getLang() {
-      // console.log('getLang 들어옴');
-      this.getCards();
+    getLang: {
+      // 최초 실행을 하게 해줌
+      immediate: true,
+      handler() {
+        this.getCards();
+      },
     },
-  },
-  mounted() {
-    // 이것도 mounted에서 해줘야 하나? watch에서 한 번에 못하나
-    this.getCards();
   },
   methods: {
     onClick(code) {

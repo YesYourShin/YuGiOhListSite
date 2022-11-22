@@ -87,7 +87,7 @@ export default {
       this.$store.commit('updateLang', this.lang);
     },
   },
-  created() {
+  mounted() {
     // 진짜 mounted로 해야되는가? select에서 할 수 없나?
     this.lang = this.getLang;
     // console.log('lang', this.lang);

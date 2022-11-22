@@ -60,11 +60,7 @@ export default {
     },
   },
   mounted() {
-    if (this.isLogin) {
-      // 로그인이 되어 있을 경우
-      alert('잘못된 요청입니다.');
-      this.$router.push({ path: '/' });
-    }
+    this.checkLogin();
   },
   methods: {
     registerSubmit() {
@@ -92,6 +88,13 @@ export default {
           });
       } catch (error) {
         console.error(error);
+      }
+    },
+    checkLogin() {
+      if (this.isLogin) {
+        // 로그인이 되어 있을 경우
+        alert('잘못된 요청입니다.');
+        this.$router.push({ path: '/' });
       }
     },
   },

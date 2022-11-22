@@ -43,15 +43,18 @@ export default {
     },
   },
   watch: {
-    getLang() {
-      this.getCard();
+    getLang: {
+      // 최초 실행을 하게 해줌
+      immediate: true,
+      handler() {
+        this.getCard();
+      },
     },
   },
-  created() {
-    this.getCard();
-  },
+  mounted() {},
   methods: {
     getCard() {
+      // 초기화 해주는 게 좋음 일단은
       this.card = null;
       axios
         .get(`/api/card/${this.getLang}/show/${this.code}`)

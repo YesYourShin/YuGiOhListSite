@@ -56,6 +56,7 @@
 - 로그인 후 바로 사용자 정보 요청하기
 - 로그인 후 뒤로가기 같은 걸 했을 때 안 되게 하기
 - 유저가 가진 카드 리스트 출력
+- mounted 쓰지 말고 watch immediate으로 최초실행되게 하기
 
 ---
 
@@ -64,11 +65,10 @@
 ---
 
 - 미완료
--
+
 - 언어 별로 crud 되게 하기
 
 - MenuBar.vue에 updateLang()을 select에서 할 수 있도록 하기
-- Card.vue에 getLang으로 this.getCard() 하는 거 mounted에서 안 해도 되게 하기
 
 - 로그인 된 유저만 카드 개수 crud 할 수 있도록 하기
 - 로그인 안 된 유저는 카드 crud 못하게 막기

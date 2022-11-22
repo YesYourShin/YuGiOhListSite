@@ -45,28 +45,24 @@ export default {
     },
   },
   watch: {
-    getLang() {
-      this.getCard();
+    getLang: {
+      // 최초 실행을 하게 해줌
+      immediate: true,
+      handler() {
+        this.getCards();
+      },
     },
   },
   mounted() {
     console.log('MyCardList');
-
-    // 로그인이 되어있지 않을 경우
-    if (!this.isLogin) {
-      // 로그인이 되어 있을 경우
-      alert('잘못된 요청입니다.');
-      this.$router.push({ path: '/' });
-      return;
-    }
-    this.getCard();
+    this.checkLogin();
   },
   methods: {
     onClick(code) {
       console.log(code);
       this.$router.push({ path: `card/${code}` });
     },
-    getCard() {
+    getCards() {
       axios
         .get(`/api/card/${this.getLang}/usercardshow`, {
           headers: {
@@ -81,6 +77,14 @@ export default {
         .catch(function (error) {
           console.error(error);
         });
+    },
+    checkLogin() {
+      // 로그인이 되어있지 않을 경우
+      if (!this.isLogin) {
+        alert('잘못된 요청입니다.');
+        this.$router.push({ path: '/' });
+        return;
+      }
     },
   },
 };
