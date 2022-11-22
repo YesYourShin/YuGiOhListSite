@@ -40,6 +40,7 @@ Route::prefix('card')->group(function () {
             Route::post('store',  [KoCardController::class, 'store']);
             // usercardstore에서 create update destroy 다 함
             Route::post('usercardstore',  [KoCardController::class, 'userCardStore']);
+            Route::get('usercardindex',  [KoCardController::class, 'userCardIndex']);
             Route::get('usercardshow',  [KoCardController::class, 'userCardShow']);
         });
     });
@@ -51,6 +52,7 @@ Route::prefix('card')->group(function () {
             Route::post('store',  [JaCardController::class, 'store']);
             // usercardstore에서 create update destroy 다 함
             Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
+            Route::get('usercardindex',  [JaCardController::class, 'userCardIndex']);
             Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
         });
     });

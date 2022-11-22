@@ -214,7 +214,7 @@ class JaCardController extends Controller
         }
     }
 
-    public function userCardShow() {
+    public function userCardIndex() {
         // 유저의 아이디를 가져옴
         $userId = auth('api')->user()->id;
 
@@ -224,5 +224,18 @@ class JaCardController extends Controller
             ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_user_cards.*')
             ->paginate(10);
         return $cards;
+    }
+
+    public function userCardShow(Request $request) {
+        // 유저의 아이디를 가져옴
+        $userId = auth('api')->user()->id;
+
+        // 유저가 가진 카드의 개수를 보여줌
+        $cardNumbers = JaCardNumber::join('ja_user_cards', 'ja_card_numbers.id', '=', 'ja_user_cards.card_number_id')
+            ->where('ja_user_cards.user_id', $userId)
+            ->where('ja_card_numbers.card_id', $request->id)
+            ->select('ja_user_cards.*')
+            ->get();
+        return $cardNumbers;
     }
 }

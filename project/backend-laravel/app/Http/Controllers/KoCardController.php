@@ -210,7 +210,7 @@ class KoCardController extends Controller
         }
     }
 
-    public function userCardShow() {
+    public function userCardIndex() {
         // 유저의 아이디를 가져옴
         $userId = auth('api')->user()->id;
 
@@ -220,5 +220,18 @@ class KoCardController extends Controller
             ->select('ko_cards.*', 'ko_card_numbers.*', 'ko_user_cards.*')
             ->paginate(100);
         return $cards;
+    }
+
+    public function userCardShow(Request $request) {
+        // 유저의 아이디를 가져옴
+        $userId = auth('api')->user()->id;
+
+        // 유저가 가진 카드의 개수를 보여줌
+        $cardNumbers = KoCardNumber::join('ko_user_cards', 'ko_card_numbers.id', '=', 'ko_user_cards.card_number_id')
+            ->where('ko_user_cards.user_id', $userId)
+            ->where('ko_card_numbers.card_id', $request->id)
+            ->select('ko_user_cards.*')
+            ->get();
+        return $cardNumbers;
     }
 }
