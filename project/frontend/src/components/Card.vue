@@ -25,17 +25,20 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
   name: 'CardList',
   data() {
     return {
-      cards: [],
+      page: 1,
     };
   },
   computed: {
     getLang() {
       return this.$store.getters.getLang;
+    },
+    cards() {
+      return this.$store.getters.getCards;
     },
   },
   watch: {
@@ -53,15 +56,7 @@ export default {
       this.$router.push({ path: `card/${code}` });
     },
     getCards() {
-      axios
-        .get(`/api/card/${this.getLang}/index`)
-        .then(response => {
-          console.log('card data', response.data.data);
-          this.cards = response.data.data;
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+      this.$store.commit('getCards', this.page);
     },
   },
 };

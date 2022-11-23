@@ -1,4 +1,5 @@
 import router from '../../router/index.js';
+import axios from 'axios';
 
 const userStore = {
   state: {
@@ -8,6 +9,7 @@ const userStore = {
     },
     token: '',
     lang: 'ko',
+    cards: [],
   },
   mutations: {
     login(state, payload) {
@@ -36,7 +38,37 @@ const userStore = {
     },
     updateLang(state, lang) {
       // console.log('lang', lang);
+      state.cards = [];
       state.lang = lang;
+    },
+    getCards(state, page) {
+      axios
+        .get(`/api/card/${state.lang}/index?page=${page}`)
+        .then(response => {
+          response.data.data.forEach(card => {
+            state.cards.push(card);
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    getMyCards(state, page) {
+      axios
+        .get(`/api/card/${state.lang}/usercardindex?page=${page}`, {
+          headers: {
+            'Content-Type': `application/json`,
+            Authorization: 'Bearer ' + state.token,
+          },
+        })
+        .then(response => {
+          response.data.data.forEach(card => {
+            state.cards.push(card);
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
     },
   },
   getters: {
@@ -53,6 +85,9 @@ const userStore = {
     },
     getLang(state) {
       return state.lang;
+    },
+    getCards(state) {
+      return state.cards;
     },
   },
   actions: {},

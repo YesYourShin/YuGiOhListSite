@@ -26,13 +26,14 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   name: 'MyCard',
   data() {
     return {
-      cards: [],
+      // cards: [],
+      page: 1,
     };
   },
   computed: {
@@ -42,6 +43,9 @@ export default {
     },
     getLang() {
       return this.$store.getters.getLang;
+    },
+    cards() {
+      return this.$store.getters.getCards;
     },
   },
   watch: {
@@ -63,20 +67,7 @@ export default {
       this.$router.push({ path: `card/${code}` });
     },
     getCards() {
-      axios
-        .get(`/api/card/${this.getLang}/usercardshow`, {
-          headers: {
-            'Content-Type': `application/json`,
-            Authorization: 'Bearer ' + this.$store.state.userStore.token,
-          },
-        })
-        .then(response => {
-          console.log('my card data', response.data.data);
-          this.cards = response.data.data;
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+      this.$store.commit('getMyCards', this.page);
     },
     checkLogin() {
       // 로그인이 되어있지 않을 경우
