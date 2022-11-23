@@ -57,9 +57,12 @@ export default {
       },
     },
   },
-  mounted() {
+  created() {
     console.log('MyCardList');
     this.checkLogin();
+
+    // 화면이 랜더링되면 vuex store에 있는 카드 변수를 비워줌
+    this.$store.commit('resetCards');
   },
   methods: {
     onClick(code) {

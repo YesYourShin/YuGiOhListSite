@@ -70,6 +70,10 @@ const userStore = {
           console.error(error);
         });
     },
+    resetCards(state) {
+      console.log('되냐');
+      state.cards = [];
+    },
   },
   getters: {
     isLogin(state) {
