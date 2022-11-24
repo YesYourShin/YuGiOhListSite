@@ -73,16 +73,14 @@ carditem.vue에 저 기능들 알아보기 쉽게 바꾸기
   }
 - 로그인 된 유저만 카드 개수 crud 할 수 있도록 하기
 - 로그인 안 된 유저는 카드 crud 못하게 막기
+- card도 computed 할 것
+- 언어 별로 crud 되게 하기
 
 ---
 
 ## 지금 하는 중
 
-card도 computed 할 것
-
 ## 미완료
-
-- 언어 별로 crud 되게 하기
 
 - MenuBar.vue에 updateLang()을 select에서 할 수 있도록 하기
 

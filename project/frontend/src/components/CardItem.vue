@@ -90,9 +90,11 @@ export default {
               Authorization: 'Bearer ' + this.getToken,
             },
           })
-          .then(res => {
-            console.log('res', res);
-            this.getCard();
+          .then(response => {
+            if (response.status === 200) {
+              this.getCard();
+              alert('값이 변경되었습니다.');
+            }
           });
       } catch (error) {
         console.error(error);
