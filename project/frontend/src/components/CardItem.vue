@@ -15,21 +15,11 @@
         </div>
       </div>
 
-      <div v-for="(item, index) in card.cardNumber" v-bind:key="item.code" v-bind:id="index">
+      <div v-for="(item, index) in card.cardNumber" v-bind:key="item.id" v-bind:id="index">
         <p>Card Number: {{ item.card_number }}</p>
         <p>Pack Name: {{ item.pack_name }}</p>
         <p>Rare: {{ item.rare }}</p>
-        <input
-          v-if="isLogin"
-          v-model="item.amount"
-          v-bind:id="item.id"
-          v-bind:name="item.amount"
-          type="amount"
-          placeholder="amount"
-          class="input input-bordered"
-          v-on:keyup.enter="cardSubmit"
-          required
-        />
+        <input v-if="isLogin" v-bind:value="item.amount" v-bind:id="item.id" type="amount" placeholder="amount" class="input input-bordered" v-on:keyup.enter="cardSubmit" required />
       </div>
     </div>
     <div v-if="card == 'Not Found'">
@@ -45,7 +35,7 @@ export default {
   data() {
     return {
       code: this.$route.params.code,
-      card: null,
+      // card: null,
       amount: null,
     };
   },
@@ -60,6 +50,9 @@ export default {
     getLang() {
       return this.$store.getters.getLang;
     },
+    card() {
+      return this.$store.getters.getCard;
+    },
   },
   watch: {
     getLang: {
@@ -73,16 +66,20 @@ export default {
       this.getCard();
     },
   },
-  mounted() {},
+  mounted() {
+    this.getCard;
+  },
   methods: {
     cardSubmit(event) {
       let saveData = {};
       saveData.cardNumberId = event.target.id;
       saveData.amount = event.target.value;
+      const index = event.target.parentElement.id;
       // 입력한 숫자가 이전 숫자와 동일할 경우 return
       // v-model로 card의 amount와 이어져 있어서 입력이 바뀌면 card에서도 바뀌기 때문에
       // input태그의 name에 기존의 amount 값을 입력해 놓고 비교했음
-      if (event.target.name == event.target.value) {
+      if (this.card.cardNumber[index].amount == event.target.value) {
+        alert('변경하려는 카드 값이 현재 값과 같습니다.');
         return;
       }
       try {
@@ -102,48 +99,12 @@ export default {
       }
     },
     getCard() {
-      // 초기화 해주는 게 좋음 일단은
-      this.card = null;
-      axios
-        .get(`/api/card/${this.getLang}/show/${this.code}`)
-        .then(response => {
-          this.card = response.data;
-          this.getCardAmount();
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+      return this.$store.commit('getCard', this.code);
     },
-    getCardAmount() {
-      if (this.isLogin) {
-        axios
-          .get(`/api/card/${this.getLang}/usercardshow`, {
-            headers: {
-              'Content-Type': `application/json`,
-              Authorization: 'Bearer ' + this.getToken,
-            },
-            params: { id: this.card.id },
-          })
-          .then(response => {
-            for (let i = 0; i < response.data.length; i++) {
-              const cardNumbers = this.card.cardNumber.map(cardNumber => {
-                if (cardNumber.id == response.data[i].card_number_id) {
-                  if (response.data[i].amount) {
-                    cardNumber.amount = response.data[i].amount;
-                  } else {
-                    cardNumber.amount = '';
-                  }
-                }
-                return cardNumber;
-              });
-              this.card.cardNumber = cardNumbers;
-            }
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
-      }
-    },
+  },
+  destroyed() {
+    // 페이지에서 나갈 때 vuex store에 있는 카드 변수를 비워줌
+    this.$store.commit('resetAllCard');
   },
 };
 </script>

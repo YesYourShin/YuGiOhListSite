@@ -60,9 +60,6 @@ export default {
   created() {
     console.log('MyCardList');
     this.checkLogin();
-
-    // 화면이 랜더링되면 vuex store에 있는 카드 변수를 비워줌
-    this.$store.commit('resetCards');
   },
   methods: {
     onClick(code) {
@@ -80,6 +77,10 @@ export default {
         return;
       }
     },
+  },
+  destroyed() {
+    // 페이지에서 나갈 때 vuex store에 있는 카드 변수를 비워줌
+    this.$store.commit('resetAllCard');
   },
 };
 </script>

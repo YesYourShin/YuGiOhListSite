@@ -70,9 +70,25 @@ const userStore = {
           console.error(error);
         });
     },
-    resetCards(state) {
-      console.log('되냐');
+    resetAllCard(state) {
+      console.log('카드 리스트와 정보 리셋');
       state.cards = [];
+      state.card = [];
+    },
+    getCard(state, code) {
+      axios
+        .get(`/api/card/${state.lang}/show/${code}`, {
+          headers: {
+            'Content-Type': `application/json`,
+            Authorization: 'Bearer ' + state.token,
+          },
+        })
+        .then(response => {
+          state.card = response.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
     },
   },
   getters: {
@@ -92,6 +108,9 @@ const userStore = {
     },
     getCards(state) {
       return state.cards;
+    },
+    getCard(state) {
+      return state.card;
     },
   },
   actions: {},
