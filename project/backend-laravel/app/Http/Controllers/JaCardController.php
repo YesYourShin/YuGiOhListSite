@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JaCard;
 use App\Models\JaCardNumber;
 use App\Models\JaUserCard;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class JaCardController extends Controller
     public function index()
     {
         // 여기서 전체 카드 리스트를 보여줌
-        return JaCard::paginate(100);
+        return JaCard::paginate(20);
     }
 
     /**
@@ -101,19 +102,32 @@ class JaCardController extends Controller
     public function show($code)
     {
         // 카드 상세 정보 표시
+
+        // 카드의 코드를 기준으로 찾음
+        // 이렇게 해야 언어를 바꿨을 때도 카드정보 보여줄 수 있음
         try {
             $card = JaCard::where('code', $code)->firstOrFail();
         }
-        catch(ModelNotFoundException $e){
+        catch(Exception $e){
+            // 못찾았을 경우 not fount 출력
             return "Not Found";
         }
 
-        $card = $card->toArray();
-        $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
-        // echo($card);
-        // $card_id = $card->id;
-        // dd($card->id);
+        // 위에서 찾은 해당 카드의 card numbers를 찾아줌
+        // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
+        if(Auth::guard('api')->check()) {
+            $userId = auth('api')->user()->id;
+            $cardNumber = JaUserCard::join('ja_card_numbers', 'ja_user_cards.card_number_id', '=', 'ja_card_numbers.id')
+                ->where('ja_user_cards.user_id', $userId)
+                ->where('ja_card_numbers.card_id', $card->id)
+                ->select('ja_user_cards.*', 'ja_card_numbers.*', )
+                ->get()
+                ->toArray();
+        } else {
+            $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
+        }
 
+        $card = $card->toArray();
         $card = array_merge($card, ['cardNumber' => $cardNumber]);
         return $card;
 
@@ -224,18 +238,5 @@ class JaCardController extends Controller
             ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_user_cards.*')
             ->paginate(10);
         return $cards;
-    }
-
-    public function userCardShow(Request $request) {
-        // 유저의 아이디를 가져옴
-        $userId = auth('api')->user()->id;
-
-        // 유저가 가진 카드의 개수를 보여줌
-        $cardNumbers = JaCardNumber::join('ja_user_cards', 'ja_card_numbers.id', '=', 'ja_user_cards.card_number_id')
-            ->where('ja_user_cards.user_id', $userId)
-            ->where('ja_card_numbers.card_id', $request->id)
-            ->select('ja_user_cards.*')
-            ->get();
-        return $cardNumbers;
     }
 }

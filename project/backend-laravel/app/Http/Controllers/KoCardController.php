@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\KoCard;
 use App\Models\KoCardNumber;
 use App\Models\KoUserCard;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -51,6 +53,7 @@ class KoCardController extends Controller
      */
     public function store(Request $request)
     {
+        // 카드 정보를 넣는 함수임
         $cards = $request->all();
 
         # 카드 정보들 다 array에 넣음
@@ -98,20 +101,32 @@ class KoCardController extends Controller
     public function show($code)
     {
         // 카드 상세 정보 표시
+
+        // 카드의 코드를 기준으로 찾음
+        // 이렇게 해야 언어를 바꿨을 때도 카드정보 보여줄 수 있음
         try {
             $card = KoCard::where('code', $code)->firstOrFail();
         }
-        catch(ModelNotFoundException $e){
+        catch(Exception $e){
             return "Not Found";
         }
 
-        $card = $card->toArray();
-        $cardNumber = KoCardNumber::where('card_id', $card['id'])->get()->toArray();
-        // echo($card);
-        // $card_id = $card->id;
-        // dd($card->id);
-        $card = array_merge($card, ['cardNumber' => $cardNumber]);
+        // 위에서 찾은 해당 카드의 card numbers를 찾아줌
+        // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
+        if(Auth::guard('api')->check()) {
+            $userId = auth('api')->user()->id;
+            $cardNumber = KoUserCard::join('ko_card_numbers', 'ko_user_cards.card_number_id', '=', 'ko_card_numbers.id')
+                ->where('ko_user_cards.user_id', $userId)
+                ->where('ko_card_numbers.card_id', $card->id)
+                ->select('ko_user_cards.*', 'ko_card_numbers.*', )
+                ->get()
+                ->toArray();
+        } else {
+            $cardNumber = KoCardNumber::where('card_id', $card['id'])->get()->toArray();
+        }
 
+        $card = $card->toArray();
+        $card = array_merge($card, ['cardNumber' => $cardNumber]);
         return $card;
     }
 
@@ -220,18 +235,5 @@ class KoCardController extends Controller
             ->select('ko_cards.*', 'ko_card_numbers.*', 'ko_user_cards.*')
             ->paginate(100);
         return $cards;
-    }
-
-    public function userCardShow(Request $request) {
-        // 유저의 아이디를 가져옴
-        $userId = auth('api')->user()->id;
-
-        // 유저가 가진 카드의 개수를 보여줌
-        $cardNumbers = KoCardNumber::join('ko_user_cards', 'ko_card_numbers.id', '=', 'ko_user_cards.card_number_id')
-            ->where('ko_user_cards.user_id', $userId)
-            ->where('ko_card_numbers.card_id', $request->id)
-            ->select('ko_user_cards.*')
-            ->get();
-        return $cardNumbers;
     }
 }

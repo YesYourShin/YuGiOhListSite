@@ -41,7 +41,6 @@ Route::prefix('card')->group(function () {
             // usercardstore에서 create update destroy 다 함
             Route::post('usercardstore',  [KoCardController::class, 'userCardStore']);
             Route::get('usercardindex',  [KoCardController::class, 'userCardIndex']);
-            Route::get('usercardshow',  [KoCardController::class, 'userCardShow']);
         });
     });
     Route::prefix('ja')->group(function () {
@@ -53,19 +52,6 @@ Route::prefix('card')->group(function () {
             // usercardstore에서 create update destroy 다 함
             Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
             Route::get('usercardindex',  [JaCardController::class, 'userCardIndex']);
-            Route::get('usercardshow',  [JaCardController::class, 'userCardShow']);
         });
     });
-});
-
-
-Route::middleware('auth:api')->group(function () {
-    // Route::post('create', [JaCardController::class, 'create']);
-    // Route::post('update', [JaCardController::class, 'update']);
-    // Route::post('destroy', [JaCardController::class, 'destroy']);
-    Route::prefix('ja')->group(function () {
-
-
-    });
-
 });
