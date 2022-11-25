@@ -117,12 +117,14 @@ class JaCardController extends Controller
         // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
         if(Auth::guard('api')->check()) {
             $userId = auth('api')->user()->id;
-            $cardNumber = JaUserCard::join('ja_card_numbers', 'ja_user_cards.card_number_id', '=', 'ja_card_numbers.id')
-                ->where('ja_user_cards.user_id', $userId)
-                ->where('ja_card_numbers.card_id', $card->id)
-                ->select('ja_user_cards.*', 'ja_card_numbers.*', )
-                ->get()
-                ->toArray();
+            $JaUserCard = JaUserCard::where('ja_user_cards.user_id', $userId);
+
+            $cardNumber = JaCardNumber::leftJoinSub($JaUserCard, 'ja_user_cards', function ($join) {
+                $join->on('ja_card_numbers.id', '=', 'ja_user_cards.card_number_id');
+            })
+            ->where('ja_card_numbers.card_id', $card->id)
+            ->select('ja_card_numbers.*', 'ja_user_cards.amount')
+            ->get();
         } else {
             $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
         }
