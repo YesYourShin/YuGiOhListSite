@@ -33,7 +33,7 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('card')->group(function () {
     Route::prefix('ko')->group(function () {
-        Route::get('index', [KoCardController::class, 'index']);
+        Route::get('allcardindex', [KoCardController::class, 'index']);
         Route::get('/show/{id}', [KoCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
             // 관리자만 할 수 있는 store로 바꾸기
@@ -44,7 +44,7 @@ Route::prefix('card')->group(function () {
         });
     });
     Route::prefix('ja')->group(function () {
-        Route::get('index', [JaCardController::class, 'index']);
+        Route::get('allcardindex', [JaCardController::class, 'index']);
         Route::get('/show/{id}', [JaCardController::class, 'show']);
         Route::middleware('auth:api')->group(function () {
             // 관리자만 할 수 있는 store로 바꾸기
