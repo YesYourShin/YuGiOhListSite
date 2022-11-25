@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ko_user_cards', function (Blueprint $table) {
+        Schema::create('ja_my_cards', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
             $table->bigInteger('card_number_id');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ko_user_cards');
+        Schema::dropIfExists('ja_my_cards');
     }
 };

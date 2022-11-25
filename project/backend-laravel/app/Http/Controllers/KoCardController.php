@@ -178,7 +178,7 @@ class KoCardController extends Controller
         return 'delete success';
     }
 
-    public function userCardStore(Request $request)
+    public function myCardStore(Request $request)
     {
         // 받은 카드 데이터를 바탕으로 create인지 update인지 destroy인지 판단함
 
@@ -225,7 +225,7 @@ class KoCardController extends Controller
         }
     }
 
-    public function userCardIndex() {
+    public function myCardIndex() {
         // 유저의 아이디를 가져옴
         $userId = auth('api')->user()->id;
 

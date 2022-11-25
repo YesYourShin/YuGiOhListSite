@@ -39,8 +39,8 @@ Route::prefix('card')->group(function () {
             // 관리자만 할 수 있는 store로 바꾸기
             Route::post('store',  [KoCardController::class, 'store']);
             // usercardstore에서 create update destroy 다 함
-            Route::post('usercardstore',  [KoCardController::class, 'userCardStore']);
-            Route::get('usercardindex',  [KoCardController::class, 'userCardIndex']);
+            Route::post('mycardstore',  [KoCardController::class, 'myCardStore']);
+            Route::get('mycardindex',  [KoCardController::class, 'myCardIndex']);
         });
     });
     Route::prefix('ja')->group(function () {
@@ -50,8 +50,8 @@ Route::prefix('card')->group(function () {
             // 관리자만 할 수 있는 store로 바꾸기
             Route::post('store',  [JaCardController::class, 'store']);
             // usercardstore에서 create update destroy 다 함
-            Route::post('usercardstore',  [JaCardController::class, 'userCardStore']);
-            Route::get('usercardindex',  [JaCardController::class, 'userCardIndex']);
+            Route::post('mycardstore',  [JaCardController::class, 'myCardStore']);
+            Route::get('mycardindex',  [JaCardController::class, 'myCardIndex']);
         });
     });
 });
