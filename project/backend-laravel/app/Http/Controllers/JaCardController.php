@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JaCard;
 use App\Models\JaCardNumber;
-use App\Models\JaUserCard;
+use App\Models\JaMyCard;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class JaCardController extends Controller
 
         // 유저가 보낸 카드 아이디를 테이블에 저장
 
-        JaUserCard::insert([
+        JaMyCard::insert([
             'user_id' => $request->userId,
             'card_number_id' => $request->cardNumberId,
             'amount' => $request->amount
@@ -116,14 +116,14 @@ class JaCardController extends Controller
         // 위에서 찾은 해당 카드의 card numbers를 찾아줌
         // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
         if(Auth::guard('api')->check()) {
-            $userId = auth('api')->user()->id;
-            $JaUserCard = JaUserCard::where('ja_user_cards.user_id', $userId);
+            $myId = auth('api')->user()->id;
+            $JaMyCard = JaMyCard::where('ja_my_cards.user_id', $myId);
 
-            $cardNumber = JaCardNumber::leftJoinSub($JaUserCard, 'ja_user_cards', function ($join) {
-                $join->on('ja_card_numbers.id', '=', 'ja_user_cards.card_number_id');
+            $cardNumber = JaCardNumber::leftJoinSub($JaMyCard, 'ja_my_cards', function ($join) {
+                $join->on('ja_card_numbers.id', '=', 'ja_my_cards.card_number_id');
             })
             ->where('ja_card_numbers.card_id', $card->id)
-            ->select('ja_card_numbers.*', 'ja_user_cards.amount')
+            ->select('ja_card_numbers.*', 'ja_my_cards.amount')
             ->get();
         } else {
             $cardNumber = JaCardNumber::where('card_id', $card['id'])->get()->toArray();
@@ -159,7 +159,7 @@ class JaCardController extends Controller
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
 
-        JaUserCard::where('user_id', $request->userId)
+        JaMyCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->update(['amount' => $request->amount]);
 
@@ -176,14 +176,14 @@ class JaCardController extends Controller
     {
         // 유저가 가진 카드 삭제
 
-        JaUserCard::where('user_id', $request->userId)
+        JaMyCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->delete();
 
         return 'delete success';
     }
 
-    public function userCardStore(Request $request)
+    public function myCardStore(Request $request)
     {
         // 받은 카드 데이터를 바탕으로 create인지 update인지 destroy인지 판단함
 
@@ -206,7 +206,7 @@ class JaCardController extends Controller
         $request['userId'] = $userId;
 
         // user_cards 테이블에서 해당 유저가 이 카드를 가지고 있는지 판단함
-        $card = JaUserCard::where('user_id', $userId)
+        $card = JaMyCard::where('user_id', $userId)
             ->where('card_number_id', $request->cardNumberId)
             ->get();
 
@@ -230,14 +230,14 @@ class JaCardController extends Controller
         }
     }
 
-    public function userCardIndex() {
+    public function myCardIndex() {
         // 유저의 아이디를 가져옴
         $userId = auth('api')->user()->id;
 
         $cards = JaCard::join('ja_card_numbers', 'ja_cards.id', '=', 'ja_card_numbers.card_id')
-            ->join('ja_user_cards', 'ja_card_numbers.id', '=', 'ja_user_cards.card_number_id')
-            ->where('ja_user_cards.user_id', $userId)
-            ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_user_cards.*')
+            ->join('ja_my_cards', 'ja_card_numbers.id', '=', 'ja_my_cards.card_number_id')
+            ->where('ja_my_cards.user_id', $userId)
+            ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_my_cards.*')
             ->paginate(10);
         return $cards;
     }
