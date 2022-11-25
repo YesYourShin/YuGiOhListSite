@@ -32,7 +32,6 @@ export default {
   name: 'MyCard',
   data() {
     return {
-      // cards: [],
       page: 1,
     };
   },
@@ -41,15 +40,15 @@ export default {
       // 로그인이 되어 있는지 체크
       return this.$store.getters.isLogin;
     },
-    getLang() {
-      return this.$store.getters.getLang;
-    },
     cards() {
       return this.$store.getters.getCards;
     },
+    lang() {
+      return this.$store.getters.getLang;
+    },
   },
   watch: {
-    getLang: {
+    lang: {
       // 최초 실행을 하게 해줌
       immediate: true,
       handler() {
@@ -63,7 +62,6 @@ export default {
   },
   methods: {
     onClick(code) {
-      console.log(code);
       this.$router.push({ path: `card/${code}` });
     },
     getCards() {

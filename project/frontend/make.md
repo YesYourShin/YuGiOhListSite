@@ -26,6 +26,9 @@
 
 ## 하고 있는 거
 
+- vuex mutation에서 actions으로
+-
+
 ---
 
 ## 미완료

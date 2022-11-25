@@ -75,34 +75,11 @@ export default {
               console.log('로그인 성공!');
               // console.log(res.data);
               this.$store.commit('login', res.data);
-              this.getMyInfo();
+              // 유저 정보 받아오기
+              this.$store.dispatch('getMyInfo');
             }
           });
       } catch (error) {
-        console.error(error);
-      }
-    },
-    getMyInfo() {
-      try {
-        axios
-          .get('api/auth/myinfo', {
-            headers: {
-              'Content-Type': `application/json`,
-              Authorization: 'Bearer ' + this.$store.state.userStore.token,
-            },
-          })
-          .then(res => {
-            console.log(res);
-            if (res.status === 200) {
-              // 로그인 성공시 처리해줘야할 부분
-              console.log('유저 정보 가져오기 성공!');
-              this.myInfo.email = res.data.myInfo.email;
-              this.myInfo.name = res.data.myInfo.name;
-              this.$router.push({ path: '/card' });
-            }
-          });
-      } catch (error) {
-        console.log('에러');
         console.error(error);
       }
     },

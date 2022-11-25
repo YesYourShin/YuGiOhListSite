@@ -10,7 +10,7 @@
 
         <div>
           <p>Name: {{ card.name }}</p>
-          <p v-if="this.getLang == 'ja'">Hiragana: {{ card.name2 }}</p>
+          <p v-if="this.lang == 'ja'">Hiragana: {{ card.name2 }}</p>
           <p>Card Text: {{ card.card_text }}</p>
         </div>
       </div>
@@ -40,14 +40,14 @@ export default {
     };
   },
   computed: {
-    getToken() {
+    token() {
       return this.$store.getters.getToken;
     },
     isLogin() {
       // 로그인이 되어 있는지 체크
       return this.$store.getters.isLogin;
     },
-    getLang() {
+    lang() {
       return this.$store.getters.getLang;
     },
     card() {
@@ -55,7 +55,7 @@ export default {
     },
   },
   watch: {
-    getLang: {
+    lang: {
       // 최초 실행을 하게 해줌
       immediate: true,
       handler() {
@@ -84,10 +84,10 @@ export default {
       }
       try {
         axios
-          .post(`/api/card/${this.getLang}/usercardstore`, JSON.stringify(saveData), {
+          .post(`/api/card/${this.lang}/usercardstore`, JSON.stringify(saveData), {
             headers: {
               'Content-Type': `application/json`,
-              Authorization: 'Bearer ' + this.getToken,
+              Authorization: 'Bearer ' + this.token,
             },
           })
           .then(response => {

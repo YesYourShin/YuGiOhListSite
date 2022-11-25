@@ -34,15 +34,15 @@ export default {
     };
   },
   computed: {
-    getLang() {
-      return this.$store.getters.getLang;
-    },
     cards() {
       return this.$store.getters.getCards;
     },
+    lang() {
+      return this.$store.getters.getLang;
+    },
   },
   watch: {
-    getLang: {
+    lang: {
       // 최초 실행을 하게 해줌
       immediate: true,
       handler() {
@@ -56,7 +56,7 @@ export default {
       this.$router.push({ path: `card/${code}` });
     },
     getCards() {
-      this.$store.commit('getCards', this.page);
+      this.$store.dispatch('getCards', this.page);
     },
   },
   destroyed() {
