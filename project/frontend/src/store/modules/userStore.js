@@ -1,4 +1,4 @@
-// import router from '../../router/index.js';
+import router from '../../router/index.js';
 import axios from 'axios';
 
 const userStore = {
@@ -19,7 +19,7 @@ const userStore = {
     getMyInfo(state, myInfo) {
       state.myInfo.email = myInfo.email;
       state.myInfo.name = myInfo.name;
-      this.$router.push({ path: '/card' });
+      router.push({ path: '/card' });
     },
     logout(state) {
       // 서버에 요청해서 로그아웃 하기
@@ -122,7 +122,7 @@ const userStore = {
     getCards({ commit, state }, page) {
       console.log('page', page);
       axios
-        .get(`/api/card/${state.lang}/index?page=${page}`)
+        .get(`/api/card/${state.lang}/allcardindex?page=${page}`)
         .then(response => {
           commit('getCards', response.data.data);
         })

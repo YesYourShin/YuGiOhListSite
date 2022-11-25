@@ -26,9 +26,6 @@
 
 ## 하고 있는 거
 
-- vuex mutation에서 actions으로
--
-
 ---
 
 ## 미완료
@@ -82,6 +79,9 @@ carditem.vue에 저 기능들 알아보기 쉽게 바꾸기
 ---
 
 ## 지금 하는 중
+
+- vuex mutation에서 actions으로
+- amount 없을 때 엔터하면 값이 변경되었습니다 창 뜨는 거 수정하기
 
 ## 미완료
 

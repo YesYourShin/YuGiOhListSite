@@ -84,7 +84,7 @@ export default {
       }
       try {
         axios
-          .post(`/api/card/${this.lang}/usercardstore`, JSON.stringify(saveData), {
+          .post(`/api/card/${this.lang}/mycardstore`, JSON.stringify(saveData), {
             headers: {
               'Content-Type': `application/json`,
               Authorization: 'Bearer ' + this.token,
