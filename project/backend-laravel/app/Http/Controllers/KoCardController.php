@@ -115,10 +115,10 @@ class KoCardController extends Controller
         // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
         if(Auth::guard('api')->check()) {
             $userId = auth('api')->user()->id;
-            $cardNumber = KoUserCard::join('ko_card_numbers', 'ko_user_cards.card_number_id', '=', 'ko_card_numbers.id')
-                ->where('ko_user_cards.user_id', $userId)
+            $cardNumber = KoUserCard::join('ko_card_numbers', 'ko_my_cards.card_number_id', '=', 'ko_card_numbers.id')
+                ->where('ko_my_cards.user_id', $userId)
                 ->where('ko_card_numbers.card_id', $card->id)
-                ->select('ko_user_cards.*', 'ko_card_numbers.*', )
+                ->select('ko_my_cards.*', 'ko_card_numbers.*', )
                 ->get()
                 ->toArray();
         } else {
@@ -230,9 +230,9 @@ class KoCardController extends Controller
         $userId = auth('api')->user()->id;
 
         $cards = KoCard::join('ko_card_numbers', 'ko_cards.id', '=', 'ko_card_numbers.card_id')
-            ->join('ko_user_cards', 'ko_card_numbers.id', '=', 'ko_user_cards.card_number_id')
-            ->where('ko_user_cards.user_id', $userId)
-            ->select('ko_cards.*', 'ko_card_numbers.*', 'ko_user_cards.*')
+            ->join('ko_my_cards', 'ko_card_numbers.id', '=', 'ko_my_cards.card_number_id')
+            ->where('ko_my_cards.user_id', $userId)
+            ->select('ko_cards.*', 'ko_card_numbers.*', 'ko_my_cards.*')
             ->paginate(100);
         return $cards;
     }

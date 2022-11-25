@@ -117,10 +117,10 @@ class JaCardController extends Controller
         // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
         if(Auth::guard('api')->check()) {
             $userId = auth('api')->user()->id;
-            $cardNumber = JaUserCard::join('ja_card_numbers', 'ja_user_cards.card_number_id', '=', 'ja_card_numbers.id')
-                ->where('ja_user_cards.user_id', $userId)
+            $cardNumber = JaUserCard::join('ja_card_numbers', 'ja_my_cards.card_number_id', '=', 'ja_card_numbers.id')
+                ->where('ja_my_cards.user_id', $userId)
                 ->where('ja_card_numbers.card_id', $card->id)
-                ->select('ja_user_cards.*', 'ja_card_numbers.*', )
+                ->select('ja_my_cards.*', 'ja_card_numbers.*', )
                 ->get()
                 ->toArray();
         } else {
@@ -233,9 +233,9 @@ class JaCardController extends Controller
         $userId = auth('api')->user()->id;
 
         $cards = JaCard::join('ja_card_numbers', 'ja_cards.id', '=', 'ja_card_numbers.card_id')
-            ->join('ja_user_cards', 'ja_card_numbers.id', '=', 'ja_user_cards.card_number_id')
-            ->where('ja_user_cards.user_id', $userId)
-            ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_user_cards.*')
+            ->join('ja_my_cards', 'ja_card_numbers.id', '=', 'ja_my_cards.card_number_id')
+            ->where('ja_my_cards.user_id', $userId)
+            ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_my_cards.*')
             ->paginate(10);
         return $cards;
     }
