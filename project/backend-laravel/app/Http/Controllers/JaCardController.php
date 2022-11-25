@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JaCard;
 use App\Models\JaCardNumber;
-use App\Models\JaUserCard;
+use App\Models\JaMyCard;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class JaCardController extends Controller
 
         // 유저가 보낸 카드 아이디를 테이블에 저장
 
-        JaUserCard::insert([
+        JaMyCard::insert([
             'user_id' => $request->userId,
             'card_number_id' => $request->cardNumberId,
             'amount' => $request->amount
@@ -117,7 +117,7 @@ class JaCardController extends Controller
         // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
         if(Auth::guard('api')->check()) {
             $userId = auth('api')->user()->id;
-            $cardNumber = JaUserCard::join('ja_card_numbers', 'ja_my_cards.card_number_id', '=', 'ja_card_numbers.id')
+            $cardNumber = JaMyCard::join('ja_card_numbers', 'ja_my_cards.card_number_id', '=', 'ja_card_numbers.id')
                 ->where('ja_my_cards.user_id', $userId)
                 ->where('ja_card_numbers.card_id', $card->id)
                 ->select('ja_my_cards.*', 'ja_card_numbers.*', )
@@ -157,7 +157,7 @@ class JaCardController extends Controller
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
 
-        JaUserCard::where('user_id', $request->userId)
+        JaMyCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->update(['amount' => $request->amount]);
 
@@ -174,7 +174,7 @@ class JaCardController extends Controller
     {
         // 유저가 가진 카드 삭제
 
-        JaUserCard::where('user_id', $request->userId)
+        JaMyCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->delete();
 
@@ -204,7 +204,7 @@ class JaCardController extends Controller
         $request['userId'] = $userId;
 
         // user_cards 테이블에서 해당 유저가 이 카드를 가지고 있는지 판단함
-        $card = JaUserCard::where('user_id', $userId)
+        $card = JaMyCard::where('user_id', $userId)
             ->where('card_number_id', $request->cardNumberId)
             ->get();
 

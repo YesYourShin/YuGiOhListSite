@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KoCard;
 use App\Models\KoCardNumber;
-use App\Models\KoUserCard;
+use App\Models\KoMyCard;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class KoCardController extends Controller
 
         // 유저가 보낸 카드 아이디를 테이블에 저장
 
-        KoUserCard::insert([
+        KoMyCard::insert([
             'user_id' => $request->userId,
             'card_number_id' => $request->cardNumberId,
             'amount' => $request->amount
@@ -115,7 +115,7 @@ class KoCardController extends Controller
         // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
         if(Auth::guard('api')->check()) {
             $userId = auth('api')->user()->id;
-            $cardNumber = KoUserCard::join('ko_card_numbers', 'ko_my_cards.card_number_id', '=', 'ko_card_numbers.id')
+            $cardNumber = KoMyCard::join('ko_card_numbers', 'ko_my_cards.card_number_id', '=', 'ko_card_numbers.id')
                 ->where('ko_my_cards.user_id', $userId)
                 ->where('ko_card_numbers.card_id', $card->id)
                 ->select('ko_my_cards.*', 'ko_card_numbers.*', )
@@ -154,7 +154,7 @@ class KoCardController extends Controller
 
         // 정보가 제대로 오지 않았을 때 오류 처리 해야 함!!!!!!!!!
 
-        KoUserCard::where('user_id', $request->userId)
+        KoMyCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->update(['amount' => $request->amount]);
 
@@ -171,7 +171,7 @@ class KoCardController extends Controller
     {
         // 유저가 가진 카드 삭제
 
-        KoUserCard::where('user_id', $request->userId)
+        KoMyCard::where('user_id', $request->userId)
             ->where('card_number_id', $request->cardNumberId)
             ->delete();
 
@@ -201,7 +201,7 @@ class KoCardController extends Controller
         $request['userId'] = $userId;
 
         // user_cards 테이블에서 해당 유저가 이 카드를 가지고 있는지 판단함
-        $card = KoUserCard::where('user_id', $userId)
+        $card = KoMyCard::where('user_id', $userId)
             ->where('card_number_id', $request->cardNumberId)
             ->get();
 
