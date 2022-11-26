@@ -211,9 +211,16 @@ class JaCardController extends Controller
             ->get();
 
         // --------------------
+        // 카드가 없는데 amount값도 없을 경우 없다고 return
+
+        if (!count($card) && !$request['amount']) {
+            return "Not Found";
+        }
+
+        // --------------------
         // create
-        // 카드를 가지고 있지 않을 경우 create
-        if (!count($card)) {
+        // 카드를 가지고 있지 않고 amount 값이 있을 경우 create
+        if (!count($card) && $request['amount']) {
 
             return JaCardController::create($request);
         }
