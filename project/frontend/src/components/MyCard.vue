@@ -52,20 +52,23 @@ export default {
       // 최초 실행을 하게 해줌
       immediate: true,
       handler() {
-        this.getCards();
+        if (this.isLogin) this.getCards();
       },
     },
-  },
-  created() {
-    console.log('MyCardList');
-    this.checkLogin();
+    isLogin: {
+      // 최초 실행을 하게 해줌
+      immediate: true,
+      handler() {
+        this.checkLogin();
+      },
+    },
   },
   methods: {
     onClick(code) {
       this.$router.push({ path: `card/${code}` });
     },
     getCards() {
-      this.$store.commit('getMyCards', this.page);
+      this.$store.dispatch('getCards', { cardType: 'my', page: this.page });
     },
     checkLogin() {
       // 로그인이 되어있지 않을 경우

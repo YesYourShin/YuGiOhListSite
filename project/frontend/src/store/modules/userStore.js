@@ -36,42 +36,12 @@ const userStore = {
         state.cards.push(card);
       });
     },
-    getMyCards(state, page) {
-      axios
-        .get(`/api/card/${state.lang}/mycardindex?page=${page}`, {
-          headers: {
-            'Content-Type': `application/json`,
-            Authorization: 'Bearer ' + state.token,
-          },
-        })
-        .then(response => {
-          response.data.data.forEach(card => {
-            state.cards.push(card);
-          });
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    },
     resetAllCard(state) {
-      console.log('카드 리스트와 정보 리셋');
       state.cards = [];
       state.card = [];
     },
-    getCard(state, code) {
-      axios
-        .get(`/api/card/${state.lang}/show/${code}`, {
-          headers: {
-            'Content-Type': `application/json`,
-            Authorization: 'Bearer ' + state.token,
-          },
-        })
-        .then(response => {
-          state.card = response.data;
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+    getCard(state, card) {
+      state.card = card;
     },
   },
   getters: {
@@ -109,22 +79,38 @@ const userStore = {
           .then(res => {
             if (res.status === 200) {
               // 로그인 성공시 처리해줘야할 부분
-              console.log('유저 정보 가져오기 성공!');
-
               commit('getMyInfo', res.data.myInfo);
             }
           });
       } catch (error) {
-        console.log('에러');
         console.error(error);
       }
     },
-    getCards({ commit, state }, page) {
-      console.log('page', page);
+    getCards({ commit, state }, { cardType, page }) {
       axios
-        .get(`/api/card/${state.lang}/allcardindex?page=${page}`)
+        .get(`/api/card/${state.lang}/${cardType}cardindex?page=${page}`, {
+          headers: {
+            'Content-Type': `application/json`,
+            Authorization: 'Bearer ' + state.token,
+          },
+        })
         .then(response => {
           commit('getCards', response.data.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    getCard({ commit, state }, code) {
+      axios
+        .get(`/api/card/${state.lang}/show/${code}`, {
+          headers: {
+            'Content-Type': `application/json`,
+            Authorization: 'Bearer ' + state.token,
+          },
+        })
+        .then(response => {
+          commit('getCard', response.data);
         })
         .catch(function (error) {
           console.error(error);

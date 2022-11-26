@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     loginSubmit() {
-      let saveData = {};
+      const saveData = {};
       saveData.email = this.email;
       saveData.password = this.password;
 
@@ -72,7 +72,6 @@ export default {
           .then(res => {
             if (res.status === 200) {
               // 로그인 성공시 처리해줘야할 부분
-              console.log('로그인 성공!');
               // console.log(res.data);
               this.$store.commit('login', res.data);
               // 유저 정보 받아오기

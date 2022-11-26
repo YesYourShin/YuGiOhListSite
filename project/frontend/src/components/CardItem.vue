@@ -35,7 +35,6 @@ export default {
   data() {
     return {
       code: this.$route.params.code,
-      // card: null,
       amount: null,
     };
   },
@@ -66,20 +65,15 @@ export default {
       this.getCard();
     },
   },
-  mounted() {
-    this.getCard;
-  },
   methods: {
     cardSubmit(event) {
-      let saveData = {};
+      const saveData = {};
       saveData.cardNumberId = event.target.id;
       saveData.amount = event.target.value;
       const index = event.target.parentElement.id;
       // 입력한 숫자가 이전 숫자와 동일할 경우 return
       // v-model로 card의 amount와 이어져 있어서 입력이 바뀌면 card에서도 바뀌기 때문에
       // input태그의 name에 기존의 amount 값을 입력해 놓고 비교했음
-      console.log('amount', this.card.cardNumber[index].amount);
-      console.log('value', event.target.value);
       if (!event.target.value) {
         alert('값을 입력해주세요.');
         return;
@@ -112,8 +106,6 @@ export default {
               if (response.data === 'delete success') {
                 alert('카드를 삭제하였습니다.');
               }
-              console.log(response);
-              // alert('값이 변경되었습니다.');
             }
           });
       } catch (error) {
@@ -121,7 +113,7 @@ export default {
       }
     },
     getCard() {
-      return this.$store.commit('getCard', this.code);
+      return this.$store.dispatch('getCard', this.code);
     },
   },
   destroyed() {

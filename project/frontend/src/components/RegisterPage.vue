@@ -50,7 +50,6 @@ export default {
       name: null,
       email: null,
       password: null,
-      // isLogin: false,
     };
   },
   computed: {
@@ -64,7 +63,7 @@ export default {
   },
   methods: {
     registerSubmit() {
-      let saveData = {};
+      const saveData = {};
       saveData.name = this.name;
       saveData.email = this.email;
       saveData.password = this.password;

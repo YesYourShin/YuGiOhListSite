@@ -52,11 +52,10 @@ export default {
   },
   methods: {
     onClick(code) {
-      console.log(code);
       this.$router.push({ path: `card/${code}` });
     },
     getCards() {
-      this.$store.dispatch('getCards', this.page);
+      this.$store.dispatch('getCards', { cardType: 'all', page: this.page });
     },
   },
   destroyed() {

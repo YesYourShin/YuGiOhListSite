@@ -75,13 +75,13 @@ carditem.vue에 저 기능들 알아보기 쉽게 바꾸기
 - 로그인 안 된 유저는 카드 crud 못하게 막기
 - card도 computed 할 것
 - 언어 별로 crud 되게 하기
+- amount 없을 때 엔터하면 값이 변경되었습니다 창 뜨는 거 수정하기
 
 ---
 
 ## 지금 하는 중
 
 - vuex mutation에서 actions으로
-- amount 없을 때 엔터하면 값이 변경되었습니다 창 뜨는 거 수정하기
 
 ## 미완료
 
