@@ -38,7 +38,7 @@ const userStore = {
     },
     getMyCards(state, page) {
       axios
-        .get(`/api/card/${state.lang}/usercardindex?page=${page}`, {
+        .get(`/api/card/${state.lang}/mycardindex?page=${page}`, {
           headers: {
             'Content-Type': `application/json`,
             Authorization: 'Bearer ' + state.token,

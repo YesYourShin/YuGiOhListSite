@@ -78,10 +78,17 @@ export default {
       // 입력한 숫자가 이전 숫자와 동일할 경우 return
       // v-model로 card의 amount와 이어져 있어서 입력이 바뀌면 card에서도 바뀌기 때문에
       // input태그의 name에 기존의 amount 값을 입력해 놓고 비교했음
+      console.log('amount', this.card.cardNumber[index].amount);
+      console.log('value', event.target.value);
+      if (!event.target.value) {
+        alert('값을 입력해주세요.');
+        return;
+      }
       if (this.card.cardNumber[index].amount == event.target.value) {
         alert('변경하려는 카드 값이 현재 값과 같습니다.');
         return;
       }
+
       try {
         axios
           .post(`/api/card/${this.lang}/mycardstore`, JSON.stringify(saveData), {
@@ -93,7 +100,20 @@ export default {
           .then(response => {
             if (response.status === 200) {
               this.getCard();
-              alert('값이 변경되었습니다.');
+              if (response.data === 'Not Found') {
+                alert('유효한 값을 입력해주세요.');
+              }
+              if (response.data === 'create success') {
+                alert('카드를 추가하였습니다.');
+              }
+              if (response.data === 'update success') {
+                alert('소지 수량을 변경하였습니다.');
+              }
+              if (response.data === 'delete success') {
+                alert('카드를 삭제하였습니다.');
+              }
+              console.log(response);
+              // alert('값이 변경되었습니다.');
             }
           });
       } catch (error) {
