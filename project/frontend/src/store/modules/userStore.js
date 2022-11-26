@@ -18,7 +18,7 @@ const userStore = {
     },
     getMyInfo(state, myInfo) {
       state.myInfo.email = myInfo.email;
-      state.myInfo.name = myInfo.name;
+      state.myInfo.nickname = myInfo.nickname;
       router.push({ path: '/card' });
     },
     logout(state) {
@@ -64,6 +64,9 @@ const userStore = {
     },
     getCard(state) {
       return state.card;
+    },
+    getMyInfo(state) {
+      return state.myInfo;
     },
   },
   actions: {

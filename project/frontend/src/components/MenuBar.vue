@@ -31,6 +31,8 @@
     </div>
 
     <div v-if="getToken" class="dropdown dropdown-end">
+      <label>{{ myInfo.email }}</label>
+      <label>{{ myInfo.nickname }}</label>
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
           <img src="../assets/evil_twin_Ki-sikil.jpg" />
@@ -78,6 +80,9 @@ export default {
     },
     getLang() {
       return this.$store.getters.getLang;
+    },
+    myInfo() {
+      return this.$store.getters.getMyInfo;
     },
   },
   watch: {
