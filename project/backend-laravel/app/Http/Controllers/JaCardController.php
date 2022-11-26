@@ -6,12 +6,10 @@ use App\Models\JaCard;
 use App\Models\JaCardNumber;
 use App\Models\JaMyCard;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class JaCardController extends Controller
 {
@@ -109,7 +107,7 @@ class JaCardController extends Controller
             $card = JaCard::where('code', $code)->firstOrFail();
         }
         catch(Exception $e){
-            // 못찾았을 경우 not fount 출력
+            // 못찾았을 경우 Not Fount 출력
             return "Not Found";
         }
 
@@ -132,7 +130,6 @@ class JaCardController extends Controller
         $card = $card->toArray();
         $card = array_merge($card, ['cardNumber' => $cardNumber]);
         return $card;
-
     }
 
     /**
@@ -212,11 +209,9 @@ class JaCardController extends Controller
 
         // --------------------
         // 카드가 없는데 amount값도 없을 경우 없다고 return
-
         if (!count($card) && !$request['amount']) {
             return "Not Found";
         }
-
         // --------------------
         // create
         // 카드를 가지고 있지 않고 amount 값이 있을 경우 create
@@ -245,7 +240,7 @@ class JaCardController extends Controller
             ->join('ja_my_cards', 'ja_card_numbers.id', '=', 'ja_my_cards.card_number_id')
             ->where('ja_my_cards.user_id', $userId)
             ->select('ja_cards.*', 'ja_card_numbers.*', 'ja_my_cards.*')
-            ->paginate(10);
+            ->paginate(20);
         return $cards;
     }
 }

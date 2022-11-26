@@ -6,7 +6,6 @@ use App\Models\KoCard;
 use App\Models\KoCardNumber;
 use App\Models\KoMyCard;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +21,7 @@ class KoCardController extends Controller
     public function index()
     {
         // 여기서 전체 카드 리스트를 보여줌
-        return KoCard::paginate(100);
+        return KoCard::paginate(20);
     }
 
     /**
@@ -108,19 +107,22 @@ class KoCardController extends Controller
             $card = KoCard::where('code', $code)->firstOrFail();
         }
         catch(Exception $e){
+            // 못찾았을 경우 not Fount 출력
             return "Not Found";
         }
 
         // 위에서 찾은 해당 카드의 card numbers를 찾아줌
         // 유저가 로그인 한 상태일 경우에는 소지하고 있는 card numbers의 장수도 같이 알려줌
         if(Auth::guard('api')->check()) {
-            $userId = auth('api')->user()->id;
-            $cardNumber = KoMyCard::join('ko_card_numbers', 'ko_my_cards.card_number_id', '=', 'ko_card_numbers.id')
-                ->where('ko_my_cards.user_id', $userId)
-                ->where('ko_card_numbers.card_id', $card->id)
-                ->select('ko_my_cards.*', 'ko_card_numbers.*', )
-                ->get()
-                ->toArray();
+            $myId = auth('api')->user()->id;
+            $KoMyCard = KoMyCard::where('ko_my_cards.user_id', $myId);
+
+            $cardNumber = KoCardNumber::leftJoinSub($KoMyCard, 'ko_my_cards', function ($join) {
+                $join->on('ko_card_numbers.id', '=', 'ko_my_cards.card_number_id');
+            })
+            ->where('ko_card_numbers.card_id', $card->id)
+            ->select('ko_card_numbers.*', 'ko_my_cards.amount')
+            ->get();
         } else {
             $cardNumber = KoCardNumber::where('card_id', $card['id'])->get()->toArray();
         }
@@ -206,9 +208,14 @@ class KoCardController extends Controller
             ->get();
 
         // --------------------
+        // 카드가 없는데 amount값도 없을 경우 없다고 return
+        if (!count($card) && !$request['amount']) {
+            return "Not Found";
+        }
+        // --------------------
         // create
-        // 카드를 가지고 있지 않을 경우 create
-        if (!count($card)) {
+        // 카드를 가지고 있지 않고 amount 값이 있을 경우 create
+        if (!count($card) && $request['amount']) {
 
             return KoCardController::create($request);
         }
@@ -233,7 +240,7 @@ class KoCardController extends Controller
             ->join('ko_my_cards', 'ko_card_numbers.id', '=', 'ko_my_cards.card_number_id')
             ->where('ko_my_cards.user_id', $userId)
             ->select('ko_cards.*', 'ko_card_numbers.*', 'ko_my_cards.*')
-            ->paginate(100);
+            ->paginate(20);
         return $cards;
     }
 }
