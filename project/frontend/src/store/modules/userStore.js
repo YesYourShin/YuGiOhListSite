@@ -11,6 +11,10 @@ const userStore = {
     lang: 'ko',
     cards: [],
     card: [],
+    pages: {
+      currentPage: 1,
+      lastPage: 1,
+    },
   },
   mutations: {
     login(state, payload) {
@@ -43,6 +47,16 @@ const userStore = {
     getCard(state, card) {
       state.card = card;
     },
+    getPages(state, data) {
+      state.pages.currentPage = data.current_page;
+      state.pages.lastPage = data.last_page;
+    },
+    getCurrentPage(state, page) {
+      state.pages.currentPage = page;
+    },
+    resetPage(state) {
+      state.pages.currentPage = 1;
+    },
   },
   getters: {
     isLogin(state) {
@@ -68,6 +82,9 @@ const userStore = {
     getMyInfo(state) {
       return state.myInfo;
     },
+    getPages(state) {
+      return state.pages;
+    },
   },
   actions: {
     getMyInfo({ commit, state }) {
@@ -89,16 +106,18 @@ const userStore = {
         console.error(error);
       }
     },
-    getCards({ commit, state }, { cardType, page }) {
+    getCards({ commit, state }, { cardType }) {
       axios
-        .get(`/api/card/${state.lang}/${cardType}cardindex?page=${page}`, {
+        .get(`/api/card/${state.lang}/${cardType}cardindex?page=${state.pages.currentPage}`, {
           headers: {
             'Content-Type': `application/json`,
             Authorization: 'Bearer ' + state.token,
           },
         })
         .then(response => {
+          commit('resetAllCard');
           commit('getCards', response.data.data);
+          commit('getPages', response.data);
         })
         .catch(function (error) {
           console.error(error);
