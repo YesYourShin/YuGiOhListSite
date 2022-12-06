@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MenuBar />
-    <div><router-view></router-view></div>
+    <div><router-view :key="$route.fullPath"></router-view></div>
   </div>
 </template>
 

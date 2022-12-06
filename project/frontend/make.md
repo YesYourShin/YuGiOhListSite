@@ -81,14 +81,25 @@ carditem.vue에 저 기능들 알아보기 쉽게 바꾸기
 
 ---
 
-## 지금 하는 중
+나중에 다시 한 번 보셈
+userStore에 getPages getCurrentPage 같은 것도 있으니까
 
-- 페이지네이션을 url 파라미터로 표시하는게 좋을 듯
+- 페이지네이션을 url query로 표시하는 게 좋을 듯?
+- vue router params 랑 query 구분해서 사용하는 이유??
 - 페이지네이션 하고 있는 페이지에서 아이템 클릭해서
   아이템 상세 페이지 확인 후 뒤로가기를 했을 때,
   아이템 클릭 전 페이지네이션을 그대로 유지하기
+- userStore에서 resetPage 할 때 lastPage도 초기화??
+
+---
+
+---
+
+## 지금 하는 중
 
 ## 미완료
+
+- 검색 및 필더, 정렬 기능 추가
 
 - MenuBar.vue에 updateLang()을 select에서 할 수 있도록 하기
 
@@ -142,3 +153,7 @@ console.error(error);
 스크립트 부분
 
 - 한글 카드 스크립트 할 때 ""로 카드 이름 표시하는 경우 있어서 json 양식 안 맞으니 수정할 것
+
+vue router 같은 위치로 push하면서 params나 query 값을 변경하려하면 링크는 바뀌는 데 페이지가 변경이 안 됨
+아래 링크에서 <router-view :key="$route.fullPath"></router-view> 로 해결
+https://stackoverflow.com/questions/41301099/do-we-have-router-reload-in-vue-router

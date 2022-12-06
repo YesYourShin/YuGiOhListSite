@@ -106,9 +106,9 @@ const userStore = {
         console.error(error);
       }
     },
-    getCards({ commit, state }, { cardType }) {
+    getCards({ commit, state }, { cardType, page }) {
       axios
-        .get(`/api/card/${state.lang}/${cardType}cardindex?page=${state.pages.currentPage}`, {
+        .get(`/api/card/${state.lang}/${cardType}cardindex?page=${page}`, {
           headers: {
             'Content-Type': `application/json`,
             Authorization: 'Bearer ' + state.token,

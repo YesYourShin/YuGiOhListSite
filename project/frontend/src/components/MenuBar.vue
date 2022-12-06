@@ -12,10 +12,12 @@
     <div class="flex-none">
       <ul class="menu menu-horizontal p-0">
         <li>
-          <a><router-link to="/card">Card</router-link></a>
+          <a>
+            <router-link :to="{ name: 'CardList', query: { page: 1 } }">Card</router-link>
+          </a>
         </li>
         <li>
-          <a><router-link to="/mycard">MyCard</router-link></a>
+          <a><router-link :to="{ name: 'MyCard', query: { page: 1 } }">MyCard</router-link></a>
         </li>
         <li>
           <!-- <select class="select select-bordered w-full max-w-xs" @change="updateLang(lang)">
